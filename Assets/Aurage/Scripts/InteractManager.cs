@@ -10,4 +10,9 @@ public abstract class InteractManager : ScriptableObject
     public bool isMachinUsed;
 
     public Material[] machineMaterials;
+
+    public virtual void Interact()
+    {
+
+    }
 }

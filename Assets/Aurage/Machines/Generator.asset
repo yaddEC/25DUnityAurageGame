@@ -16,3 +16,6 @@ MonoBehaviour:
   powerToUse: 0
   machineObject: {fileID: 4384234483775690578, guid: 0edc2c8b34c0f8242b7412d49e66d8a2, type: 3}
   isMachinUsed: 0
+  machineMaterials:
+  - {fileID: 2100000, guid: 536a4b1bb24368c41b9e274ded15ce29, type: 2}
+  - {fileID: 2100000, guid: bcae7280a6e11594390ef542eb8d16dd, type: 2}

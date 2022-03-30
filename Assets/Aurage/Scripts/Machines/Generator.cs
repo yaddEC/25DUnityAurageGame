@@ -11,9 +11,15 @@ public class Generator : InteractManager
         isMachinUsed = _isMachinUsed;
         powerToUse = _powerToUse;
         machineObject = _machineObject;
-        foreach (Material mat in _machineMaterials)
+
+        for (int i = 0; i < machineMaterials.Length; i++)
         {
-            machineMaterials = _machineMaterials;
+            machineMaterials[i] = _machineMaterials[i];
         }
+    }
+
+    public override void Interact()
+    {
+        
     }
 }
