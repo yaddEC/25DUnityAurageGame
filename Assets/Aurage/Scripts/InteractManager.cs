@@ -8,4 +8,6 @@ public abstract class InteractManager : ScriptableObject
     public float powerToUse;
     public GameObject machineObject;
     public bool isMachinUsed;
+
+    public Material[] machineMaterials;
 }

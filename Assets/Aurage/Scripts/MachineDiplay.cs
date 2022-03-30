@@ -11,7 +11,6 @@ public class MachineDiplay : MonoBehaviour
     void OnDrawGizmos()
     {
         refTransform = refInteractManager.machineObject.transform;
-
         Gizmos.color = Color.yellow;
         Gizmos.DrawMesh(refTransform.GetComponent<MeshFilter>().sharedMesh, new Vector3(transform.position.x, transform.position.y, transform.position.z));
     }
@@ -22,8 +21,13 @@ public class MachineDiplay : MonoBehaviour
         box.isTrigger = true;
 
         MeshFilter mesh = gameObject.AddComponent<MeshFilter>();
-        gameObject.AddComponent<MeshRenderer>();
+        MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
 
-        mesh.sharedMesh = refTransform.GetComponent<MeshFilter>().sharedMesh;
+        for (int i = 0; i < refInteractManager.machineMaterials.Length; i++)
+        {
+            meshRenderer.material = refInteractManager.machineMaterials[i];
+        }
+
+        mesh.sharedMesh = refInteractManager.machineObject.transform.GetComponent<MeshFilter>().sharedMesh;
     }
 }
