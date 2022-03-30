@@ -18,10 +18,12 @@ public class MachineDiplay : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.AddComponent<MeshFilter>();
+        BoxCollider box =  gameObject.AddComponent<BoxCollider>();
+        box.isTrigger = true;
+
+        MeshFilter mesh = gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
 
-        var meshRenderer = GetComponent<MeshFilter>();
-        meshRenderer.sharedMesh = refTransform.GetComponent<MeshFilter>().sharedMesh;
+        mesh.sharedMesh = refTransform.GetComponent<MeshFilter>().sharedMesh;
     }
 }
