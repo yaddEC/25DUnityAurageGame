@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Generator", menuName = "Machine/Generator")]
 public class Generator : InteractManager
 {
-    public Generator(string _machineName, bool _isMachinUsed, float _powerToUse, GameObject _machineObject, Material[] _machineMaterial)
+    public Generator(string _machineName, bool _isMachinUsed, float _powerToUse, GameObject _machineObject, Material[] _machineMaterials)
     {
         machineName = _machineName;
         isMachinUsed = _isMachinUsed;
@@ -14,7 +14,7 @@ public class Generator : InteractManager
 
         for (int i = 0; i < machineMaterials.Length; i++)
         {
-            machineMaterials[i] = _machineMaterial[i];
+            machineMaterials[i] = _machineMaterials[i];
         }
     }
 

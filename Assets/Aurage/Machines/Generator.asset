@@ -18,3 +18,4 @@ MonoBehaviour:
   isMachinUsed: 0
   machineMaterials:
   - {fileID: 2100000, guid: 536a4b1bb24368c41b9e274ded15ce29, type: 2}
+  - {fileID: 2100000, guid: bcae7280a6e11594390ef542eb8d16dd, type: 2}

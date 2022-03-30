@@ -6,7 +6,10 @@ public class ChargingStation : MonoBehaviour
 {
     [Header("Reference")]
     private PowerManager refPowerManager;
-    public Generator refGenerator;
+    public InteractManager refGenerator;
+
+    [Header("Charging UI/UX")]
+    private MeshRenderer meshRenderer;
 
     [Header("Charging Stats")]
     public float chargingPower;
@@ -15,6 +18,8 @@ public class ChargingStation : MonoBehaviour
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
+
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +28,7 @@ public class ChargingStation : MonoBehaviour
         {
             refGenerator.isMachinUsed = true;
             refPowerManager.isCharging = true;
+            meshRenderer.material = refGenerator.machineMaterials[1];
         }
     }
 
@@ -33,6 +39,7 @@ public class ChargingStation : MonoBehaviour
             refGenerator.isMachinUsed = false;
             refPowerManager.isCharging = false;
             canCharge = false;
+            meshRenderer.material = refGenerator.machineMaterials[0];
         }
     }
 }
