@@ -6,11 +6,13 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
 
-    public GameObject[] enemies;
+    
+    public GameObject aiming;
+    GameObject clone;
     // Start is called before the first frame update
     void Start()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        
 
     }
 
@@ -24,15 +26,18 @@ public class Movement : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext value)
     {
-        if(value.started)
-            Debug.Log("Aim");
-        
+        if (value.performed)
+            clone = Instantiate(aiming, transform.position+Vector3.right, Quaternion.identity);
+
     }
 
     public void Fire(InputAction.CallbackContext value)
     {
+
         if (value.performed)
-            Debug.Log("Fire");
+            Destroy(clone);
 
     }
+
+
 }
