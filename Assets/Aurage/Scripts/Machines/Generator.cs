@@ -20,6 +20,6 @@ public class Generator : InteractManager
 
     public override void Interact()
     {
-        
+        //do this
     }
 }

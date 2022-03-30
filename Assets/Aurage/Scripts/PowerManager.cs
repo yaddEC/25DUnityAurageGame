@@ -5,24 +5,21 @@ using UnityEngine;
 public class PowerManager : MonoBehaviour
 {
     private GameObject refPlayer;
-    private GeneratorStation refGeneratorStation;
-    [HideInInspector] public PowerBar refPowerBar;
+    private ChargingStation refChargingStation;
+    private PowerBar refPowerBar;
 
     [Header("Charging Stats")]
-    public float unchargePowerDelta;
+    public float unchargePower;
     public bool isCharging = false;
 
     [Header("Player Stats")]
-    public bool outOfPower;
     public float maxPower;
     public float currentPower;
-    public Transform waypoint;
-
 
     private void Awake()
     {
         refPlayer = GameObject.FindGameObjectWithTag("Player");
-        refGeneratorStation = GameObject.FindObjectOfType<GeneratorStation>();
+        refChargingStation = GameObject.FindObjectOfType<ChargingStation>();
         refPowerBar = GameObject.FindObjectOfType<PowerBar>();
 
         currentPower = maxPower;
@@ -30,23 +27,28 @@ public class PowerManager : MonoBehaviour
 
     private void Update()
     {
-        if (outOfPower)
-            StartCoroutine(OnOutOfPowerEvent());
-
-        if (currentPower > maxPower)
-            currentPower = maxPower;
+        if(isCharging)
+            StartCoroutine(PluggedEvent(refChargingStation.chargingPower));
+        else
+            StartCoroutine(UnpluggedEvent(unchargePower));
     }
 
-    private IEnumerator OnOutOfPowerEvent()
+    private IEnumerator PluggedEvent(float powerAmount)
     {
-        refPlayer.GetComponent<MeshRenderer>().enabled = false;
+        if (currentPower >= maxPower)
+            isCharging = false;
+
+        currentPower += powerAmount * 0.0001f;
         yield return new WaitForSecondsRealtime(2f);
+    }
 
-        refPlayer.GetComponent<MeshRenderer>().enabled = true;
-        currentPower = maxPower;
-        outOfPower = false;
+    private IEnumerator UnpluggedEvent(float powerAmount)
+    {
+        if (currentPower <= 0)
+            refPlayer.SetActive(false);
 
-        refPlayer.transform.position = waypoint.position;
-        refGeneratorStation.RestoreGeneratorStateEvent();
+        currentPower -= powerAmount * 0.0001f;
+        refPowerBar.SetLife(currentPower);
+        yield return new WaitForSecondsRealtime(2f);
     }
 }

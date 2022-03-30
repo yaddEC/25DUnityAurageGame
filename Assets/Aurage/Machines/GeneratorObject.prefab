@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4384234483775689897}
   m_Layer: 0
   m_Name: GeneratorObject
-  m_TagString: Generator
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refGenerator: {fileID: 11400000, guid: 2a993cfb1ee6cc34ba03c1e30d890a40, type: 2}
-  meshRenderer: {fileID: 0}
-  checkointActivated: 0
-  chargingPowerDelta: 2
+  chargingPower: 2
   canCharge: 1
