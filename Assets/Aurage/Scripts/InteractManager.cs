@@ -6,7 +6,6 @@ public abstract class InteractManager : ScriptableObject
 {
     public string machineName;
     public float powerToUse;
-    public GameObject machineObject;
     public bool isMachinUsed;
 
     public Material[] machineMaterials;

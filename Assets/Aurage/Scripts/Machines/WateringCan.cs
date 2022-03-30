@@ -5,11 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WateringCan", menuName = "Machine/WateringCan")]
 public class WateringCan : InteractManager
 {
-    public WateringCan(string _machineName, bool _isMachinUsed, float _powerToUse, GameObject _machineObject)
+    public WateringCan(string _machineName, bool _isMachinUsed, float _powerToUse)
     {
         machineName = _machineName;
         isMachinUsed = _isMachinUsed;
         powerToUse = _powerToUse;
-        machineObject = _machineObject;
     }
 }
