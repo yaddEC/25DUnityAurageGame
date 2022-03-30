@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4384234483775690578
+--- !u!1 &7427103940361198881
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4384234483775690582}
-  - component: {fileID: 4384234483775690583}
-  - component: {fileID: 4384234483775690580}
-  - component: {fileID: 4384234483775690581}
-  - component: {fileID: 4384234483775689897}
+  - component: {fileID: 7427103940361198882}
+  - component: {fileID: 7427103940361198885}
+  - component: {fileID: 7427103940361198884}
+  - component: {fileID: 7427103940361198883}
+  - component: {fileID: -4490428745428658863}
   m_Layer: 0
-  m_Name: GeneratorObject
-  m_TagString: Generator
+  m_Name: Lamp
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4384234483775690582
+--- !u!4 &7427103940361198882
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384234483775690578}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 7427103940361198881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.67, y: 0, z: 2.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4384234483775690583
+--- !u!33 &7427103940361198885
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384234483775690578}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4384234483775690580
+  m_GameObject: {fileID: 7427103940361198881}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7427103940361198884
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384234483775690578}
+  m_GameObject: {fileID: 7427103940361198881}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 536a4b1bb24368c41b9e274ded15ce29, type: 2}
+  - {fileID: 2100000, guid: 4abdbef33116d5647a6116c38d2648c7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,33 +83,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4384234483775690581
-BoxCollider:
+--- !u!136 &7427103940361198883
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384234483775690578}
+  m_GameObject: {fileID: 7427103940361198881}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4384234483775689897
+--- !u!114 &-4490428745428658863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384234483775690578}
+  m_GameObject: {fileID: 7427103940361198881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa42771f18a2e048bfc89ea7bf7e449, type: 3}
+  m_Script: {fileID: 11500000, guid: 502eaf2c9a8395446aee46d4b2e3b9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refGenerator: {fileID: 11400000, guid: 2a993cfb1ee6cc34ba03c1e30d890a40, type: 2}
+  refLamp: {fileID: 11400000, guid: 5c0f84bbcaa3511438ffd7849e90a5f5, type: 2}
   meshRenderer: {fileID: 0}
-  checkointActivated: 0
-  chargingPowerDelta: 2
+  chargingPower: 0
   canCharge: 1
