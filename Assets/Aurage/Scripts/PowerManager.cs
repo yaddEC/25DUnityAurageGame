@@ -5,50 +5,47 @@ using UnityEngine;
 public class PowerManager : MonoBehaviour
 {
     private GameObject refPlayer;
-    private ChargingStation refChargingStation;
-    private PowerBar refPowerBar;
+    private GeneratorStation refGeneratorStation;
 
     [Header("Charging Stats")]
-    public float unchargePower;
+    public float unchargePowerDelta;
     public bool isCharging = false;
 
     [Header("Player Stats")]
+    public bool outOfPower;
     public float maxPower;
     public float currentPower;
+    public Transform waypoint;
+
 
     private void Awake()
     {
         refPlayer = GameObject.FindGameObjectWithTag("Player");
-        refChargingStation = GameObject.FindObjectOfType<ChargingStation>();
-        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
+        refGeneratorStation = GameObject.FindObjectOfType<GeneratorStation>();
 
         currentPower = maxPower;
     }
 
     private void Update()
     {
-        if(isCharging)
-            StartCoroutine(PluggedEvent(refChargingStation.chargingPower));
-        else
-            StartCoroutine(UnpluggedEvent(unchargePower));
+        if (outOfPower)
+            StartCoroutine(OnOutOfPowerEvent());
+
+        if (currentPower > maxPower)
+            currentPower = maxPower;
     }
 
-    private IEnumerator PluggedEvent(float powerAmount)
+    private IEnumerator OnOutOfPowerEvent()
     {
-        if (currentPower >= maxPower)
-            isCharging = false;
-
-        currentPower += powerAmount * 0.0001f;
+        refPlayer.GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSecondsRealtime(2f);
-    }
 
-    private IEnumerator UnpluggedEvent(float powerAmount)
-    {
-        if (currentPower <= 0)
-            refPlayer.SetActive(false);
+        refPlayer.GetComponent<MeshRenderer>().enabled = true;
+        currentPower = maxPower;
+        outOfPower = false;
 
-        currentPower -= powerAmount * 0.0001f;
-        refPowerBar.SetLife(currentPower);
-        yield return new WaitForSecondsRealtime(2f);
+        refPlayer.transform.position = waypoint.position;
+        refGeneratorStation.RestoreGeneratorStateEvent();
     }
 }
+
