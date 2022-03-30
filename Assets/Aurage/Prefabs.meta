@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Aurage/Prefabs.meta
 guid: f8fb465852ec9354ead0615975dfbb15
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
+=======
+guid: 70ea8cef904f02b4e8c3aa146d868cc4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+>>>>>>> cbb191ac262eb3577c16ac5cc8e78f91aa248493:Assets/Aurage/Machines/Materials/SocketOff.mat.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

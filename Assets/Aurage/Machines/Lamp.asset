@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   machineName: Lamp
   powerToUse: 0
-  machineObject: {fileID: 0}
   isMachinUsed: 0
   machineMaterials:
   - {fileID: 2100000, guid: c2e777f09b7bd2948a58cd772eff8998, type: 2}

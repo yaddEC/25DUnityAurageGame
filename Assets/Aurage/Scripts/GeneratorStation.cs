@@ -10,7 +10,7 @@ public class GeneratorStation : MonoBehaviour
     public Generator refGenerator;
 
     [Header("Generator UI/UX")]
-    [HideInInspector] public MeshRenderer meshRenderer;
+    private MeshRenderer meshRenderer;
 
     [Header("Generator Stats")]
     public bool checkointActivated = false;

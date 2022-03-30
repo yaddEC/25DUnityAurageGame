@@ -9,7 +9,7 @@ public class LampStation : MonoBehaviour
     public Lamp refLamp;
 
     [Header("Lamp UI/UX")]
-    [HideInInspector] public MeshRenderer meshRenderer;
+    private MeshRenderer meshRenderer;
 
     [Header("Lamp Stats")]
     public float restorePower;

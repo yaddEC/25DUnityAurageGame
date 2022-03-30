@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   machineName: Socket
   powerToUse: 0
-  machineObject: {fileID: 1571712165155462858, guid: 74bf6ca39c7f96a4fbaae384c016df0f, type: 3}
   isMachinUsed: 0
+  machineMaterials:
+  - {fileID: 2100000, guid: 70ea8cef904f02b4e8c3aa146d868cc4, type: 2}
+  - {fileID: 2100000, guid: 6cbb189556f807e48842d33f5fefeabc, type: 2}
