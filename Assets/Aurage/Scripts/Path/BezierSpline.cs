@@ -21,7 +21,6 @@ public class BezierSpline : MonoBehaviour {
 		}
 	}
 
-
 	public void SetControlPoint (int index, Vector3 point) 
 	{
 		if (index % 3 == 0) 

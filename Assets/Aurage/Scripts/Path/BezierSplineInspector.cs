@@ -82,7 +82,7 @@ public class BezierSplineInspector : Editor {
 			Handles.DrawLine(p0, p1);
 			Handles.DrawLine(p2, p3);
 			
-			Handles.DrawBezier(p0, p3, p1, p2, Color.white, null, 2f);
+			Handles.DrawBezier(p0, p3, p1, p2, Color.red, null, 2f);
 			p0 = p3;
 		}
 		ShowDirections();
@@ -90,7 +90,7 @@ public class BezierSplineInspector : Editor {
 
 	private void ShowDirections () 
 	{
-		Handles.color = Color.green;
+		//Handles.color = Color.green;
 		Vector3 point = spline.GetPoint(0f);
 		Handles.DrawLine(point, point + spline.GetDirection(0f) * directionScale);
 
