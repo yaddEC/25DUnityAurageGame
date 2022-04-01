@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3854984656194550978}
   m_Layer: 0
-  m_Name: tinker
+  m_Name: Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
