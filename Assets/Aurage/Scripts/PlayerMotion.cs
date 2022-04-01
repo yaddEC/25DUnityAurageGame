@@ -15,6 +15,7 @@ public class PlayerMotion : MonoBehaviour
     private float RLValue;
     private int PlanValue;
     private bool changePlanDone = true;
+    private bool isDashing = false;
 
     //---------function---------
     private void SwitPlan(int _ud)
@@ -54,7 +55,13 @@ public class PlayerMotion : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        SwitPlan(PlanValue);
+        if(!isDashing)
+            SwitPlan(PlanValue);
+        else
+        {
+            playerBody.velocity = new Vector3(playerBody.velocity.x * 2, playerBody.velocity.y+5, playerBody.velocity.z);
+            isDashing = false;
+        }
         Move(RLValue);
     }
 
@@ -69,5 +76,12 @@ public class PlayerMotion : MonoBehaviour
     public void onMoveRightLeft(InputAction.CallbackContext context)
     {
         RLValue = context.ReadValue<Vector2>().x;
+    }
+    public void onDashPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isDashing = true;
+        }
     }
 }
