@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     public GameObject bullet;
     GameObject aimingArrowClone;
     GameObject bulletClone;
+    PowerManager playerPower;
 
     bool isAiming = false;
     public Vector2 aimDir ;
@@ -18,6 +19,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         aimingArrowClone = Instantiate(aimingArrow, transform.position + Vector3.right, Quaternion.identity);
+        playerPower = gameObject.GetComponent<PowerManager>();
         aimingArrowClone.transform.parent = gameObject.transform;
         aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);
         aimDir = Vector2.right;
@@ -34,14 +36,16 @@ public class Movement : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext value)
     {
+       
 
+        
         isAiming =true;
         if (value.performed)
         {
             aimingArrowClone.transform.localScale = new Vector3(1, 1, 1);
         }
-           
-       
+
+        
 
     }
 
@@ -70,13 +74,21 @@ public class Movement : MonoBehaviour
     public void Fire(InputAction.CallbackContext value)
     {
 
-        if (value.performed)
+        if (value.performed )
         {
+
             aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);
             isAiming = false;
-            bulletClone = Instantiate(bullet, transform.position , Quaternion.identity);
-            bulletClone.GetComponent<ElectricityBullet>().moveDirection = new Vector3(aimDir.x,aimDir.y,0);
-            
+            if (playerPower.currentPower >= 20)
+            {
+                playerPower.currentPower = playerPower.currentPower - 20;
+                bulletClone = Instantiate(bullet, transform.position, Quaternion.identity);
+                bulletClone.GetComponent<ElectricityBullet>().moveDirection = new Vector3(aimDir.x, aimDir.y, 0);
+            }
+            else
+            {
+                Debug.Log("not enough power");
+            }
         }
 
 

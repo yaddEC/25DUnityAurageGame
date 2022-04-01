@@ -20,4 +20,12 @@ public class ElectricityBullet : MonoBehaviour
         rb.velocity = new Vector3(moveDirection.x, moveDirection.y, moveDirection.z)*bulletSpeed;
         Destroy(gameObject, 2f);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<Renderer>().material.color = Color.red;
+        }
+    }
 }
