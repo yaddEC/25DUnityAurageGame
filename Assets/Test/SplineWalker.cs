@@ -3,7 +3,7 @@
 public class SplineWalker : MonoBehaviour {
 
 	public BezierSpline spline;
-	public float duration;
+	public float timeToComplete;
 	public bool lookForward;
 	private float progress;
 	private bool goingForward = true;
@@ -12,17 +12,16 @@ public class SplineWalker : MonoBehaviour {
 	{
 		if (goingForward) 
 		{
-			progress += Time.deltaTime / duration;
+			progress += Time.deltaTime / timeToComplete;
 
 			if (progress > 1f) 
 			{
-				progress = 2f - progress;
-				goingForward = false;
+				progress -= 1f;
 			}
 		}
 		else 
 		{
-			progress -= Time.deltaTime / duration;
+			progress -= Time.deltaTime / timeToComplete;
 
 			if (progress < 0f) 
 			{
