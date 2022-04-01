@@ -5,18 +5,16 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-
-    
     public GameObject aimingArrow;
     public GameObject bullet;
-    GameObject aimingArrowClone;
-    GameObject bulletClone;
-    PowerManager playerPower;
+    private GameObject aimingArrowClone;
+    private GameObject bulletClone;
+    private PowerManager playerPower;
 
     bool isAiming = false;
     public Vector2 aimDir ;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         aimingArrowClone = Instantiate(aimingArrow, transform.position + Vector3.right, Quaternion.identity);
         playerPower = gameObject.GetComponent<PowerManager>();
@@ -25,74 +23,38 @@ public class Movement : MonoBehaviour
         aimDir = Vector2.right;
     }
 
-  
-    // Update is called once per frame
-    void Update()
-    {
-        
-      
-
-    }
-
     public void Aim(InputAction.CallbackContext value)
     {
-       
+        isAiming = true;
 
-        
-        isAiming =true;
         if (value.performed)
-        {
             aimingArrowClone.transform.localScale = new Vector3(1, 1, 1);
-        }
-
-        
-
     }
 
     public void LeftStick(InputAction.CallbackContext value)
     {
         if(isAiming)
         {
-
-        if (value.performed)
-            {
+            if (value.performed)
                 aimDir = value.ReadValue<Vector2>();
-                
-                
-            }
 
-         
             transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(aimDir.x, aimDir.y) * -180 / Mathf.PI + 90f);
-
-        }
-        else
-        {
-            //Movement
         }
     }
 
     public void Fire(InputAction.CallbackContext value)
     {
-
         if (value.performed )
         {
-
             aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);
             isAiming = false;
+
             if (playerPower.currentPower >= 20)
             {
                 playerPower.currentPower = playerPower.currentPower - 20;
                 bulletClone = Instantiate(bullet, transform.position, Quaternion.identity);
                 bulletClone.GetComponent<ElectricityBullet>().moveDirection = new Vector3(aimDir.x, aimDir.y, 0);
             }
-            else
-            {
-                Debug.Log("not enough power");
-            }
         }
-
-
     }
-
-
 }

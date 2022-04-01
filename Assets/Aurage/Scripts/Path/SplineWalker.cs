@@ -15,9 +15,7 @@ public class SplineWalker : MonoBehaviour {
 			progress += Time.deltaTime / timeToComplete;
 
 			if (progress > 1f) 
-			{
 				progress -= 1f;
-			}
 		}
 		else 
 		{
