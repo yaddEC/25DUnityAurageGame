@@ -6,7 +6,6 @@ public class SplineEditor : MonoBehaviour
 {
     public Color raycolor = Color.white;
     public List<Transform> pathPoints = new List<Transform>();
-    private Transform[] pointList;
     public int indexBranch = 0;
     public int branchPointIndexToGo = 0;
 
@@ -18,14 +17,14 @@ public class SplineEditor : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = raycolor;
-        pointList = GetComponentsInChildren<Transform>();
         pathPoints.Clear();
+        Gizmos.color = raycolor;
+        pathPoints.AddRange(GetComponentsInChildren<Transform>());
 
-        foreach (Transform point in pointList)
+        foreach (Transform point in pathPoints.ToArray())
         {
-            if (point != this.transform && point.gameObject.tag != "HolderPath")
-                pathPoints.Add(point);
+            if (!(point != this.transform && point.gameObject.tag != "HolderPath"))
+                pathPoints.Remove(point);
         }
 
         for (int i = 0; i < pathPoints.Count; i++)
@@ -38,6 +37,8 @@ public class SplineEditor : MonoBehaviour
                 Gizmos.DrawLine(pointPrevious, pointCurrent);
             }
         }
+
+        Gizmos.DrawLine(pathPoints[indexBranch].position, branchPath.pathPoints[branchPointIndexToGo].position);
     }
 
     private void Start()

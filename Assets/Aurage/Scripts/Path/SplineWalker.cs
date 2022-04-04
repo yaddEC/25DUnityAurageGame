@@ -41,11 +41,10 @@ public class SplineWalker : MonoBehaviour
         float distance = Vector3.Distance(splineEditor.pathPoints[currentPointIndex].position, transform.position);
 
         // remove
-        if(moveEnable)
-            if(!right)
-                transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex].position, Time.deltaTime * moveSpeed);
-            else
-                transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex].position, Time.deltaTime * moveSpeed);
+        if(moveEnable && right)
+            transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex-1].position, Time.deltaTime * moveSpeed);
+        else if(moveEnable && !right)
+            transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex].position, Time.deltaTime * moveSpeed);
 
         // keep
         var rotation = Quaternion.LookRotation(splineEditor.pathPoints[currentPointIndex].position - transform.position);
@@ -54,9 +53,6 @@ public class SplineWalker : MonoBehaviour
         // keep
         if (distance <= reachDistance)
         {
-            if (invSens)
-                currentPointIndex--;
-
             if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
             {
                 currentPointIndex = splineEditor.branchPointIndexToGo;
