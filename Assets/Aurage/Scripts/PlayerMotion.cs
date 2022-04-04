@@ -99,7 +99,7 @@ public class PlayerMotion : MonoBehaviour
                 GetComponent<SplineWalker>().moveEnable = false;
             if(RLValue > 0.5)
                 GetComponent<SplineWalker>().right = true;
-            if (RLValue < 0.5)
+            if (RLValue < -0.5)
                 GetComponent<SplineWalker>().right = false;
 
         }
