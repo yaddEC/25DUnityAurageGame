@@ -12,6 +12,7 @@ public class PlayerMotion : MonoBehaviour
     public float    dashSpeed;
 
     public bool isInLamp;
+    public bool isInPath;
     public Vector3 lockPosition;
 
     private Rigidbody playerBody;
@@ -89,6 +90,18 @@ public class PlayerMotion : MonoBehaviour
                 isInLamp = false;
             }
             FreezPos();
+        }
+        else if (isInPath)
+        {
+            if (RLValue != 0)
+                GetComponent<SplineWalker>().moveEnable = true;
+            else
+                GetComponent<SplineWalker>().moveEnable = false;
+            if(RLValue>0.5)
+                GetComponent<SplineWalker>().right = true;
+            if (RLValue < 0.5)
+                GetComponent<SplineWalker>().right = false;
+
         }
         else
         {
