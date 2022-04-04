@@ -11,6 +11,9 @@ public class PlayerMotion : MonoBehaviour
     public float    jumpPower;
     public float    dashSpeed;
 
+    public bool isInLamp;
+    public Vector3 lockPosition;
+
     private Rigidbody playerBody;
     private Transform playerPos;
     private Vector3 velocity = Vector3.zero;
@@ -18,6 +21,7 @@ public class PlayerMotion : MonoBehaviour
     private int PlanValue;
     private bool changePlanDone = true;
     private bool isDashing = false;
+
 
     //---------function---------
     private void SwitPlan(int _ud)
@@ -44,7 +48,6 @@ public class PlayerMotion : MonoBehaviour
     }
     private void Move(float _rl)
     {
-
         Vector3 newVelocity = new Vector2((_rl*Time.deltaTime)* moveSpeed, playerBody.velocity.y);
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
     }
@@ -54,6 +57,12 @@ public class PlayerMotion : MonoBehaviour
         if (Physics.Raycast(transform.position + new Vector3(0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position, Vector3.down, 0.55f))
             return true;
         return false;
+    }
+    private void FreezPos()
+    {
+        
+        playerPos.localPosition = lockPosition;
+        playerBody.velocity = new Vector3(0,0,0);
     }
     //-------------------------
 
@@ -70,17 +79,31 @@ public class PlayerMotion : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (IsGrounded()) 
+        if (isInLamp)
         {
-            if (!isDashing)
-                SwitPlan(PlanValue);
-            else
+            if (isDashing)
             {
-                playerBody.velocity = new Vector3(playerBody.velocity.x * dashSpeed, playerBody.velocity.y + jumpPower, playerBody.velocity.z);
+                playerBody.velocity = new Vector3(playerBody.velocity.x + RLValue *dashSpeed, playerBody.velocity.y, playerBody.velocity.z);
                 isDashing = false;
+                isInLamp = false;
             }
+            FreezPos();
         }
-        Move(RLValue);
+        else
+        {
+            if (IsGrounded())
+            {
+
+                if (!isDashing)
+                    SwitPlan(PlanValue);
+                else
+                {
+                    playerBody.velocity = new Vector3(playerBody.velocity.x * dashSpeed, playerBody.velocity.y + jumpPower, playerBody.velocity.z);
+                    isDashing = false;
+                }
+            }
+            Move(RLValue);
+        }
     }
 
     public void onPlanInput(InputAction.CallbackContext context)
@@ -98,8 +121,6 @@ public class PlayerMotion : MonoBehaviour
     public void onDashPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
-        {
             isDashing = true;
-        }
     }
 }
