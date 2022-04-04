@@ -8,6 +8,8 @@ public class PlayerMotion : MonoBehaviour
     public float    moveSpeed;
     public int      planDistance;
     public float    planChangeSpeed;
+    public float    jumpPower;
+    public float    dashSpeed;
 
     private Rigidbody playerBody;
     private Transform playerPos;
@@ -46,6 +48,13 @@ public class PlayerMotion : MonoBehaviour
         Vector3 newVelocity = new Vector2((_rl*Time.deltaTime)* moveSpeed, playerBody.velocity.y);
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
     }
+
+    private bool IsGrounded()
+    {
+        if (Physics.Raycast(transform.position + new Vector3(0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position, Vector3.down, 0.55f))
+            return true;
+        return false;
+    }
     //-------------------------
 
     private void Awake()
@@ -53,14 +62,23 @@ public class PlayerMotion : MonoBehaviour
         playerBody = GetComponent<Rigidbody>();
         playerPos = GetComponent<Transform>();
     }
+    private void Update()
+    {
+        Debug.DrawRay(transform.position + new Vector3(0.4f, 0, 0), Vector3.down*0.55f, Color.red);
+        Debug.DrawRay(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down*0.55f, Color.red);
+        Debug.DrawRay(transform.position, Vector3.down * 0.55f, Color.red);
+    }
     private void FixedUpdate()
     {
-        if(!isDashing)
-            SwitPlan(PlanValue);
-        else
+        if (IsGrounded()) 
         {
-            playerBody.velocity = new Vector3(playerBody.velocity.x * 2, playerBody.velocity.y+5, playerBody.velocity.z);
-            isDashing = false;
+            if (!isDashing)
+                SwitPlan(PlanValue);
+            else
+            {
+                playerBody.velocity = new Vector3(playerBody.velocity.x * dashSpeed, playerBody.velocity.y + jumpPower, playerBody.velocity.z);
+                isDashing = false;
+            }
         }
         Move(RLValue);
     }
