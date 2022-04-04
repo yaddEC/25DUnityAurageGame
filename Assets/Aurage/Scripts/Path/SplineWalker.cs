@@ -13,13 +13,23 @@ public class SplineWalker : MonoBehaviour
 
     private void Update()
     {
+        PathWalker();
+    }
+
+    private void ClampOnPath()
+    {
+
+    }
+
+    private void PathWalker()
+    {
         // keep
         if (currentPointIndex >= splineEditor.pathPoints.Count)
             return;
 
         // keep
         float distance = Vector3.Distance(splineEditor.pathPoints[currentPointIndex].position, transform.position);
-        
+
         // remove
         transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex].position, Time.deltaTime * moveSpeed);
 
