@@ -7,6 +7,8 @@ public class SplineWalker : MonoBehaviour
     public SplineEditor splineEditor;
     public int currentPointIndex = 0;
 
+    public bool invSens;
+
     public float moveSpeed;
     private float reachDistance = 0.1f;
     public float rotationSpeed = 5.0f;
@@ -21,7 +23,10 @@ public class SplineWalker : MonoBehaviour
         float distance = Vector3.Distance(splineEditor.pathPoints[currentPointIndex].position, transform.position);
         
         // remove
-        transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex].position, Time.deltaTime * moveSpeed);
+        if(invSens)
+            transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex-1].position, Time.deltaTime * moveSpeed);
+        else
+            transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex].position, Time.deltaTime * moveSpeed);
 
         // keep
         var rotation = Quaternion.LookRotation(splineEditor.pathPoints[currentPointIndex].position - transform.position);

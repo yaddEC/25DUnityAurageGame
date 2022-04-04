@@ -22,7 +22,6 @@ public class PlayerMotion : MonoBehaviour
     private bool changePlanDone = true;
     private bool isDashing = false;
 
-
     //---------function---------
     private void SwitPlan(int _ud)
     {
@@ -71,6 +70,8 @@ public class PlayerMotion : MonoBehaviour
         playerBody = GetComponent<Rigidbody>();
         playerPos = GetComponent<Transform>();
     }
+    //use for Degub can be removed
+
     private void Update()
     {
         Debug.DrawRay(transform.position + new Vector3(0.4f, 0, 0), Vector3.down*0.55f, Color.red);
