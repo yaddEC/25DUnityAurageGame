@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Enemy
   - Generator
-  - HolderPathCollider
-  - PointPath
   layers:
   - Default
   - TransparentFX

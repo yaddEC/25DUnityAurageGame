@@ -47,8 +47,8 @@ public class SplineWalker : MonoBehaviour
         {
             if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
             {
-                currentPointIndex = splineEditor.branchPointIndexToGo;
                 splineEditor = splineEditor.branchPath;
+                currentPointIndex = 0;
             }
             else
                 currentPointIndex++;
