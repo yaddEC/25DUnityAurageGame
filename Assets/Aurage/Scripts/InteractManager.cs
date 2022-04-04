@@ -10,7 +10,18 @@ public abstract class InteractManager : ScriptableObject
 
     public Material[] machineMaterials;
 
+    public PlayerMotion refPlayerMotion;
+
     public virtual void Interact()
+    {
+
+    }
+    public virtual void lockInStation()
+    {
+
+    }
+
+    public virtual void registerReference()
     {
 
     }

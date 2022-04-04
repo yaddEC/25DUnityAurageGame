@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class ColliderPath : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider collision)
-    {
-        if(collision.CompareTag("Player"))
-        {
+    public int index;
 
+    private void Start()
+    {
+        index++;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("hit");
         }
     }
 }

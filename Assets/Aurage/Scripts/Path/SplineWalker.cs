@@ -26,7 +26,7 @@ public class SplineWalker : MonoBehaviour
     private void PathWalker()
     {
         // keep
-        if (currentPointIndex >= splineEditor.pathPoints.Count)
+        if (currentPointIndex >= splineEditor.pathPoints.Count || currentPointIndex < 0)
             return;
 
         // keep
@@ -45,10 +45,13 @@ public class SplineWalker : MonoBehaviour
         // keep
         if (distance <= reachDistance)
         {
+            if (invSens)
+                currentPointIndex--;
+
             if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
             {
+                currentPointIndex = splineEditor.branchPointIndexToGo;
                 splineEditor = splineEditor.branchPath;
-                currentPointIndex = 0;
             }
             else
                 currentPointIndex++;

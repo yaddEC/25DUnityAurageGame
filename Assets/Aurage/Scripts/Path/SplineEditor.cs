@@ -24,7 +24,7 @@ public class SplineEditor : MonoBehaviour
 
         foreach (Transform point in pointList)
         {
-            if (point != this.transform && point.gameObject.tag != "HolderPathCollider")
+            if (point != this.transform && point.gameObject.tag != "HolderPath")
                 pathPoints.Add(point);
         }
 
@@ -55,6 +55,7 @@ public class SplineEditor : MonoBehaviour
                 float distance = Vector3.Distance(pointPrevious, pointCurrent);
 
                 colliderPrefab.GetComponent<CapsuleCollider>().height = distance;
+
                 Instantiate(colliderPrefab, middle, Quaternion.LookRotation(relativePos, Vector3.up), colliderHolder);
             }
         }

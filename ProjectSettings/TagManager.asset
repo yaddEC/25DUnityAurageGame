@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Generator
+  - HolderPath
   layers:
   - Default
   - TransparentFX

@@ -21,4 +21,9 @@ public class Generator : InteractManager
     {
         //do this
     }
+
+    public override void lockInStation()
+    {
+
+    }
 }
