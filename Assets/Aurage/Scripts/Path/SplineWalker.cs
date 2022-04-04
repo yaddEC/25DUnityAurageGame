@@ -1,36 +1,42 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class SplineWalker : MonoBehaviour {
+public class SplineWalker : MonoBehaviour
+{
+    public SplineEditor splineEditor;
+    public int currentPointIndex = 0;
 
-	public BezierSpline spline;
-	public float timeToComplete;
-	public bool lookForward;
-	private float progress;
-	private bool goingForward = true;
+    public float moveSpeed;
+    private float reachDistance = 0.1f;
+    public float rotationSpeed = 5.0f;
 
-	private void Update () 
-	{
-		if (goingForward) 
-		{
-			progress += Time.deltaTime / timeToComplete;
+    private void Update()
+    {
+        // keep
+        if (currentPointIndex >= splineEditor.pathPoints.Count)
+            return;
 
-			if (progress > 1f) 
-				progress -= 1f;
-		}
-		else 
-		{
-			progress -= Time.deltaTime / timeToComplete;
+        // keep
+        float distance = Vector3.Distance(splineEditor.pathPoints[currentPointIndex].position, transform.position);
+        
+        // remove
+        transform.position = Vector3.MoveTowards(transform.position, splineEditor.pathPoints[currentPointIndex].position, Time.deltaTime * moveSpeed);
 
-			if (progress < 0f) 
-			{
-				progress = -progress;
-				goingForward = true;
-			}
-		}
+        // keep
+        var rotation = Quaternion.LookRotation(splineEditor.pathPoints[currentPointIndex].position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * moveSpeed);
 
-		Vector3 position = spline.GetPoint(progress);
-		transform.localPosition = position;
-
-		if (lookForward) transform.LookAt(position + spline.GetDirection(progress));
-	}
+        // keep
+        if (distance <= reachDistance)
+        {
+            if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
+            {
+                splineEditor = splineEditor.branchPath;
+                currentPointIndex = 0;
+            }
+            else
+                currentPointIndex++;
+        }
+    }
 }
