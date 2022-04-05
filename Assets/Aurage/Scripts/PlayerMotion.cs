@@ -18,10 +18,11 @@ public class PlayerMotion : MonoBehaviour
     private Rigidbody playerBody;
     private Transform playerPos;
     private Vector3 velocity = Vector3.zero;
-    private float RLValue;
+    public Vector2 RLValue;
     private int PlanValue;
     private bool changePlanDone = true;
     private bool isDashing = false;
+    public bool xPressed = false;
 
     //---------function---------
     private void SwitPlan(int _ud)
@@ -85,7 +86,7 @@ public class PlayerMotion : MonoBehaviour
         {
             if (isDashing)
             {
-                playerBody.velocity = new Vector3(playerBody.velocity.x + RLValue *dashSpeed, playerBody.velocity.y, playerBody.velocity.z);
+                playerBody.velocity = new Vector3(playerBody.velocity.x + RLValue.x *dashSpeed, playerBody.velocity.y, playerBody.velocity.z);
                 isDashing = false;
                 isInLamp = false;
             }
@@ -93,14 +94,14 @@ public class PlayerMotion : MonoBehaviour
         }
         else if (isInPath)
         {
-            if (RLValue != 0)
-                GetComponent<SplineWalker>().moveEnable = true;
+            if (RLValue.x != 0)
+                GetComponent<NodeWalker>().moveEnable = true;
             else
-                GetComponent<SplineWalker>().moveEnable = false;
-            if(RLValue > 0.5)
-                GetComponent<SplineWalker>().right = true;
-            if (RLValue < -0.5)
-                GetComponent<SplineWalker>().right = false;
+                GetComponent<NodeWalker>().moveEnable = false;
+            if (RLValue.x > 0.5)
+                GetComponent<NodeWalker>().right = true;
+            if (RLValue.x < -0.5)
+                GetComponent<NodeWalker>().right = false;
 
         }
         else
@@ -116,7 +117,7 @@ public class PlayerMotion : MonoBehaviour
                     isDashing = false;
                 }
             }
-            Move(RLValue);
+            Move(RLValue.x);
         }
     }
 
@@ -130,11 +131,16 @@ public class PlayerMotion : MonoBehaviour
     }
     public void onMoveRightLeft(InputAction.CallbackContext context)
     {
-        RLValue = context.ReadValue<Vector2>().x;
+        RLValue = context.ReadValue<Vector2>();
     }
     public void onDashPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
             isDashing = true;
+    }
+    public void onXPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            xPressed = true;
     }
 }

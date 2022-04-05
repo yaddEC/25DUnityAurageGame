@@ -43,7 +43,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.055
-  m_Height: 1.1928086
+  m_Height: 6.6086683
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8397001463264582444
@@ -58,4 +58,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1298efc7949264d92c080ce6daf015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0

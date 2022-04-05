@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SplineWalker : MonoBehaviour
 {
-    public SplineEditor splineEditor;
+    /*public SplineEditor splineEditor;
     public int currentPointIndex = 0;
 
     public PlayerMotion refPlayerMotion;
@@ -61,5 +61,5 @@ public class SplineWalker : MonoBehaviour
             else
                 currentPointIndex++;
         }
-    }
+    }*/
 }

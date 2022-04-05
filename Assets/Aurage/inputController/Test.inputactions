@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "XPressed",
+                    "type": "Button",
+                    "id": "01cb6eaf-61bf-4c5c-9e0e-ad756c49fc9d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -401,22 +409,22 @@
                 },
                 {
                     "name": "",
-                    "id": "c2577eaf-331c-4142-8ad9-f507d0f1ef1f",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "0ab3d104-76a7-453a-9bef-abc2edd05d86",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "0ab3d104-76a7-453a-9bef-abc2edd05d86",
-                    "path": "<Keyboard>/shift",
+                    "id": "c2577eaf-331c-4142-8ad9-f507d0f1ef1f",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Gamepad",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -451,6 +459,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77c97e7d-452c-4bb6-9dcc-d58f08858e7d",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "XPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38eae003-be64-40e6-95fd-2ec846c2f3e7",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "XPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
