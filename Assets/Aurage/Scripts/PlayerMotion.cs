@@ -18,12 +18,12 @@ public class PlayerMotion : MonoBehaviour
     private Rigidbody playerBody;
     private Transform playerPos;
     private Vector3 velocity = Vector3.zero;
-    private float RLValue;
-    private float UDValue;
+    public Vector2 RLValue;
     private int PlanValue = -1;
     private bool changePlanDone = true;
     private bool isDashing = false;
     private bool dashDone = false;
+    public bool xPressed = false;
 
     //---------function---------
     private void SwitPlan(int _ud)
@@ -48,30 +48,28 @@ public class PlayerMotion : MonoBehaviour
 
         }
     }
-    private void Move(float _rl)
+    private void Move(Vector2 input)
     {
-        Vector3 newVelocity = new Vector2((_rl * Time.deltaTime) * moveSpeed, playerBody.velocity.y);
+        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * moveSpeed, playerBody.velocity.y);
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
     }
 
     private bool IsGrounded()
     {
-        if (Physics.Raycast(transform.position + new Vector3(0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position, Vector3.down, 0.55f))
-            return true;
-        return false;
+        /*bool isOnGround;
+        isOnGround = Physics.Raycast(transform.position + new Vector3(0.4f, 0, 0), Vector3.down, 0.55f) 
+                    || Physics.Raycast(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down, 0.55f) 
+                    || Physics.Raycast(transform.position, Vector3.down, 0.55f));*/
+        return true;
     }
-    private void Dash(float _rl, float _ud)
+    private void Dash(Vector2 input)
     {
-        //Vector3 newVelocity = 
-        //playerBody.velocity 
-        Vector3 newVelocity = new Vector2((_rl * Time.deltaTime) * dashSpeed, (_ud * Time.deltaTime) * dashSpeed);
+        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * dashSpeed, (input.y * Time.deltaTime) * dashSpeed);
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
         isDashing = false;
-        //isDashing = false;
     }
     private void FreezPos()
     {
-
         playerPos.localPosition = lockPosition;
         playerBody.velocity = new Vector3(0, 0, 0);
     }
@@ -96,7 +94,7 @@ public class PlayerMotion : MonoBehaviour
         {
             if (isDashing)
             {
-                Dash(RLValue, UDValue);
+                Dash(RLValue);
                 isInLamp = false;
             }
             FreezPos();
@@ -106,11 +104,11 @@ public class PlayerMotion : MonoBehaviour
             if (RLValue.x != 0)
                 GetComponent<NodeWalker>().moveEnable = true;
             else
-                GetComponent<SplineWalker>().moveEnable = false;
-            if (RLValue > 0.5)
-                GetComponent<SplineWalker>().right = true;
-            if (RLValue < -0.5)
-                GetComponent<SplineWalker>().right = false;
+                GetComponent<NodeWalker>().moveEnable = false;
+            if (RLValue.x > 0.5)
+                GetComponent<NodeWalker>().right = true;
+            if (RLValue.x < -0.5)
+                GetComponent<NodeWalker>().right = false;
 
         }
         else
@@ -119,16 +117,16 @@ public class PlayerMotion : MonoBehaviour
             {
                 if (isDashing)
                 {
-                    Dash(RLValue, UDValue);
+                    Dash(RLValue);
                 }
                 else
                     SwitPlan(PlanValue);
             }
-            Move(RLValue.x);
+            Move(RLValue);
         }
     }
 
-public void onPlanInput(InputAction.CallbackContext context)
+    public void onPlanInput(InputAction.CallbackContext context)
     {
         if (context.performed) 
         { 
@@ -138,8 +136,7 @@ public void onPlanInput(InputAction.CallbackContext context)
     }
     public void onMoveRightLeft(InputAction.CallbackContext context)
     {
-        RLValue = context.ReadValue<Vector2>().x;
-        UDValue = context.ReadValue<Vector2>().y;
+        RLValue = context.ReadValue<Vector2>();
     }
     public void onDashPressed(InputAction.CallbackContext context)
     {

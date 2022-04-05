@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SplineWalker : MonoBehaviour
 {
-    /*public SplineEditor splineEditor;
+    public SplineEditor splineEditor;
     public int currentPointIndex = 0;
 
     public PlayerMotion refPlayerMotion;
@@ -53,13 +53,13 @@ public class SplineWalker : MonoBehaviour
         // keep
         if (distance <= reachDistance)
         {
-            if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
+            /*if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
             {
                 currentPointIndex = splineEditor.branchPointIndexToGo;
                 splineEditor = splineEditor.branchPath;
             }
             else
-                currentPointIndex++;
+                currentPointIndex++;*/
         }
-    }*/
+    }
 }

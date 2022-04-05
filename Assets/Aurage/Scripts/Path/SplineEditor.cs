@@ -9,18 +9,18 @@ public struct Node
     public int nodeBranchTo;
     public SplineEditor nextBranchPath;
 
-    /*public Node(int _nodeBranchFrom, int _nodeBranchTo, SplineEditor _nextBranchPath)
+    public Node(int _nodeBranchFrom, int _nodeBranchTo, SplineEditor _nextBranchPath)
     {
         nodeBranchFrom = _nodeBranchFrom;
         nodeBranchTo = _nodeBranchTo;
 
         nextBranchPath = _nextBranchPath;
-    }*/
+    }
 }
 
 public class SplineEditor : MonoBehaviour
 {
-    /*public Color raycolor = Color.white;
+    public Color raycolor = Color.white;
     public List<Transform> pathPoints = new List<Transform>();
     public List<Node> nodes = new List<Node>();
 
@@ -70,14 +70,14 @@ public class SplineEditor : MonoBehaviour
         }
 
 
-        int k  = 0;
+        /*int k  = 0;
         foreach (Transform point in pathPoints)
         {
             SplineWaypoint waypoint = point.gameObject.AddComponent<SplineWaypoint>();
             waypoint.index = k;
             waypoint.refSplineEditor = this;
             k++;
-        }
+        }*/
 
 
         foreach (Node node in nodes)
@@ -90,9 +90,9 @@ public class SplineEditor : MonoBehaviour
             Vector3 targetPoint = node.nextBranchPath.pathPoints[node.nodeBranchTo].position; // nextPoint
             ColliderSetup(currPoint, targetPoint, junction.transform);
 
-            SplineWaypoint waypoint = junction.AddComponent<SplineWaypoint>();
+            /*SplineWaypoint waypoint = junction.AddComponent<SplineWaypoint>();
             waypoint.index = node.nodeBranchTo;
-            waypoint.refSplineEditor = node.nextBranchPath;
+            waypoint.refSplineEditor = node.nextBranchPath;*/
         }
     }
 
@@ -103,5 +103,5 @@ public class SplineEditor : MonoBehaviour
         float distance = Vector3.Distance(targetPoint, currPoint);
         colliderPrefab.GetComponent<CapsuleCollider>().height = distance;
         Instantiate(colliderPrefab, middlePoint, Quaternion.LookRotation(relativePos, Vector3.up), parent);
-    }*/
+    }
 }
