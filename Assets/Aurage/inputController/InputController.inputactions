@@ -352,10 +352,10 @@
                 {
                     "name": "",
                     "id": "77c97e7d-452c-4bb6-9dcc-d58f08858e7d",
-                    "path": "<Keyboard>/x",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "XPressed",
                     "isComposite": false,
                     "isPartOfComposite": false

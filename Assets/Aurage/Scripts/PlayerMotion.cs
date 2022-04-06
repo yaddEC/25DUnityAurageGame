@@ -24,6 +24,9 @@ public class PlayerMotion : MonoBehaviour
     private bool isDashing = false;
     private bool dashDone = false;
     public bool xPressed = false;
+    public bool isOnGround;
+
+    public int[] planValue; 
 
     //---------function---------
     private void SwitPlan(int _ud)
@@ -32,12 +35,14 @@ public class PlayerMotion : MonoBehaviour
         {
             Vector3 newVelocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, (_ud * Time.deltaTime) * planChangeSpeed);
             playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+
             if (_ud == -1 && playerPos.position.z <= 0.01)
             {
                 playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
                 playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, 0);
                 changePlanDone = true;
-            } else if (_ud == 1 && playerPos.position.z >= planDistance - 0.01)
+            } 
+            else if (_ud == 1 && playerPos.position.z >= planDistance - 0.01)
             {
                 playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
                 playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planDistance);
@@ -45,7 +50,6 @@ public class PlayerMotion : MonoBehaviour
             }
             if (_ud == 0)
                 changePlanDone = true;
-
         }
     }
     private void Move(Vector2 input)
@@ -54,19 +58,16 @@ public class PlayerMotion : MonoBehaviour
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
     }
 
-    private bool IsGrounded()
+    private void IsGrounded()
     {
-        /*bool isOnGround;
-        isOnGround = Physics.Raycast(transform.position + new Vector3(0.4f, 0, 0), Vector3.down, 0.55f) 
-                    || Physics.Raycast(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down, 0.55f) 
-                    || Physics.Raycast(transform.position, Vector3.down, 0.55f));*/
-        return true;
+        isOnGround = Physics.Raycast(transform.position, Vector3.down, 0.55f);
     }
     private void Dash(Vector2 input)
     {
         Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * dashSpeed, (input.y * Time.deltaTime) * dashSpeed);
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
         isDashing = false;
+        Debug.Log("Dash");
     }
     private void FreezPos()
     {
@@ -84,10 +85,11 @@ public class PlayerMotion : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(transform.position + new Vector3(0.4f, 0, 0), Vector3.down * 0.55f, Color.red);
-        Debug.DrawRay(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down * 0.55f, Color.red);
         Debug.DrawRay(transform.position, Vector3.down * 0.55f, Color.red);
+
+        IsGrounded();
     }
+
     private void FixedUpdate()
     {
         if (isInLamp)
@@ -105,15 +107,11 @@ public class PlayerMotion : MonoBehaviour
                 GetComponent<NodeWalker>().moveEnable = true;
             else
                 GetComponent<NodeWalker>().moveEnable = false;
-            if (RLValue.x > 0.5)
-                GetComponent<NodeWalker>().right = true;
-            if (RLValue.x < -0.5)
-                GetComponent<NodeWalker>().right = false;
 
         }
         else
         {
-            if (IsGrounded())
+            if (isOnGround)
             {
                 if (isDashing)
                 {
@@ -147,5 +145,8 @@ public class PlayerMotion : MonoBehaviour
     {
         if (context.performed)
             xPressed = true;
+
+        if (context.canceled)
+            xPressed = false;
     }
 }

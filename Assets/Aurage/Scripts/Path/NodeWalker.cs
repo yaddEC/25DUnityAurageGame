@@ -20,6 +20,8 @@ public class NodeWalker : MonoBehaviour
     public bool moveEnable;
 
     public bool isOnNode = false;
+    public bool isFreezed = false;
+    public bool xPressed = false;
 
     private void Start()
     {
@@ -30,10 +32,29 @@ public class NodeWalker : MonoBehaviour
     {
         isOnNode = Vector3.Distance(transform.position, refCurrNodePath.transform.position) < 0.1f;
 
-        if(isOnNode)
+        if (isOnNode)
+        {
             refCurrNodePath.OnPlayerNode();
-        
-        if (refPlayerMotion.isInPath)
+
+            if (!xPressed)
+                isFreezed = true;
+            else
+                isFreezed = false;
+
+            if (isFreezed)
+            {
+                FreezePlayer();
+                SelectNextPath();
+            }
+        }
+        else
+        {
+            xPressed = false;
+            isFreezed = false;
+        }
+
+
+        if (refPlayerMotion.isInPath && !isFreezed)
             WalkOnPath();
     }
 
@@ -48,6 +69,19 @@ public class NodeWalker : MonoBehaviour
 
         var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, moveSpeed * Time.deltaTime);
+    }
+
+    private void FreezePlayer()
+    {
+        refPlayerMotion.transform.position = refCurrNodePath.transform.position;
+    }
+
+    private void SelectNextPath()
+    {
+        if(refPlayerMotion.xPressed)
+        {
+            xPressed = true;
+        }
     }
 }
 
