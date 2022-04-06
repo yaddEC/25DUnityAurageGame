@@ -16,101 +16,59 @@ public class NodeWalker : MonoBehaviour
     public float moveSpeed;
     public float rotationSpeed = 5.0f;
 
-    public bool right;
-    public bool moveEnable;
-
     public bool isOnNode = false;
     public bool isFreezed = false;
     public bool xPressed = false;
 
-    bool isAiming = false;
-    public Vector2 aimDir;
-    public GameObject aimingArrow;
-    private GameObject aimingArrowClone;
-
     private void Start()
     {
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
-
-        aimingArrowClone = Instantiate(aimingArrow, transform.position + Vector3.right, Quaternion.identity);
-        aimingArrowClone.transform.parent = gameObject.transform;
-        aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);
-        aimDir = Vector2.right;
     }
 
     private void Update()
     {
         isOnNode = Vector3.Distance(transform.position, refCurrNodePath.transform.position) < 0.1f;
 
+        if (refCurrNodePath.hitPath)
+        {
+            refPlayerMotion.transform.position = refCurrNodePath.t.position;
+            refPlayerMotion.playerBody.velocity = Vector3.zero;
+            refPlayerMotion.isGrounded = true;
+            refCurrNodePath.hitPath = false;
+        }
+
         if (isOnNode)
         {
-            refCurrNodePath.OnPlayerNode();
+            refCurrNodePath.OnPlayerNodePath();
 
-            if (!xPressed)
+            if (!refPlayerMotion.xPressed)
                 isFreezed = true;
             else
                 isFreezed = false;
 
             if (isFreezed)
             {
-                FreezePlayer();
-                SelectNextPath();
+                FreezeOnNode();
             }
         }
-        else
-        {
-            xPressed = false;
-            isFreezed = false;
-        }
 
-
-        if (refPlayerMotion.isInPath && !isFreezed)
+        if (refPlayerMotion.isInPath && !isFreezed && refPlayerMotion.RLValue.x != 0)
             WalkOnPath();
     }
 
-    private void WalkOnPath()
+    public void WalkOnPath()
     {
+        var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
+
         refCurrNodePath = NodePath.NodePathTarget(refPlayerMotion.RLValue, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);
 
-        if (moveEnable)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, refCurrNodePath.transform.position, moveSpeed * Time.deltaTime);
-        }
-
-        var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, refCurrNodePath.transform.position, moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, moveSpeed * Time.deltaTime);
     }
 
-    private void FreezePlayer()
+    private void FreezeOnNode()
     {
         refPlayerMotion.transform.position = refCurrNodePath.transform.position;
-    }
-
-    public void Aim(InputAction.CallbackContext value)
-    {
-        isAiming = true;
-
-        if (value.performed)
-            aimingArrowClone.transform.localScale = new Vector3(1, 1, 1);
-    }
-
-    public void LeftStick(InputAction.CallbackContext value)
-    {
-        if (isAiming)
-        {
-            if (value.performed)
-                aimDir = value.ReadValue<Vector2>();
-
-            transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(aimDir.x, aimDir.y) * -180 / Mathf.PI + 90f);
-        }
-    }
-
-    private void SelectNextPath()
-    {
-        if (refPlayerMotion.xPressed)
-        {
-            xPressed = true;
-        }
     }
 }
 

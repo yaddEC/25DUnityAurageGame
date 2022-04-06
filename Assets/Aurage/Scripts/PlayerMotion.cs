@@ -16,7 +16,7 @@ public class PlayerMotion : MonoBehaviour
     public bool isInPath;
     public Vector3 lockPosition;
 
-    private Rigidbody playerBody;
+    public Rigidbody playerBody;
     private Transform playerPos;
     private Vector3 velocity = Vector3.zero;
     public Vector2 RLValue;
@@ -24,10 +24,11 @@ public class PlayerMotion : MonoBehaviour
     private bool changePlanDone = true;
     private bool isDashing = false;
     private int index = 0;
+    private bool changePlan = false;
 
     public bool xPressed = false;
-    public bool isOnGround;
-    //---------function---------
+    public bool isGrounded;
+
     private void SwitPlan(int _ud)
     {
         if (!changePlanDone)
@@ -65,9 +66,9 @@ public class PlayerMotion : MonoBehaviour
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
     }
 
-    private void IsGrounded()
+    private void GroundCheck()
     {
-        isOnGround = Physics.Raycast(transform.position, Vector3.down, 0.55f);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.55f);
     }
     IEnumerator fastFall()
     {
@@ -78,13 +79,12 @@ public class PlayerMotion : MonoBehaviour
             if (i <= 0) i = 0;
             playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y - i);
         }
-        yield return null;
-        
+        yield return null;  
     }
+
     private void Dash(Vector2 input)
     {
-        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * dashSpeed, (input.y * Time.deltaTime) * dashSpeed);
-        //playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+        Vector3 newVelocity = new Vector2(input.x, input.y) * dashSpeed * Time.deltaTime;
         playerBody.velocity = newVelocity;
         StartCoroutine(fastFall());
         isDashing = false;
@@ -101,13 +101,17 @@ public class PlayerMotion : MonoBehaviour
         playerBody = GetComponent<Rigidbody>();
         playerPos = GetComponent<Transform>();
     }
-    //use for Degub can be removed
 
     private void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.down * 0.55f, Color.red);
+        if (isInPath)
+            playerBody.useGravity = false;
+        else
+        {
+            GroundCheck();
+            playerBody.useGravity = true;
+        }
 
-        IsGrounded();
     }
 
     private void FixedUpdate()
@@ -123,15 +127,15 @@ public class PlayerMotion : MonoBehaviour
         }
         else if (isInPath)
         {
-            if (RLValue.x != 0)
-                GetComponent<NodeWalker>().moveEnable = true;
-            else
-                GetComponent<NodeWalker>().moveEnable = false;
+            if (isDashing)
+            {
+                Dash(RLValue);
+            }
 
         }
         else
         {
-            if (isOnGround)
+            if (isGrounded)
             {
                 if (isDashing)
                 {
@@ -147,7 +151,8 @@ public class PlayerMotion : MonoBehaviour
     public void onPlanInput(InputAction.CallbackContext context)
     {
         if (context.performed) 
-        { 
+        {
+            changePlan = true;
             PlanValue = Mathf.RoundToInt(RLValue.y);
             changePlanDone = false;
         }
@@ -158,15 +163,10 @@ public class PlayerMotion : MonoBehaviour
     }
     public void onDashPressed(InputAction.CallbackContext context)
     {
-        if (context.performed)
-            isDashing = true;
+        isDashing = context.performed;
     }
     public void onXPressed(InputAction.CallbackContext context)
     {
-        if (context.performed)
-            xPressed = true;
-
-        if (context.canceled)
-            xPressed = false;
+        xPressed = context.performed;
     }
 }

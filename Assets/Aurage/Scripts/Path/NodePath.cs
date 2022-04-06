@@ -5,11 +5,15 @@ using UnityEngine;
 public class NodePath : MonoBehaviour
 {
     private NodeReference refNodeReference;
+    private NodeWalker refNodeWalker;
 
     public Color lineColor = Color.white;
     public List<NodePath> nodePoints = new List<NodePath>();
-    public NodeWalker refNodeWalker;
     public GameObject colliderPrefab;
+
+    public Transform t;
+
+    public bool hitPath = false;
 
     private void OnDrawGizmos()
     {
@@ -32,10 +36,11 @@ public class NodePath : MonoBehaviour
 
     private void Update()
     {
-        CheckRaycast();
+        if(!refNodeWalker.refPlayerMotion.isInPath)
+            CheckRaycast();
     }
 
-    public void OnPlayerNode()
+    public void OnPlayerNodePath()
     {
         refNodeWalker.refPrevNodePath = this;
         refNodeWalker.refNextNodePath = NodePathTarget(refNodeWalker.refPlayerMotion.RLValue, nodePoints.ToArray(), refNodeWalker.transform);
@@ -68,10 +73,18 @@ public class NodePath : MonoBehaviour
 
         foreach (NodePath node in nodePoints)
         {
-            bool touched = Physics.Raycast(transform.position, node.transform.position - transform.position, out hit, Vector3.Distance(node.transform.position, transform.position), refNodeReference.mask);
+            if(Physics.Linecast(transform.position, node.transform.position, out hit, refNodeReference.mask))
+            {
+                hitPath = true;
+                t.position = hit.point;
+                refNodeWalker.refPlayerMotion.transform.position = t.position;
 
-            if (touched)
-                Debug.Log(touched);
+                refNodeWalker.refPlayerMotion.isInPath = true;
+                refNodeWalker.isFreezed = false;
+
+                refNodeWalker.refCurrNodePath = node;
+                refNodeWalker.refNextNodePath = this;
+            }
         }
     }
 }
