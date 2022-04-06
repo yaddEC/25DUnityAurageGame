@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMotion : MonoBehaviour
 {
     public float moveSpeed;
-    public int planDistance;
+    public int[] planList;
     public float planChangeSpeed;
     public float jumpPower;
     public float dashSpeed;
@@ -18,60 +18,67 @@ public class PlayerMotion : MonoBehaviour
     private Rigidbody playerBody;
     private Transform playerPos;
     private Vector3 velocity = Vector3.zero;
-    private float RLValue;
-    private float UDValue;
+    public Vector2 RLValue;
     private int PlanValue = -1;
     private bool changePlanDone = true;
     private bool isDashing = false;
-    private bool dashDone = false;
 
+    private int index = 0;
+
+    public bool xPressed = false;
+    public bool isOnGround;
     //---------function---------
     private void SwitPlan(int _ud)
     {
         if (!changePlanDone)
         {
+
+            if (_ud == -1 && index != 0 && playerPos.position.z <= planList[index - 1]+0.01)
+            {
+                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
+                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planList[index - 1]);
+                index--;
+                changePlanDone = true;
+                return;
+            } 
+            else if (_ud == 1 && index != planList.Length-1 && playerPos.position.z >= planList[index+1] - 0.01)
+            {
+                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
+                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planList[index + 1]);
+                index++;
+                changePlanDone = true;
+                return;
+            }
+            else if (_ud == 0 || (_ud == -1 && index == 0) || (_ud == 1 && index == planList.Length - 1))
+            {
+                changePlanDone = true;
+                return;
+            }
+
             Vector3 newVelocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, (_ud * Time.deltaTime) * planChangeSpeed);
             playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
-            if (_ud == -1 && playerPos.position.z <= 0.01)
-            {
-                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
-                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, 0);
-                changePlanDone = true;
-            } else if (_ud == 1 && playerPos.position.z >= planDistance - 0.01)
-            {
-                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
-                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planDistance);
-                changePlanDone = true;
-            }
-            if (_ud == 0)
-                changePlanDone = true;
-
         }
     }
-    private void Move(float _rl)
+    private void Move(Vector2 input)
     {
-        Vector3 newVelocity = new Vector2((_rl * Time.deltaTime) * moveSpeed, playerBody.velocity.y);
+        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * moveSpeed, playerBody.velocity.y);
         playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
     }
 
-    private bool IsGrounded()
+    private void IsGrounded()
     {
-        if (Physics.Raycast(transform.position + new Vector3(0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down, 0.55f) || Physics.Raycast(transform.position, Vector3.down, 0.55f))
-            return true;
-        return false;
+        isOnGround = Physics.Raycast(transform.position, Vector3.down, 0.55f);
     }
-    private void Dash(float _rl, float _ud)
+    private void Dash(Vector2 input)
     {
-        //Vector3 newVelocity = 
-        //playerBody.velocity 
-        Vector3 newVelocity = new Vector2((_rl * Time.deltaTime) * dashSpeed, (_ud * Time.deltaTime) * dashSpeed);
-        playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * dashSpeed, (input.y * Time.deltaTime) * dashSpeed);
+        //playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+        playerBody.velocity = newVelocity;
         isDashing = false;
-        //isDashing = false;
+        Debug.Log("Dash");
     }
     private void FreezPos()
     {
-
         playerPos.localPosition = lockPosition;
         playerBody.velocity = new Vector3(0, 0, 0);
     }
@@ -86,40 +93,37 @@ public class PlayerMotion : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(transform.position + new Vector3(0.4f, 0, 0), Vector3.down * 0.55f, Color.red);
-        Debug.DrawRay(transform.position + new Vector3(-0.4f, 0, 0), Vector3.down * 0.55f, Color.red);
         Debug.DrawRay(transform.position, Vector3.down * 0.55f, Color.red);
+
+        IsGrounded();
     }
+
     private void FixedUpdate()
     {
         if (isInLamp)
         {
             if (isDashing)
             {
-                Dash(RLValue, UDValue);
+                Dash(RLValue);
                 isInLamp = false;
             }
             FreezPos();
         }
         else if (isInPath)
         {
-            if (RLValue != 0)
-                GetComponent<SplineWalker>().moveEnable = true;
+            if (RLValue.x != 0)
+                GetComponent<NodeWalker>().moveEnable = true;
             else
-                GetComponent<SplineWalker>().moveEnable = false;
-            if (RLValue > 0.5)
-                GetComponent<SplineWalker>().right = true;
-            if (RLValue < -0.5)
-                GetComponent<SplineWalker>().right = false;
+                GetComponent<NodeWalker>().moveEnable = false;
 
         }
         else
         {
-            if (IsGrounded())
+            if (isOnGround)
             {
                 if (isDashing)
                 {
-                    Dash(RLValue, UDValue);
+                    Dash(RLValue);
                 }
                 else
                     SwitPlan(PlanValue);
@@ -128,22 +132,29 @@ public class PlayerMotion : MonoBehaviour
         }
     }
 
-public void onPlanInput(InputAction.CallbackContext context)
+    public void onPlanInput(InputAction.CallbackContext context)
     {
         if (context.performed) 
         { 
-            PlanValue = -PlanValue;
+            PlanValue = Mathf.RoundToInt(RLValue.y);
             changePlanDone = false;
         }
     }
     public void onMoveRightLeft(InputAction.CallbackContext context)
     {
-        RLValue = context.ReadValue<Vector2>().x;
-        UDValue = context.ReadValue<Vector2>().y;
+        RLValue = context.ReadValue<Vector2>();
     }
     public void onDashPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
             isDashing = true;
+    }
+    public void onXPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            xPressed = true;
+
+        if (context.canceled)
+            xPressed = false;
     }
 }

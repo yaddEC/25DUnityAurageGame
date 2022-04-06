@@ -53,13 +53,13 @@ public class SplineWalker : MonoBehaviour
         // keep
         if (distance <= reachDistance)
         {
-            if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
+            /*if (splineEditor.canChangeBranch && currentPointIndex == splineEditor.indexBranch)
             {
                 currentPointIndex = splineEditor.branchPointIndexToGo;
                 splineEditor = splineEditor.branchPath;
             }
             else
-                currentPointIndex++;
+                currentPointIndex++;*/
         }
     }
 }
