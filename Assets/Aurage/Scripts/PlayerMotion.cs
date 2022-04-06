@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMotion : MonoBehaviour
 {
     public float moveSpeed;
-    public int planDistance;
+    public int[] planList;
     public float planChangeSpeed;
     public float jumpPower;
     public float dashSpeed;
@@ -22,34 +22,41 @@ public class PlayerMotion : MonoBehaviour
     private int PlanValue = -1;
     private bool changePlanDone = true;
     private bool isDashing = false;
-    private bool dashDone = false;
+
+    private int index = 0;
+
     public bool xPressed = false;
     public bool isOnGround;
-
-    public int[] planValue; 
-
     //---------function---------
     private void SwitPlan(int _ud)
     {
         if (!changePlanDone)
         {
+
+            if (_ud == -1 && index != 0 && playerPos.position.z <= planList[index - 1]+0.01)
+            {
+                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
+                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planList[index - 1]);
+                index--;
+                changePlanDone = true;
+                return;
+            } 
+            else if (_ud == 1 && index != planList.Length-1 && playerPos.position.z >= planList[index+1] - 0.01)
+            {
+                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
+                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planList[index + 1]);
+                index++;
+                changePlanDone = true;
+                return;
+            }
+            else if (_ud == 0 || (_ud == -1 && index == 0) || (_ud == 1 && index == planList.Length - 1))
+            {
+                changePlanDone = true;
+                return;
+            }
+
             Vector3 newVelocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, (_ud * Time.deltaTime) * planChangeSpeed);
             playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
-
-            if (_ud == -1 && playerPos.position.z <= 0.01)
-            {
-                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
-                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, 0);
-                changePlanDone = true;
-            } 
-            else if (_ud == 1 && playerPos.position.z >= planDistance - 0.01)
-            {
-                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
-                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planDistance);
-                changePlanDone = true;
-            }
-            if (_ud == 0)
-                changePlanDone = true;
         }
     }
     private void Move(Vector2 input)
@@ -128,7 +135,7 @@ public class PlayerMotion : MonoBehaviour
     {
         if (context.performed) 
         { 
-            PlanValue = -PlanValue;
+            PlanValue = Mathf.RoundToInt(RLValue.y);
             changePlanDone = false;
         }
     }
