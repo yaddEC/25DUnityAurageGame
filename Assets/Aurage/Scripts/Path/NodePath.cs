@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class NodePath : MonoBehaviour
 {
+    private NodeReference refNodeReference;
+
     public Color lineColor = Color.white;
     public List<NodePath> nodePoints = new List<NodePath>();
     public NodeWalker refNodeWalker;
     public GameObject colliderPrefab;
-
-    public int pointIndex;
 
     private void OnDrawGizmos()
     {
@@ -22,8 +22,6 @@ public class NodePath : MonoBehaviour
 
     private void Start()
     {
-        int.TryParse(name, out pointIndex);
-
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
         foreach (NodePath node in nodePoints)
         {
@@ -40,6 +38,11 @@ public class NodePath : MonoBehaviour
                 //ColliderSetup(currPoint, targetPoint, nodePoints[i].transform);
             }
         }
+    }
+
+    private void Update()
+    {
+        CheckRaycast();
     }
 
     public void OnPlayerNode()
@@ -69,12 +72,15 @@ public class NodePath : MonoBehaviour
         return selectedPath;
     }
 
-    private void ColliderSetup(Vector3 currPoint, Vector3 targetPoint, Transform parent)
+    private void CheckRaycast()
     {
-        Vector3 middlePoint = new Vector3((currPoint.x + targetPoint.x) / 2, (currPoint.y + targetPoint.y) / 2, (currPoint.z + targetPoint.z) / 2);
-        Vector3 relativePos = targetPoint - currPoint;
-        float distance = Vector3.Distance(targetPoint, currPoint);
-        colliderPrefab.GetComponent<CapsuleCollider>().height = distance;
-        Instantiate(colliderPrefab, middlePoint, Quaternion.LookRotation(relativePos, Vector3.up), parent);
+        RaycastHit hit;
+        foreach (NodePath node in nodePoints)
+        {
+            if (Physics.Raycast(node.transform.position, node.transform.position, out hit, refNodeReference.mask))
+            {
+                Debug.Log("ez");
+            }
+        }
     }
 }

@@ -23,9 +23,19 @@ public class NodeWalker : MonoBehaviour
     public bool isFreezed = false;
     public bool xPressed = false;
 
+    bool isAiming = false;
+    public Vector2 aimDir;
+    public GameObject aimingArrow;
+    private GameObject aimingArrowClone;
+
     private void Start()
     {
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+
+        aimingArrowClone = Instantiate(aimingArrow, transform.position + Vector3.right, Quaternion.identity);
+        aimingArrowClone.transform.parent = gameObject.transform;
+        aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);
+        aimDir = Vector2.right;
     }
 
     private void Update()
@@ -76,9 +86,28 @@ public class NodeWalker : MonoBehaviour
         refPlayerMotion.transform.position = refCurrNodePath.transform.position;
     }
 
+    public void Aim(InputAction.CallbackContext value)
+    {
+        isAiming = true;
+
+        if (value.performed)
+            aimingArrowClone.transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void LeftStick(InputAction.CallbackContext value)
+    {
+        if (isAiming)
+        {
+            if (value.performed)
+                aimDir = value.ReadValue<Vector2>();
+
+            transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(aimDir.x, aimDir.y) * -180 / Mathf.PI + 90f);
+        }
+    }
+
     private void SelectNextPath()
     {
-        if(refPlayerMotion.xPressed)
+        if (refPlayerMotion.xPressed)
         {
             xPressed = true;
         }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct Node
+public struct Nodes
 {
     public int nodeBranchFrom;
     public int nodeBranchTo;
     public SplineEditor nextBranchPath;
 
-    public Node(int _nodeBranchFrom, int _nodeBranchTo, SplineEditor _nextBranchPath)
+    public Nodes(int _nodeBranchFrom, int _nodeBranchTo, SplineEditor _nextBranchPath)
     {
         nodeBranchFrom = _nodeBranchFrom;
         nodeBranchTo = _nodeBranchTo;
@@ -22,7 +22,7 @@ public class SplineEditor : MonoBehaviour
 {
     public Color raycolor = Color.white;
     public List<Transform> pathPoints = new List<Transform>();
-    public List<Node> nodes = new List<Node>();
+    public List<Nodes> nodes = new List<Nodes>();
 
     public GameObject colliderPrefab;
     public bool canChangeBranch = true;
@@ -50,7 +50,7 @@ public class SplineEditor : MonoBehaviour
             }
         }
 
-        foreach (Node node in nodes)
+        foreach (Nodes node in nodes)
         {
             Gizmos.DrawLine(pathPoints[node.nodeBranchFrom].position, node.nextBranchPath.pathPoints[node.nodeBranchTo].position);
         }
@@ -80,7 +80,7 @@ public class SplineEditor : MonoBehaviour
         }*/
 
 
-        foreach (Node node in nodes)
+        foreach (Nodes node in nodes)
         {
             GameObject junction = Instantiate(new GameObject(), pathPoints[node.nodeBranchFrom].position, Quaternion.identity, this.transform);
             junction.name = "Junction";
