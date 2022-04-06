@@ -22,6 +22,7 @@ public class NodePath : MonoBehaviour
 
     private void Start()
     {
+        refNodeReference = GameObject.FindObjectOfType<NodeReference>();
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
         foreach (NodePath node in nodePoints)
         {
@@ -75,12 +76,13 @@ public class NodePath : MonoBehaviour
     private void CheckRaycast()
     {
         RaycastHit hit;
+
         foreach (NodePath node in nodePoints)
         {
-            if (Physics.Raycast(node.transform.position, node.transform.position, out hit, refNodeReference.mask))
-            {
-                Debug.Log("ez");
-            }
+            bool touched = Physics.Raycast(transform.position, transform.position - node.transform.position, out hit, refNodeReference.mask);
+
+            if (touched)
+                Debug.Log(touched);
         }
     }
 }

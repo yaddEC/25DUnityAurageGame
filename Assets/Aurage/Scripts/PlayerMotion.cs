@@ -75,7 +75,6 @@ public class PlayerMotion : MonoBehaviour
         //playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
         playerBody.velocity = newVelocity;
         isDashing = false;
-        Debug.Log("Dash");
     }
     private void FreezPos()
     {
