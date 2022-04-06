@@ -73,8 +73,11 @@ public class PlayerMotion : MonoBehaviour
     {
         yield return 12;
         playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
-        for(float i = airTime; i > 0; i-=Time.deltaTime)
-            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y-i);
+        for (float i = airTime; i >= 0; i -= Time.deltaTime)
+        {
+            if (i <= 0) i = 0;
+            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y - i);
+        }
         yield return null;
         
     }
