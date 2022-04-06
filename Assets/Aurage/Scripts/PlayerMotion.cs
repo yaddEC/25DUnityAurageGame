@@ -10,6 +10,7 @@ public class PlayerMotion : MonoBehaviour
     public float planChangeSpeed;
     public float jumpPower;
     public float dashSpeed;
+    public float airTime;
 
     public bool isInLamp;
     public bool isInPath;
@@ -22,7 +23,6 @@ public class PlayerMotion : MonoBehaviour
     private int PlanValue = -1;
     private bool changePlanDone = true;
     private bool isDashing = false;
-
     private int index = 0;
 
     public bool xPressed = false;
@@ -69,11 +69,21 @@ public class PlayerMotion : MonoBehaviour
     {
         isOnGround = Physics.Raycast(transform.position, Vector3.down, 0.55f);
     }
+    IEnumerator fastFall()
+    {
+        yield return 12;
+        playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
+        for(float i = airTime; i > 0; i-=Time.deltaTime)
+            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y-i);
+        yield return null;
+        
+    }
     private void Dash(Vector2 input)
     {
         Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * dashSpeed, (input.y * Time.deltaTime) * dashSpeed);
         //playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
         playerBody.velocity = newVelocity;
+        StartCoroutine(fastFall());
         isDashing = false;
     }
     private void FreezPos()

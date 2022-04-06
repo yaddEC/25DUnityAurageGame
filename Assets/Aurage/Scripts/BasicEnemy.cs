@@ -30,7 +30,7 @@ public class BasicEnemy : MonoBehaviour
         alerted = false;
         
         isMoving = true;
-        dir = Vector3.forward;
+        dir = Vector3.right;
         rigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -70,7 +70,7 @@ public class BasicEnemy : MonoBehaviour
         
         //State debug
         if (playerDetected)
-            gameObject.GetComponent<Renderer>().material.color = Color.red;//death animation/coroutine + game over screen
+            gameObject.GetComponent<Renderer>().material.color = Color.red;//ennemy attack/death animation/coroutine + game over screen
         else if (alerted)
             gameObject.GetComponent<Renderer>().material.color = Color.yellow;
         else
@@ -88,17 +88,17 @@ public class BasicEnemy : MonoBehaviour
 
     private bool isEdge()//bool function check if on Edge
     {
-        return Physics.Raycast(transform.position , dir, 0.8f, edge);
+        return Physics.Raycast(transform.position , dir, 0.8f, edge)|| Physics.Raycast(transform.position, dir, 0.8f, obstacle);
     }
 
     private void Turning()//function that makes gradual rotation
     {
         float turning;
        
-        if (dir.z <= 0)
+        if (dir.x <= 0)
             turning = rotation;
         else
-            turning = 0;
+            turning = 90;
         
         float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y,  turning, rotationSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, angle, 0);
@@ -106,8 +106,8 @@ public class BasicEnemy : MonoBehaviour
 
     private void Move()//moving/roaming function
     {
-        float move = dir.z * Time.fixedDeltaTime;
-        rigidbody.velocity = new Vector3(0, 0, 10*speed*move);
+        float move = dir.x * Time.fixedDeltaTime;
+        rigidbody.velocity = new Vector3(10 * speed * move, 0, 0);
     }
 
     private IEnumerator ChangeDir()//Coroutine that change the direction/ stop the moving for the gradual rotation
@@ -118,7 +118,8 @@ public class BasicEnemy : MonoBehaviour
 
         yield return new WaitForSeconds(rotationDuration);
 
-        isMoving = true;
+        if(!alerted)
+            isMoving = true;
         isTurning = false;
     }
 
