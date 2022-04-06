@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GeneratorStation : MonoBehaviour
 {
     [Header("Reference")]
     private PowerManager refPowerManager;
     private PowerBar refPowerBar;
+    private PlayerMotion refPlayerMotion;
+
     public Generator refGenerator;
 
     [Header("Generator UI/UX")]
@@ -22,6 +25,7 @@ public class GeneratorStation : MonoBehaviour
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         refPowerBar = GameObject.FindObjectOfType<PowerBar>();
+        refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
 
         generatorsList = GameObject.FindGameObjectsWithTag("Generator");
 

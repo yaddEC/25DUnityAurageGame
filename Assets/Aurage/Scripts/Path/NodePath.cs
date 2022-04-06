@@ -28,17 +28,6 @@ public class NodePath : MonoBehaviour
         {
             node.SetNodeReferences(this);
         }
-
-        for (int i = 0; i < nodePoints.Count; i++)
-        {
-            Vector3 currPoint = nodePoints[i].transform.position;
-
-            if (i > 0)
-            {
-                Vector3 targetPoint = nodePoints[i + 1].transform.position; //prevPoint
-                //ColliderSetup(currPoint, targetPoint, nodePoints[i].transform);
-            }
-        }
     }
 
     private void Update()
@@ -79,7 +68,7 @@ public class NodePath : MonoBehaviour
 
         foreach (NodePath node in nodePoints)
         {
-            bool touched = Physics.Raycast(transform.position, transform.position - node.transform.position, out hit, refNodeReference.mask);
+            bool touched = Physics.Raycast(transform.position, node.transform.position - transform.position, out hit, Vector3.Distance(node.transform.position, transform.position), refNodeReference.mask);
 
             if (touched)
                 Debug.Log(touched);
