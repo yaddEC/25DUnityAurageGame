@@ -72,7 +72,8 @@ public class PlayerMotion : MonoBehaviour
     private void Dash(Vector2 input)
     {
         Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * dashSpeed, (input.y * Time.deltaTime) * dashSpeed);
-        playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+        //playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+        playerBody.velocity = newVelocity;
         isDashing = false;
         Debug.Log("Dash");
     }
