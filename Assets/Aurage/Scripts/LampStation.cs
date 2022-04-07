@@ -27,9 +27,9 @@ public class LampStation : MonoBehaviour
     {
         StartCoroutine(LightSwitchEvent());
 
-        other.GetComponent<PlayerMotion>().isInLamp = true;
+        //other.GetComponent<PlayerMotion>().isInLamp = true;
 
-        other.GetComponent<PlayerMotion>().lockPosition = transform.position;
+        //other.GetComponent<PlayerMotion>().lockPosition = transform.position;
     }
 
     private IEnumerator LightSwitchEvent()

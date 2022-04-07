@@ -36,14 +36,14 @@ public class NodePath : MonoBehaviour
 
     private void Update()
     {
-        if(!refNodeWalker.refPlayerMotion.isInPath)
+        if(!refNodeWalker.refPlayerMotion.isInPath && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast)
             CheckRaycast();
     }
 
     public void OnPlayerNodePath()
     {
         refNodeWalker.refPrevNodePath = this;
-        refNodeWalker.refNextNodePath = NodePathTarget(refNodeWalker.refPlayerMotion.RLValue, nodePoints.ToArray(), refNodeWalker.transform);
+        refNodeWalker.refNextNodePath = NodePathTarget(InputManager.inputAxis, nodePoints.ToArray(), refNodeWalker.transform);
     }
 
     private void SetNodeReferences(NodePath nodePath)
@@ -77,11 +77,10 @@ public class NodePath : MonoBehaviour
             {
                 hitPath = true;
                 t.position = hit.point;
-                refNodeWalker.refPlayerMotion.transform.position = t.position;
 
+                refNodeWalker.refPlayerMotion.transform.position = t.position;
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;
-
                 refNodeWalker.refCurrNodePath = node;
                 refNodeWalker.refNextNodePath = this;
             }
