@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private bool InspectorPerformDash;
     [SerializeField] private Vector2 InspectorInputAxis;
+
+    [SerializeField] private bool InspectorPerformChangePlan;
+    [SerializeField] private bool InspectorPerformDash;
+
     [SerializeField] private bool InspectorXPressed;
     [SerializeField] private bool InspectorBPressed;
-    [SerializeField] private bool InspectorPerformChangePlan;
 
     public static bool performDash;
     public static Vector2 inputAxis;

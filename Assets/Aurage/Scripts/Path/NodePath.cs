@@ -81,6 +81,7 @@ public class NodePath : MonoBehaviour
                 refNodeWalker.refPlayerMotion.transform.position = t.position;
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;
+                refNodeWalker.refPrevNodePath = node;
                 refNodeWalker.refCurrNodePath = node;
                 refNodeWalker.refNextNodePath = this;
             }

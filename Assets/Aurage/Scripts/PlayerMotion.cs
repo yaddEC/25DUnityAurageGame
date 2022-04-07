@@ -11,77 +11,82 @@ public class PlayerMotion : MonoBehaviour
     public int[] planList;
 
     public float dashSpeed;
+    public float dashGravity;
 
     public int currentplan;
     public float changePlanTime;
-    public bool reversePlanIndex = false;
 
     public bool canBeDetectedByRaycast = true;
-
     public bool isInPath;
 
-    public Rigidbody playerBody;
+    public Rigidbody rb;
     private Vector3 velocity = Vector3.zero;
 
     public bool isGrounded;
 
+    //--------------------------------------------------
     private void Awake()
     {
-        playerBody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
         currentplan = 1;
     }
 
     private void Update()
     {
-        if (!isInPath)
-            GroundCheck();
-
-        if(isInPath)
-        {
-            isGrounded = false;
-            playerBody.useGravity = false;
-        }
+        MovementUpdate();
     }
 
     private void FixedUpdate()
     {
+        MovementFixedUpdate();
+    }
+
+    //--------------------------------------------------
+    private void MovementUpdate()
+    {
+        if (!isInPath)
+        {
+            rb.useGravity = true;
+            GroundCheck();
+        }
+        else
+        {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+
+            DashCheck();
+        }
+    }
+
+    private void MovementFixedUpdate()
+    {
         if (!isInPath && isGrounded)
             FloorMovement();
+
+        if (!isInPath)
+            rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
     {
-        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * moveSpeed, playerBody.velocity.y);
-        playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * moveSpeed, rb.velocity.y);
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, newVelocity, ref velocity, .05f);
+    }
+    private void Dash(Vector2 input)
+    {
+        rb.velocity += new Vector3(input.x, input.y, 0).normalized * dashSpeed;
     }
 
     private void GroundCheck()
     {
-        playerBody.useGravity = true;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.55f);
-    }
-
-    private void Dash(Vector2 input)
-    {
-        Vector3 newVelocity = new Vector2(input.x, input.y) * dashSpeed * Time.deltaTime;
-        playerBody.velocity = newVelocity;
-        InputManager.performDash = false;
     }
 
     private void FloorMovement()
     {
-        if (InputManager.performDash)
-        {
-            Dash(InputManager.inputAxis);
-            StartCoroutine(RaycastDetection());
-        }
-
-        if (InputManager.performChangePlan && InputManager.inputAxis.y != 0)
-        {
-            CheckIndexPlan();
-            ChangePlan();
-        }
+        DashCheck();
+        PlanCheck();
 
         Move(InputManager.inputAxis);
     }
@@ -95,19 +100,28 @@ public class PlayerMotion : MonoBehaviour
 
     private void ChangePlan()
     {
-        if (InputManager.inputAxis.y > 0)
+        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length)
             currentplan += 1;
-        else if (InputManager.inputAxis.y < 0)
+        else if (InputManager.inputAxis.y < 0 && currentplan != 0)
             currentplan -= 1;
 
         transform.position = new Vector3(transform.position.x, transform.position.y, planList[currentplan]);
+        InputManager.performChangePlan = false;
     }
 
-    private void CheckIndexPlan()
+    //--------------------------------------------------
+    private void DashCheck()
     {
-        if (currentplan >= planList.Length)
-            reversePlanIndex = true;
-        else if (currentplan <= 0)
-            reversePlanIndex = false;
+        if (InputManager.performDash)
+        {
+            isInPath = false;
+            Dash(InputManager.inputAxis);
+            StartCoroutine(RaycastDetection());
+        }
+    }
+    private void PlanCheck()
+    {
+        if (InputManager.performChangePlan && InputManager.inputAxis.y != 0)
+            ChangePlan();
     }
 }
