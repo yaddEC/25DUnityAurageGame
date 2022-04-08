@@ -26,6 +26,10 @@ public class LampStation : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(LightSwitchEvent());
+
+        //other.GetComponent<PlayerMotion>().isInLamp = true;
+
+        //other.GetComponent<PlayerMotion>().lockPosition = transform.position;
     }
 
     private IEnumerator LightSwitchEvent()

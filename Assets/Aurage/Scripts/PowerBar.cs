@@ -7,7 +7,6 @@ public class PowerBar : MonoBehaviour
 {
     private PowerManager refPowerManager;
     private Slider refLifeSlider;
-
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();

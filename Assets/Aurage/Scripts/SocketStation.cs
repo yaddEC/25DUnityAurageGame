@@ -7,39 +7,46 @@ public class SocketStation : MonoBehaviour
 {
     [Header("Reference")]
     private PowerManager refPowerManager;
+    public ColliderDetection[] refColliderDetection;
+    private NodeSettings refNodeSettings;
     public Socket refSocket;
+    private int index;
+    public bool inSocket = false;
+
+
 
     [Header("Lamp UI/UX")]
     private MeshRenderer meshRenderer;
 
     [Header("Lamp Stats")]
-    public bool levelFinished = false;
+    public bool isInSocket = false;
 
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
+        refColliderDetection = GetComponentsInChildren<ColliderDetection>();
 
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = refSocket.machineMaterials[1];
     }
 
-    private void Update()
-    {
-        if (levelFinished)
-            FinishHandler();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            levelFinished = true;
+            if(refColliderDetection[0].inObject)
+                StartCoroutine(ClampInCable(other, index = 1));
+            else
+                StartCoroutine(ClampInCable(other, index = 0));
         }
     }
 
-    private void FinishHandler()
+    private IEnumerator ClampInCable(Collider other, int index)
     {
-        Debug.Log("go To next level");
-        //SceneManager.LoadScene("LevelTwo");
+        inSocket = true;
+        other.transform.position = refColliderDetection[index].transform.position;
+
+        yield return new WaitForSeconds(0.2f);
+        inSocket = false;
     }
 }
