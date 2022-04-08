@@ -106,6 +106,7 @@ public class PlayerMotion : MonoBehaviour
     {
         DashCheck();
         PlanCheck();
+        
         AimCheck();
         if (!isAiming)
             Move(InputManager.inputAxis);
