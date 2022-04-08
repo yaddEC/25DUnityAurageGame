@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RadioZone : MonoBehaviour
 {
-    public bool wasDeactivate = false;
-    public bool isDeactivate = false;
+   [HideInInspector] public bool wasDeactivate = false;
+   [HideInInspector] public bool isDeactivate = false;
     // Start is called before the first frame update
     void Start()
     {
