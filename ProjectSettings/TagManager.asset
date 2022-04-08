@@ -12,6 +12,7 @@ TagManager:
   - HolderPath
   - NodeContainer
   - Wall
+  - Radio
   layers:
   - Default
   - TransparentFX
