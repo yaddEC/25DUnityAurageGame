@@ -35,7 +35,7 @@ public class NodeWalker : MonoBehaviour
 
         if (refCurrNodePath.hitPath)
         {
-            refPlayerMotion.transform.position = refCurrNodePath.t.position;
+            //refPlayerMotion.transform.position = refCurrNodePath.t.position;
             refCurrNodePath.hitPath = false;
         }
 

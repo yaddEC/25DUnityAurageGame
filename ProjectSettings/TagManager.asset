@@ -8,6 +8,8 @@ TagManager:
   - Generator
   - Node
   - NodeHolder
+  - HolderPath
+  - NodeContainer
   layers:
   - Default
   - TransparentFX

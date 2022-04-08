@@ -9,9 +9,6 @@ public class NodePath : MonoBehaviour
 
     public Color lineColor = Color.white;
     public List<NodePath> nodePoints = new List<NodePath>();
-    public GameObject colliderPrefab;
-
-    public Transform t;
 
     public bool hitPath = false;
 
@@ -76,9 +73,9 @@ public class NodePath : MonoBehaviour
             if(Physics.Linecast(transform.position, node.transform.position, out hit, refNodeReference.mask))
             {
                 hitPath = true;
-                t.position = hit.point;
+                //t.position = hit.point;
+                //refNodeWalker.refPlayerMotion.transform.position = t.position;
 
-                refNodeWalker.refPlayerMotion.transform.position = t.position;
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;
                 refNodeWalker.refPrevNodePath = node;
