@@ -13,10 +13,14 @@ public class InputManager : MonoBehaviour
     [SerializeField] private bool InspectorXPressed;
     [SerializeField] private bool InspectorBPressed;
 
+    [SerializeField] private bool InspectorTrigger;
+   
+
     public static bool performDash;
     public static Vector2 inputAxis;
     public static bool performX;
     public static bool performB;
+    public static bool performTrigger;
     public static bool performChangePlan;
     public void onPlanInput(InputAction.CallbackContext context)
     {
@@ -38,6 +42,11 @@ public class InputManager : MonoBehaviour
     {
         performB = context.performed;
     }
+    public void onTriggerInput(InputAction.CallbackContext context)
+    {
+        performTrigger = context.performed;
+    }
+
 
     private void Update()
     {
@@ -46,5 +55,7 @@ public class InputManager : MonoBehaviour
         InspectorXPressed = performX;
         InspectorBPressed = performB;
         InspectorPerformChangePlan = performChangePlan;
+        InspectorTrigger = performTrigger;
+
     }
 }

@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 public class ShootingScript : MonoBehaviour
 {
     public GameObject aimingArrow;
+    public GameObject rotationAxis;
     public GameObject bullet;
+    private GameObject rotationAxisClone;
     private GameObject aimingArrowClone;
     private GameObject bulletClone;
     private PowerManager playerPower;
@@ -16,9 +18,11 @@ public class ShootingScript : MonoBehaviour
 
     private void Start()
     {
+        rotationAxisClone = Instantiate(rotationAxis, transform.position , Quaternion.identity);
         aimingArrowClone = Instantiate(aimingArrow, transform.position + Vector3.right, Quaternion.identity);
         playerPower = gameObject.GetComponent<PowerManager>();
-        aimingArrowClone.transform.parent = gameObject.transform;
+        
+        aimingArrowClone.transform.parent = rotationAxisClone.transform;
         aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);
         aimDir = Vector2.right;
     }
@@ -31,6 +35,11 @@ public class ShootingScript : MonoBehaviour
             aimingArrowClone.transform.localScale = new Vector3(1, 1, 1);
     }
 
+    void Update()
+    {
+        rotationAxisClone.transform.position = transform.position;
+    }
+
     public void LeftStick(InputAction.CallbackContext value)
     {
         if(isAiming)
@@ -38,7 +47,7 @@ public class ShootingScript : MonoBehaviour
             if (value.performed)
                 aimDir = value.ReadValue<Vector2>();
 
-            transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(aimDir.x, aimDir.y) * -180 / Mathf.PI + 90f);
+            rotationAxisClone.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(aimDir.x, aimDir.y) * -180 / Mathf.PI + 90f);
         }
     }
 
