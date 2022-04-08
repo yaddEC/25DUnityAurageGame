@@ -12,10 +12,10 @@ public class NodeEditor : Editor
         if(GUILayout.Button("Build NodeHolder"))
             builder.BuildNodeHolder();
 
-        if (GUILayout.Button("Remove NodeHolder"))
-            builder.RemoveNodeHolder();
+        if (GUILayout.Button("Destroy Last NodeHolder"))
+            builder.DestroyNodeHolder();
 
-        if (GUILayout.Button("Reset Editor"))
-            builder.ResetAllNodeHolders();
+        if (GUILayout.Button("Destroy All"))
+            builder.DestroyAll();
     }
 }

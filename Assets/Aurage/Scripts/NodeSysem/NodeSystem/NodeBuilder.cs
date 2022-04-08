@@ -7,14 +7,13 @@ public class NodeBuilder : MonoBehaviour
     [SerializeField] private GameObject nodeHolder;
     [SerializeField] private GameObject containerHolder;
     [SerializeField] private Transform container;
-
     [SerializeField] private bool containerHolderCreated;
-
     [SerializeField] private List<GameObject> nodeHolders = new List<GameObject>();
 
     private void CreateNodeHolder()
     {
-        nodeHolder = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity, container);
+        nodeHolder = new GameObject();
+        nodeHolder.transform.SetParent(container);
         nodeHolder.AddComponent<NodeReference>();
 
         nodeHolder.name = "NodeHolder";
@@ -25,10 +24,10 @@ public class NodeBuilder : MonoBehaviour
     private void CreateNodeContainer()
     {
         containerHolder = new GameObject();
+        containerHolder.transform.SetParent(transform);
+
         containerHolder.name = "NodeContainer";
         containerHolder.tag = "NodeContainer";
-
-        Instantiate(containerHolder, Vector3.zero, Quaternion.identity, transform);
 
         container = containerHolder.transform;
         containerHolderCreated = true;
@@ -36,31 +35,40 @@ public class NodeBuilder : MonoBehaviour
 
     public void BuildNodeHolder()
     {
-        if (nodeHolders.Count > 1 && !containerHolderCreated)
+        if (nodeHolders.Count >= 1 && !containerHolderCreated)
+        {
             CreateNodeContainer();
+            CreateNodeHolder();
+        }
         else
             CreateNodeHolder();
     }
 
-    public void RemoveNodeHolder()
+    public void DestroyNodeHolder()
     {
-        foreach (GameObject nodeHolder in nodeHolders)
+
+        var index = nodeHolders.Count -1;
+        var t = nodeHolders[index];
+
+        nodeHolders.RemoveAt(index);
+        DestroyImmediate(t);
+
+        if(nodeHolders.Count <= 1)
         {
-            if (nodeHolder == nodeHolder.gameObject)
-            {
-                nodeHolders.Remove(nodeHolder);
-                DestroyImmediate(nodeHolder, true);
-            }
+            containerHolderCreated = false;
+            DestroyImmediate(containerHolder);
         }
     }
 
-    public void ResetAllNodeHolders()
+    public void DestroyAll()
     {
-        DestroyImmediate(containerHolder, true);
-
-        //Invoke("RemoveNodeHolder", 0.1f);
-
-        containerHolderCreated = false;
+        foreach (GameObject nodeHolder in nodeHolders)
+        {
+            DestroyImmediate(nodeHolder);
+        }
         nodeHolders.Clear();
+
+        DestroyImmediate(containerHolder, true);
+        containerHolderCreated = false;
     }
 }

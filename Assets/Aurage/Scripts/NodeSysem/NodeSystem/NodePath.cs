@@ -12,6 +12,8 @@ public class NodePath : MonoBehaviour
 
     public bool hitPath = false;
 
+    public bool isSocketEntry = false;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = lineColor;
@@ -25,6 +27,7 @@ public class NodePath : MonoBehaviour
     {
         refNodeReference = GameObject.FindObjectOfType<NodeReference>();
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
+
         foreach (NodePath node in nodePoints)
         {
             node.SetNodeReferences(this);

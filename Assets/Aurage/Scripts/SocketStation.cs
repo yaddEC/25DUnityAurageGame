@@ -8,9 +8,12 @@ public class SocketStation : MonoBehaviour
     [Header("Reference")]
     private PowerManager refPowerManager;
     public ColliderDetection[] refColliderDetection;
+    private NodeSettings refNodeSettings;
     public Socket refSocket;
     private int index;
-    private bool inCable = false;
+    public bool inSocket = false;
+
+
 
     [Header("Lamp UI/UX")]
     private MeshRenderer meshRenderer;
@@ -29,22 +32,21 @@ public class SocketStation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !inCable)
-            ClampInCable(other, index = 1);
-        else if(other.CompareTag("Player") && !inCable)
-            ClampInCable(other, index = 0);
+        if (other.CompareTag("Player"))
+        {
+            if(refColliderDetection[0].inObject)
+                StartCoroutine(ClampInCable(other, index = 1));
+            else
+                StartCoroutine(ClampInCable(other, index = 0));
+        }
     }
 
-    private void ClampInCable(Collider other, int index)
+    private IEnumerator ClampInCable(Collider other, int index)
     {
+        inSocket = true;
         other.transform.position = refColliderDetection[index].transform.position;
-        delayTeleport();
-    }
 
-    private IEnumerator delayTeleport()
-    {
-        inCable = true;
-        yield return new WaitForSeconds(2f);
-        inCable = false;
+        yield return new WaitForSeconds(0.2f);
+        inSocket = false;
     }
 }
