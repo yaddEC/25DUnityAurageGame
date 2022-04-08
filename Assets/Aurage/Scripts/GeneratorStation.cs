@@ -50,7 +50,7 @@ public class GeneratorStation : MonoBehaviour
 
         if (refPowerManager.isCharging)
             StartCoroutine(PluggedEvent(chargingPowerDelta));
-        else if (!refPowerManager.isCharging && !refPowerManager.outOfPower)
+        else if (!refPowerManager.isCharging && !refPowerManager.outOfPower && refPowerManager.canLoosePower)
             StartCoroutine(UnpluggedEvent(refPowerManager.unchargePowerDelta));
     }
 

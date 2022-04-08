@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMotion : MonoBehaviour
 {
     private NodeWalker refNodeWalker;
+    private PowerManager refPowerManager;
 
     public float moveSpeed;
     public int[] planList;
@@ -37,6 +38,7 @@ public class PlayerMotion : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
+        refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         currentplan = 1;
     }
 
@@ -66,12 +68,14 @@ public class PlayerMotion : MonoBehaviour
         if (!isInPath)
         {
             rb.useGravity = true;
+            refPowerManager.canLoosePower = true;
             GroundCheck();
         }
         else
         {
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
+            refPowerManager.canLoosePower = false;
 
             DashCheck();
         }
@@ -95,6 +99,7 @@ public class PlayerMotion : MonoBehaviour
     {
         rb.velocity += new Vector3(input.x, input.y, 0).normalized * dashSpeed;
         canDash = false;
+        refPowerManager.currentPower -= 10;
     }
 
     private void GroundCheck()
