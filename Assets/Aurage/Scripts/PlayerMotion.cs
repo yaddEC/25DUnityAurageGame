@@ -12,6 +12,9 @@ public class PlayerMotion : MonoBehaviour
 
     public float dashSpeed;
     public float dashGravity;
+    public bool canDash = true;
+    public float dashCooldown = 10f;
+    public float cachedDashCooldown;
 
     public int currentplan;
     public float changePlanTime;
@@ -30,6 +33,8 @@ public class PlayerMotion : MonoBehaviour
     //--------------------------------------------------
     private void Awake()
     {
+        cachedDashCooldown = dashCooldown;
+
         rb = GetComponent<Rigidbody>();
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
         currentplan = 1;
@@ -38,6 +43,15 @@ public class PlayerMotion : MonoBehaviour
     private void Update()
     {
         MovementUpdate();
+
+        if (!canDash)
+            dashCooldown -= Time.deltaTime;
+
+        if (dashCooldown <= 0)
+        {
+            dashCooldown = cachedDashCooldown;
+            canDash = true;
+        }
     }
 
     private void FixedUpdate()
@@ -80,6 +94,7 @@ public class PlayerMotion : MonoBehaviour
     private void Dash(Vector2 input)
     {
         rb.velocity += new Vector3(input.x, input.y, 0).normalized * dashSpeed;
+        canDash = false;
     }
 
     private void GroundCheck()
@@ -98,21 +113,11 @@ public class PlayerMotion : MonoBehaviour
             Move(new Vector2(0, 0));
     }
 
-    private IEnumerator RaycastDetection()
+    private void ChangePlan(bool f, bool b)
     {
-        canBeDetectedByRaycast = false;
-        yield return new WaitUntil(() => isGrounded == true);
-        canBeDetectedByRaycast = true;
-    }
-
-    private void ChangePlan()
-    {
-        var hitForward = Physics.Raycast(transform.position, Vector3.forward, 2, wallMask);
-        var hitBackward = Physics.Raycast(transform.position, Vector3.back, 2, wallMask);
-
-        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length && !hitForward)
+        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length && !f)
             currentplan += 1;
-        else if (InputManager.inputAxis.y < 0 && currentplan != 0 && !hitBackward)
+        else if (InputManager.inputAxis.y < 0 && currentplan != 0 && !b)
             currentplan -= 1;
 
         transform.position = new Vector3(transform.position.x, transform.position.y, planList[currentplan]);
@@ -122,7 +127,7 @@ public class PlayerMotion : MonoBehaviour
     //--------------------------------------------------
     private void DashCheck()
     {
-        if (InputManager.performDash)
+        if (InputManager.performDash && canDash)
         {
             isInPath = false;
             Dash(InputManager.inputAxis);
@@ -141,9 +146,17 @@ public class PlayerMotion : MonoBehaviour
 
     private void PlanCheck()
     {
+        var hitForward = Physics.Raycast(transform.position, Vector3.forward, 2, wallMask);
+        var hitBackward = Physics.Raycast(transform.position, Vector3.back, 2, wallMask);
+
         if (InputManager.performChangePlan && InputManager.inputAxis.y != 0)
-        {
-            ChangePlan();
-        }
+            ChangePlan(hitForward, hitBackward);
+    }
+
+    private IEnumerator RaycastDetection()
+    {
+        canBeDetectedByRaycast = false;
+        yield return new WaitUntil(() => isGrounded == true);
+        canBeDetectedByRaycast = true;
     }
 }

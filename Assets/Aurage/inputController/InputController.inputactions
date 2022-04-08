@@ -53,10 +53,18 @@
                     "processors": "",
                     "interactions": ""
                 },
-                {
+				{
                     "name": "Aim",
                     "type": "Button",
                     "id": "3f01c14c-b6c0-432a-9cf7-784301fd8fff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "APressed",
+                    "type": "Button",
+                    "id": "1ed2e300-1a44-449d-bce1-7de5fec71920",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -349,7 +357,9 @@
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
-                {
+				
+				
+				 {
                     "name": "",
                     "id": "5cfc5511-243f-4d4b-91aa-26ce579fa3e4",
                     "path": "<XInputController>/rightTrigger",
@@ -357,6 +367,19 @@
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+				
+				
+                {
+                    "name": "",
+                    "id": "eb9fc4f5-25fe-42d4-a979-64f8689c70a7",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "APressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
