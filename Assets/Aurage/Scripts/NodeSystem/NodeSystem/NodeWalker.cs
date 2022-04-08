@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 
 public class NodeWalker : MonoBehaviour
 {
-    [HideInInspector] public PlayerMotion refPlayerMotion;
+    /*[HideInInspector]*/ public PlayerMotion refPlayerMotion;
 
-    [HideInInspector] public NodePath refNextNodePath;
-    [HideInInspector] public NodePath refPrevNodePath;
+    /*[HideInInspector]*/ public NodePath refNextNodePath;
+    /*[HideInInspector]*/ public NodePath refPrevNodePath;
 
-    [HideInInspector] public NodePath refCurrNodePath;
+    /*[HideInInspector]*/ public NodePath refCurrNodePath;
 
     public float moveSpeed;
     public float rotationSpeed = 5.0f;
