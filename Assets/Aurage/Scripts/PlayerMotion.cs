@@ -28,6 +28,7 @@ public class PlayerMotion : MonoBehaviour
     public LayerMask wallMask;
 
     public bool isGrounded;
+    public bool isAiming;
 
     //--------------------------------------------------
     private void Awake()
@@ -61,6 +62,7 @@ public class PlayerMotion : MonoBehaviour
     //--------------------------------------------------
     private void MovementUpdate()
     {
+
         if (!isInPath)
         {
             rb.useGravity = true;
@@ -77,10 +79,10 @@ public class PlayerMotion : MonoBehaviour
 
     private void MovementFixedUpdate()
     {
-        if (!isInPath && isGrounded)
+        if (!isInPath && isGrounded )
             FloorMovement();
 
-        if (!isInPath)
+        if (!isInPath )
             rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
@@ -104,8 +106,11 @@ public class PlayerMotion : MonoBehaviour
     {
         DashCheck();
         PlanCheck();
-
-        Move(InputManager.inputAxis);
+        AimCheck();
+        if (!isAiming)
+            Move(InputManager.inputAxis);
+        else
+            Move(new Vector2(0, 0));
     }
 
     private void ChangePlan(bool f, bool b)
@@ -129,6 +134,16 @@ public class PlayerMotion : MonoBehaviour
             StartCoroutine(RaycastDetection());
         }
     }
+
+    private void AimCheck()
+    {
+        if (InputManager.performTrigger)
+            isAiming = true;
+        else
+            isAiming = false;
+    }
+
+
     private void PlanCheck()
     {
         var hitForward = Physics.Raycast(transform.position, Vector3.forward, 2, wallMask);
