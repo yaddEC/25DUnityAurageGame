@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
     
+    private Rigidbody rigidbody;
     public bool alerted;
     public bool playerDetected;
     public bool isMoving;
     public bool isTurning;
+    public bool isStunned;
+    public bool isDistracted;
     public float sightDistance;
     public float rotation = 180;
     public float rotationSpeed = 100;
@@ -21,17 +25,18 @@ public class BasicEnemy : MonoBehaviour
     public LayerMask obstacle;
     public LayerMask edge;
     public GameObject player;
+    private GameObject machine;
     public Vector3 dir;
-    Rigidbody rigidbody;
-  
+    public Vector3 moveDirection;
+    Coroutine lastRoutine;
+
     void Start()
     {
-        
         alerted = false;
-        
         isMoving = true;
         dir = Vector3.right;
         rigidbody = gameObject.GetComponent<Rigidbody>();
+        lastRoutine = null;
     }
 
     // Update is called once per frame
@@ -58,19 +63,20 @@ public class BasicEnemy : MonoBehaviour
     void Update()
     {
         //timed rotation when edge is encounter
-        if (isEdge())
-            StartCoroutine(ChangeDir());
+        if (isEdge() && !isDistracted)
+            ChangeDir();
         
-        if (isTurning)
-            Turning();
-
-        //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt already alerted
-        if (SeeThePlayer() && !alerted)
+        //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt turning or already alerted
+        if (SeeThePlayer() && !alerted && !isTurning && !isStunned && !isDistracted)
             StartCoroutine(Alerted());
         
         //State debug
         if (playerDetected)
             gameObject.GetComponent<Renderer>().material.color = Color.red;//ennemy attack/death animation/coroutine + game over screen
+        else if(isStunned)
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
+        else if (isDistracted)
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
         else if (alerted)
             gameObject.GetComponent<Renderer>().material.color = Color.yellow;
         else
@@ -80,28 +86,46 @@ public class BasicEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isMoving)
+      if (isMoving)
             Move();
-       
-        Debug.DrawRay(transform.position , dir * 10);
     }
+
 
     private bool isEdge()//bool function check if on Edge
     {
-        return Physics.Raycast(transform.position , dir, 0.8f, edge)|| Physics.Raycast(transform.position, dir, 0.8f, obstacle);
+        return Physics.Raycast(transform.position , dir, 1.5f, edge)|| Physics.Raycast(transform.position, dir, 0.8f, obstacle);
     }
 
-    private void Turning()//function that makes gradual rotation
+
+    private IEnumerator Turning()//Coroutine that makes gradual rotation
     {
         float turning;
-       
+        isTurning = true;
         if (dir.x <= 0)
             turning = rotation;
+        
         else
             turning = 90;
         
-        float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y,  turning, rotationSpeed * Time.deltaTime);
-        transform.eulerAngles = new Vector3(0, angle, 0);
+        
+        while( transform.eulerAngles.y!=turning)
+        {
+            float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, turning, rotationSpeed * Time.deltaTime);
+            transform.eulerAngles = new Vector3(0, angle, 0);
+            
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        if(!isStunned)
+        {
+
+            isTurning = false;
+            while(alerted)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+            isMoving = true;
+        }
     }
 
     private void Move()//moving/roaming function
@@ -110,17 +134,45 @@ public class BasicEnemy : MonoBehaviour
         rigidbody.velocity = new Vector3(10 * speed * move, 0, 0);
     }
 
-    private IEnumerator ChangeDir()//Coroutine that change the direction/ stop the moving for the gradual rotation
+    private void ChangeDir()//Coroutine that change the direction/ stop the moving for the gradual rotation
     {
         isMoving = false;
-        isTurning = true;
         dir *= -1;
+        lastRoutine = StartCoroutine(Turning());
+    }
 
-        yield return new WaitForSeconds(rotationDuration);
+    public void Stun(float stunDuration)
+    {
+        StopCoroutine(lastRoutine);
+        StartCoroutine(Stunned(stunDuration));
+    }
 
-        if(!alerted)
+    public IEnumerator Stunned(float stunDuration)//Coroutine that stun the enemy, then unstun him
+    {
+        isMoving = false;
+        isStunned = true;
+
+        yield return new WaitForSeconds(stunDuration);
+
+        isStunned = false;
+        if (isTurning)
+            lastRoutine = StartCoroutine(Turning());
+        else
             isMoving = true;
-        isTurning = false;
+    }
+
+    public void Distracted(GameObject machine)
+    {
+        isDistracted = true;
+        this.machine = machine;
+        moveDirection = (machine.transform.position - transform.position).normalized;
+        if (Mathf.RoundToInt(moveDirection.x) != dir.x)
+            ChangeDir();
+    }
+
+    public void Focused()
+    {
+        isDistracted = false;
     }
 
     private IEnumerator Alerted()
@@ -132,9 +184,16 @@ public class BasicEnemy : MonoBehaviour
   
         for(int i=0; i<alertDuration;i++)//check if player is still in enemy sight
         {
-            if (SeeThePlayer())
+            if (SeeThePlayer() && !isStunned)
             {
                 playerDetected = true;
+                SceneManager.LoadScene("GameOverScreen");
+                //future coroutine that loads enemy shooting animation
+                break;
+            }
+            else if(isStunned || isDistracted)
+            {
+                alerted = false;
                 break;
             }
             else if(i== alertDuration-1)
@@ -142,7 +201,7 @@ public class BasicEnemy : MonoBehaviour
                 isMoving = true;
                 alerted = false;
             }
-                
+            
             yield return new WaitForSeconds(0.1f);
         }
     }

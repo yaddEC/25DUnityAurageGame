@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Movement : MonoBehaviour
+public class ShootingScript : MonoBehaviour
 {
     public GameObject aimingArrow;
     public GameObject bullet;
