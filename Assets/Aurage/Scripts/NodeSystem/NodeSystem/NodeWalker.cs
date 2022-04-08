@@ -7,11 +7,13 @@ using UnityEngine.InputSystem;
 public class NodeWalker : MonoBehaviour
 {
     /*[HideInInspector]*/ public PlayerMotion refPlayerMotion;
-
+    
     /*[HideInInspector]*/ public NodePath refNextNodePath;
     /*[HideInInspector]*/ public NodePath refPrevNodePath;
 
     /*[HideInInspector]*/ public NodePath refCurrNodePath;
+
+    ///*[HideInInspector]*/ public PowerManager refPowerManager;
 
     public float moveSpeed;
     public float rotationSpeed = 5.0f;
@@ -27,6 +29,8 @@ public class NodeWalker : MonoBehaviour
         refPrevNodePath = GameObject.FindObjectOfType<NodePath>();
 
         refCurrNodePath = GameObject.FindObjectOfType<NodePath>();
+
+        //refPowerManager = GameObject.FindObjectOfType<NodePath>();
     }
 
     private void Update()
@@ -60,6 +64,8 @@ public class NodeWalker : MonoBehaviour
 
     public void WalkOnPath()
     {
+        //refPowerManager.canLoosePower = false;
+
         var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
 
         refCurrNodePath = NodePath.NodePathTarget(InputManager.inputAxis, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);

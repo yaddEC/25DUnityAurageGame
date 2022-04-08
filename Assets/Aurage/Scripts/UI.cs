@@ -8,7 +8,7 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     public void StartGame()
     {
-        SceneManager.LoadScene("EnemyScene");
+        SceneManager.LoadScene("LD_Prototype");
     }
 
     public void QuitGame()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PowerManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PowerManager : MonoBehaviour
     [Header("Charging Stats")]
     public float unchargePowerDelta;
     public bool isCharging = false;
+
+    public bool canLoosePower = true;
 
     [Header("Player Stats")]
     public bool outOfPower;
@@ -29,12 +32,12 @@ public class PowerManager : MonoBehaviour
     private void Update()
     {
         if (outOfPower)
-            StartCoroutine(OnOutOfPowerEvent());
+            /*StartCoroutine(*/OnOutOfPowerEvent()/*)*/;
     }
 
-    private IEnumerator OnOutOfPowerEvent()
+    private void OnOutOfPowerEvent()
     {
-        refPlayer.GetComponent<MeshRenderer>().enabled = false;
+        /*refPlayer.GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSecondsRealtime(2f);
 
         refPlayer.GetComponent<MeshRenderer>().enabled = true;
@@ -42,7 +45,9 @@ public class PowerManager : MonoBehaviour
         outOfPower = false;
 
         refPlayer.transform.position = waypoint.position;
-        refGeneratorStation.RestoreGeneratorStateEvent();
+        refGeneratorStation.RestoreGeneratorStateEvent();*/
+
+        SceneManager.LoadScene("GameOverScreen");
     }
 }
 
