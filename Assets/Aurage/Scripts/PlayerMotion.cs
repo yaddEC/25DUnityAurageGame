@@ -12,6 +12,9 @@ public class PlayerMotion : MonoBehaviour
 
     public float dashSpeed;
     public float dashGravity;
+    public bool canDash = true;
+    public float dashCooldown = 10f;
+    public float cachedDashCooldown;
 
     public int currentplan;
     public float changePlanTime;
@@ -29,6 +32,8 @@ public class PlayerMotion : MonoBehaviour
     //--------------------------------------------------
     private void Awake()
     {
+        cachedDashCooldown = dashCooldown;
+
         rb = GetComponent<Rigidbody>();
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
         currentplan = 1;
@@ -37,6 +42,15 @@ public class PlayerMotion : MonoBehaviour
     private void Update()
     {
         MovementUpdate();
+
+        if (!canDash)
+            dashCooldown -= Time.deltaTime;
+
+        if (dashCooldown <= 0)
+        {
+            dashCooldown = cachedDashCooldown;
+            canDash = true;
+        }
     }
 
     private void FixedUpdate()
@@ -78,6 +92,7 @@ public class PlayerMotion : MonoBehaviour
     private void Dash(Vector2 input)
     {
         rb.velocity += new Vector3(input.x, input.y, 0).normalized * dashSpeed;
+        canDash = false;
     }
 
     private void GroundCheck()
@@ -107,7 +122,7 @@ public class PlayerMotion : MonoBehaviour
     //--------------------------------------------------
     private void DashCheck()
     {
-        if (InputManager.performDash)
+        if (InputManager.performDash && canDash)
         {
             isInPath = false;
             Dash(InputManager.inputAxis);
