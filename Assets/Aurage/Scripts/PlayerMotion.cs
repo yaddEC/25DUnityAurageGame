@@ -5,168 +5,123 @@ using UnityEngine.InputSystem;
 
 public class PlayerMotion : MonoBehaviour
 {
+    private NodeWalker refNodeWalker;
+
     public float moveSpeed;
     public int[] planList;
-    public float planChangeSpeed;
-    public float jumpPower;
+
     public float dashSpeed;
-    public float airTime;
+    public float dashGravity;
 
-    public bool isInLamp;
+    public int currentplan;
+    public float changePlanTime;
+
+    public bool canBeDetectedByRaycast = true;
     public bool isInPath;
-    public Vector3 lockPosition;
 
-    public Rigidbody playerBody;
-    private Transform playerPos;
+    public Rigidbody rb;
     private Vector3 velocity = Vector3.zero;
-    public Vector2 RLValue;
-    private int PlanValue = -1;
-    private bool changePlanDone = true;
-    private bool isDashing = false;
-    private int index = 0;
-    private bool changePlan = false;
 
-    public bool xPressed = false;
     public bool isGrounded;
 
-    private void SwitPlan(int _ud)
+    //--------------------------------------------------
+    private void Awake()
     {
-        if (!changePlanDone)
+        rb = GetComponent<Rigidbody>();
+        refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
+        currentplan = 1;
+    }
+
+    private void Update()
+    {
+        MovementUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        MovementFixedUpdate();
+    }
+
+    //--------------------------------------------------
+    private void MovementUpdate()
+    {
+        if (!isInPath)
         {
+            rb.useGravity = true;
+            GroundCheck();
+        }
+        else
+        {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
 
-            if (_ud == -1 && index != 0 && playerPos.position.z <= planList[index - 1]+0.01)
-            {
-                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
-                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planList[index - 1]);
-                index--;
-                changePlanDone = true;
-                return;
-            } 
-            else if (_ud == 1 && index != planList.Length-1 && playerPos.position.z >= planList[index+1] - 0.01)
-            {
-                playerBody.velocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, 0);
-                playerPos.position = new Vector3(playerPos.position.x, playerPos.position.y, planList[index + 1]);
-                index++;
-                changePlanDone = true;
-                return;
-            }
-            else if (_ud == 0 || (_ud == -1 && index == 0) || (_ud == 1 && index == planList.Length - 1))
-            {
-                changePlanDone = true;
-                return;
-            }
-
-            Vector3 newVelocity = new Vector3(playerBody.velocity.x, playerBody.velocity.y, (_ud * Time.deltaTime) * planChangeSpeed);
-            playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+            DashCheck();
         }
     }
+
+    private void MovementFixedUpdate()
+    {
+        if (!isInPath && isGrounded)
+            FloorMovement();
+
+        if (!isInPath)
+            rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+    }
+
     private void Move(Vector2 input)
     {
-        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * moveSpeed, playerBody.velocity.y);
-        playerBody.velocity = Vector3.SmoothDamp(playerBody.velocity, newVelocity, ref velocity, .05f);
+        Vector3 newVelocity = new Vector2((input.x * Time.deltaTime) * moveSpeed, rb.velocity.y);
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, newVelocity, ref velocity, .05f);
+    }
+    private void Dash(Vector2 input)
+    {
+        rb.velocity += new Vector3(input.x, input.y, 0).normalized * dashSpeed;
     }
 
     private void GroundCheck()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.55f);
     }
-    IEnumerator fastFall()
+
+    private void FloorMovement()
     {
-        yield return 12;
-        playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
-        for (float i = airTime; i >= 0; i -= Time.deltaTime)
-        {
-            if (i <= 0) i = 0;
-            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y - i);
-        }
-        yield return null;  
+        DashCheck();
+        PlanCheck();
+
+        Move(InputManager.inputAxis);
     }
 
-    private void Dash(Vector2 input)
+    private IEnumerator RaycastDetection()
     {
-        Vector3 newVelocity = new Vector2(input.x, input.y) * dashSpeed * Time.deltaTime;
-        playerBody.velocity = newVelocity;
-        StartCoroutine(fastFall());
-        isDashing = false;
-    }
-    private void FreezPos()
-    {
-        playerPos.localPosition = lockPosition;
-        playerBody.velocity = new Vector3(0, 0, 0);
-    }
-    //-------------------------
-
-    private void Awake()
-    {
-        playerBody = GetComponent<Rigidbody>();
-        playerPos = GetComponent<Transform>();
+        canBeDetectedByRaycast = false;
+        yield return new WaitUntil(() => isGrounded == true);
+        canBeDetectedByRaycast = true;
     }
 
-    private void Update()
+    private void ChangePlan()
     {
-        if (isInPath)
-            playerBody.useGravity = false;
-        else
-        {
-            GroundCheck();
-            playerBody.useGravity = true;
-        }
+        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length)
+            currentplan += 1;
+        else if (InputManager.inputAxis.y < 0 && currentplan != 0)
+            currentplan -= 1;
 
+        transform.position = new Vector3(transform.position.x, transform.position.y, planList[currentplan]);
+        InputManager.performChangePlan = false;
     }
 
-    private void FixedUpdate()
+    //--------------------------------------------------
+    private void DashCheck()
     {
-        if (isInLamp)
+        if (InputManager.performDash)
         {
-            if (isDashing)
-            {
-                Dash(RLValue);
-                isInLamp = false;
-            }
-            FreezPos();
-        }
-        else if (isInPath)
-        {
-            if (isDashing)
-            {
-                Dash(RLValue);
-            }
-
-        }
-        else
-        {
-            if (isGrounded)
-            {
-                if (isDashing)
-                {
-                    Dash(RLValue);
-                }
-                else
-                    SwitPlan(PlanValue);
-            }
-            Move(RLValue);
+            isInPath = false;
+            Dash(InputManager.inputAxis);
+            StartCoroutine(RaycastDetection());
         }
     }
-
-    public void onPlanInput(InputAction.CallbackContext context)
+    private void PlanCheck()
     {
-        if (context.performed) 
-        {
-            changePlan = true;
-            PlanValue = Mathf.RoundToInt(RLValue.y);
-            changePlanDone = false;
-        }
-    }
-    public void onMoveRightLeft(InputAction.CallbackContext context)
-    {
-        RLValue = context.ReadValue<Vector2>();
-    }
-    public void onDashPressed(InputAction.CallbackContext context)
-    {
-        isDashing = context.performed;
-    }
-    public void onXPressed(InputAction.CallbackContext context)
-    {
-        xPressed = context.performed;
+        if (InputManager.performChangePlan && InputManager.inputAxis.y != 0)
+            ChangePlan();
     }
 }

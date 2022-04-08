@@ -6,23 +6,27 @@ using UnityEngine.InputSystem;
 
 public class NodeWalker : MonoBehaviour
 {
-    public PlayerMotion refPlayerMotion;
+    [HideInInspector] public PlayerMotion refPlayerMotion;
 
-    public NodePath refNextNodePath;
-    public NodePath refPrevNodePath;
+    [HideInInspector] public NodePath refNextNodePath;
+    [HideInInspector] public NodePath refPrevNodePath;
 
-    public NodePath refCurrNodePath;
+    [HideInInspector] public NodePath refCurrNodePath;
 
     public float moveSpeed;
     public float rotationSpeed = 5.0f;
 
-    public bool isOnNode = false;
-    public bool isFreezed = false;
-    public bool xPressed = false;
+    private bool isOnNode = false;
+    [HideInInspector] public bool isFreezed = false;
 
-    private void Start()
+    private void Awake()
     {
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+
+        refNextNodePath = GameObject.FindObjectOfType<NodePath>();
+        refPrevNodePath = GameObject.FindObjectOfType<NodePath>();
+
+        refCurrNodePath = GameObject.FindObjectOfType<NodePath>();
     }
 
     private void Update()
@@ -31,36 +35,35 @@ public class NodeWalker : MonoBehaviour
 
         if (refCurrNodePath.hitPath)
         {
-            refPlayerMotion.transform.position = refCurrNodePath.t.position;
-            refPlayerMotion.playerBody.velocity = Vector3.zero;
-            refPlayerMotion.isGrounded = true;
+            //refPlayerMotion.transform.position = refCurrNodePath.t.position;
             refCurrNodePath.hitPath = false;
         }
 
         if (isOnNode)
-        {
-            refCurrNodePath.OnPlayerNodePath();
+            OnNodeHandler();
 
-            if (!refPlayerMotion.xPressed)
-                isFreezed = true;
-            else
-                isFreezed = false;
-
-            if (isFreezed)
-            {
-                FreezeOnNode();
-            }
-        }
-
-        if (refPlayerMotion.isInPath && !isFreezed && refPlayerMotion.RLValue.x != 0)
+        if (refPlayerMotion.isInPath && !isFreezed && InputManager.inputAxis.x != 0)
             WalkOnPath();
+    }
+
+    private void OnNodeHandler()
+    {
+        refCurrNodePath.OnPlayerNodePath();
+
+        if (!InputManager.performX)
+            isFreezed = true;
+        else
+            isFreezed = false;
+
+        if (isFreezed)
+            FreezeOnNode();
     }
 
     public void WalkOnPath()
     {
         var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
 
-        refCurrNodePath = NodePath.NodePathTarget(refPlayerMotion.RLValue, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);
+        refCurrNodePath = NodePath.NodePathTarget(InputManager.inputAxis, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);
 
         transform.position = Vector3.MoveTowards(transform.position, refCurrNodePath.transform.position, moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, moveSpeed * Time.deltaTime);

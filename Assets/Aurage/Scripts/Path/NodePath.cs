@@ -9,9 +9,6 @@ public class NodePath : MonoBehaviour
 
     public Color lineColor = Color.white;
     public List<NodePath> nodePoints = new List<NodePath>();
-    public GameObject colliderPrefab;
-
-    public Transform t;
 
     public bool hitPath = false;
 
@@ -36,14 +33,14 @@ public class NodePath : MonoBehaviour
 
     private void Update()
     {
-        if(!refNodeWalker.refPlayerMotion.isInPath)
+        if(!refNodeWalker.refPlayerMotion.isInPath && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast)
             CheckRaycast();
     }
 
     public void OnPlayerNodePath()
     {
         refNodeWalker.refPrevNodePath = this;
-        refNodeWalker.refNextNodePath = NodePathTarget(refNodeWalker.refPlayerMotion.RLValue, nodePoints.ToArray(), refNodeWalker.transform);
+        refNodeWalker.refNextNodePath = NodePathTarget(InputManager.inputAxis, nodePoints.ToArray(), refNodeWalker.transform);
     }
 
     private void SetNodeReferences(NodePath nodePath)
@@ -76,12 +73,12 @@ public class NodePath : MonoBehaviour
             if(Physics.Linecast(transform.position, node.transform.position, out hit, refNodeReference.mask))
             {
                 hitPath = true;
-                t.position = hit.point;
-                refNodeWalker.refPlayerMotion.transform.position = t.position;
+                //t.position = hit.point;
+                //refNodeWalker.refPlayerMotion.transform.position = t.position;
 
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;
-
+                refNodeWalker.refPrevNodePath = node;
                 refNodeWalker.refCurrNodePath = node;
                 refNodeWalker.refNextNodePath = this;
             }

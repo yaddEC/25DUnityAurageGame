@@ -9,6 +9,8 @@ TagManager:
   - NodeHolder
   - BasicEnemy
   - Turret
+  - HolderPath
+  - NodeContainer
   layers:
   - Default
   - TransparentFX
