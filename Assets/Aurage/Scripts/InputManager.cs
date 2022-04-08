@@ -5,18 +5,22 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private Vector2 InspectorInputAxis;
-
-    [SerializeField] private bool InspectorPerformChangePlan;
     [SerializeField] private bool InspectorPerformDash;
+    [SerializeField] private Vector2 InspectorInputAxis;
 
     [SerializeField] private bool InspectorXPressed;
     [SerializeField] private bool InspectorBPressed;
+    [SerializeField] private bool InspectorAPressed;
+
+    [SerializeField] private bool InspectorPerformChangePlan;
 
     public static bool performDash;
     public static Vector2 inputAxis;
+
     public static bool performX;
     public static bool performB;
+    public static bool performA;
+
     public static bool performChangePlan;
     public void onPlanInput(InputAction.CallbackContext context)
     {
@@ -39,12 +43,20 @@ public class InputManager : MonoBehaviour
         performB = context.performed;
     }
 
+    public void onAInput(InputAction.CallbackContext context)
+    {
+        performA = context.performed;
+    }
+
     private void Update()
     {
         InspectorPerformDash = performDash;
         InspectorInputAxis = inputAxis;
+
         InspectorXPressed = performX;
         InspectorBPressed = performB;
+        InspectorAPressed = performA;
+
         InspectorPerformChangePlan = performChangePlan;
     }
 }

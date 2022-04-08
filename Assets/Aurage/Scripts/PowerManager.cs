@@ -30,9 +30,6 @@ public class PowerManager : MonoBehaviour
     {
         if (outOfPower)
             StartCoroutine(OnOutOfPowerEvent());
-
-        if (currentPower > maxPower)
-            currentPower = maxPower;
     }
 
     private IEnumerator OnOutOfPowerEvent()

@@ -21,6 +21,8 @@ public class GeneratorStation : MonoBehaviour
     public bool canCharge = true;
     private GameObject[] generatorsList;
 
+    private bool isFreezed = false;
+
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
@@ -35,6 +37,17 @@ public class GeneratorStation : MonoBehaviour
 
     private void Update()
     {
+        if (refPowerManager.currentPower >= refPowerManager.maxPower && refGenerator.isMachinUsed)
+        {
+            Debug.Log("ehere");
+
+            canCharge = false;
+            refPowerManager.currentPower = refPowerManager.maxPower;
+        }
+
+        if (isFreezed)
+            FreezePlayer();
+
         if (refPowerManager.isCharging)
             StartCoroutine(PluggedEvent(chargingPowerDelta));
         else if (!refPowerManager.isCharging && !refPowerManager.outOfPower)
@@ -74,14 +87,22 @@ public class GeneratorStation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && canCharge /*input pour interact*/)
+        checkointActivated = true;
+        refPowerManager.waypoint = transform;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player" && canCharge && InputManager.performB)
         {
             refGenerator.isMachinUsed = true;
             refPowerManager.isCharging = true;
-
-            checkointActivated = true;
-            refPowerManager.waypoint = transform;
         }
+
+        if (canCharge && !InputManager.performDash)
+            isFreezed = true;
+        else if (InputManager.performDash)
+            isFreezed = false;
     }
 
     private void OnTriggerExit(Collider other)
@@ -93,5 +114,10 @@ public class GeneratorStation : MonoBehaviour
             canCharge = false;
             meshRenderer.material = refGenerator.machineMaterials[0];
         }
+    }
+
+    private void FreezePlayer()
+    {
+        refPlayerMotion.transform.position = transform.position;
     }
 }
