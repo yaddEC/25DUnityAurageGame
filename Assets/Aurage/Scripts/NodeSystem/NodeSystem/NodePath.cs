@@ -76,8 +76,6 @@ public class NodePath : MonoBehaviour
             if(Physics.Linecast(transform.position, node.transform.position, out hit, refNodeReference.mask))
             {
                 hitPath = true;
-                //t.position = hit.point;
-                //refNodeWalker.refPlayerMotion.transform.position = t.position;
 
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;

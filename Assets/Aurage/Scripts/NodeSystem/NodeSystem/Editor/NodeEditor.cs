@@ -9,13 +9,13 @@ public class NodeEditor : Editor
         base.OnInspectorGUI();
         NodeBuilder builder = (NodeBuilder)target;
 
-        if(GUILayout.Button("Build NodeHolder"))
+        if(GUILayout.Button("Create NodeHolder"))
             builder.BuildNodeHolder();
 
         if (GUILayout.Button("Destroy Last NodeHolder"))
-            builder.DestroyNodeHolder();
+            builder.DestroyLastNodeHolder();
 
-        if (GUILayout.Button("Destroy All"))
-            builder.DestroyAll();
+        if (GUILayout.Button("Destroy All NodeHolders"))
+            builder.DestroyAllNodeHolders();
     }
 }

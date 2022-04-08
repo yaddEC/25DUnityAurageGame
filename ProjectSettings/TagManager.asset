@@ -11,6 +11,8 @@ TagManager:
   - Turret
   - HolderPath
   - NodeContainer
+  - Wall
+  - Radio
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Obstacle
   - Edge
   - PathLayer
-  - 
+  - Wall
   - 
   - 
   - 

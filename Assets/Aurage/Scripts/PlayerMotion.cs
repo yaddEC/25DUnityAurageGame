@@ -22,6 +22,8 @@ public class PlayerMotion : MonoBehaviour
     public Rigidbody rb;
     private Vector3 velocity = Vector3.zero;
 
+    public LayerMask wallMask;
+
     public bool isGrounded;
 
     //--------------------------------------------------
@@ -91,18 +93,11 @@ public class PlayerMotion : MonoBehaviour
         Move(InputManager.inputAxis);
     }
 
-    private IEnumerator RaycastDetection()
+    private void ChangePlan(bool f, bool b)
     {
-        canBeDetectedByRaycast = false;
-        yield return new WaitUntil(() => isGrounded == true);
-        canBeDetectedByRaycast = true;
-    }
-
-    private void ChangePlan()
-    {
-        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length)
+        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length && !f)
             currentplan += 1;
-        else if (InputManager.inputAxis.y < 0 && currentplan != 0)
+        else if (InputManager.inputAxis.y < 0 && currentplan != 0 && !b)
             currentplan -= 1;
 
         transform.position = new Vector3(transform.position.x, transform.position.y, planList[currentplan]);
@@ -121,7 +116,17 @@ public class PlayerMotion : MonoBehaviour
     }
     private void PlanCheck()
     {
+        var hitForward = Physics.Raycast(transform.position, Vector3.forward, 2, wallMask);
+        var hitBackward = Physics.Raycast(transform.position, Vector3.back, 2, wallMask);
+
         if (InputManager.performChangePlan && InputManager.inputAxis.y != 0)
-            ChangePlan();
+            ChangePlan(hitForward, hitBackward);
+    }
+
+    private IEnumerator RaycastDetection()
+    {
+        canBeDetectedByRaycast = false;
+        yield return new WaitUntil(() => isGrounded == true);
+        canBeDetectedByRaycast = true;
     }
 }
