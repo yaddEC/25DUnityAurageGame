@@ -22,6 +22,8 @@ public class PlayerMotion : MonoBehaviour
     public Rigidbody rb;
     private Vector3 velocity = Vector3.zero;
 
+    public LayerMask wallMask;
+
     public bool isGrounded;
 
     //--------------------------------------------------
@@ -100,9 +102,12 @@ public class PlayerMotion : MonoBehaviour
 
     private void ChangePlan()
     {
-        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length)
+        var hitForward = Physics.Raycast(transform.position, Vector3.forward, 2, wallMask);
+        var hitBackward = Physics.Raycast(transform.position, Vector3.back, 2, wallMask);
+
+        if (InputManager.inputAxis.y > 0 && currentplan != planList.Length && !hitForward)
             currentplan += 1;
-        else if (InputManager.inputAxis.y < 0 && currentplan != 0)
+        else if (InputManager.inputAxis.y < 0 && currentplan != 0 && !hitBackward)
             currentplan -= 1;
 
         transform.position = new Vector3(transform.position.x, transform.position.y, planList[currentplan]);
@@ -122,6 +127,8 @@ public class PlayerMotion : MonoBehaviour
     private void PlanCheck()
     {
         if (InputManager.performChangePlan && InputManager.inputAxis.y != 0)
+        {
             ChangePlan();
+        }
     }
 }

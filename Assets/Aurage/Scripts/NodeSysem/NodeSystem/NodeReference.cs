@@ -24,6 +24,9 @@ public struct Node
 
 public class NodeReference : MonoBehaviour
 {
+    private GameObject node;
+    private static int index;
+
     public LayerMask mask;
 
     public List<Node> nodes = new List<Node>();
@@ -43,6 +46,46 @@ public class NodeReference : MonoBehaviour
         foreach (Transform node in nodeList)
         {
             nodes.Add(Node.CreateNode(int.Parse(node.gameObject.name), node.gameObject, node.gameObject.transform));
+            //Gizmos.DrawIcon(node.position,  , true);
         }
+
+    }
+
+    public void CreateNode()
+    {
+        node = new GameObject();
+        node.transform.SetParent(this.transform);
+        var noderef = node.AddComponent<NodeReference>();
+        noderef.mask = NodeSettings.mask;
+
+        node.name = index.ToString();
+        node.tag = "Node";
+        index++;
+    }
+
+    public void DestroyLastNode()
+    {
+        var indexList = nodeList.Count - 1;
+        var t = nodeList[indexList];
+
+        nodeList.RemoveAt(indexList);
+        DestroyImmediate(t.gameObject);
+        index--;
+        CheckIndexReference();
+    }
+
+    public void DestroyAllNodes()
+    {
+        foreach (Transform node in nodeList)
+        {
+            Destroy(node);
+        }
+        nodeList.Clear();
+    }
+
+    private void CheckIndexReference()
+    {
+        if (index < 0)
+            index = 0;
     }
 }
