@@ -14090,6 +14090,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3928456724254306904}
   - component: {fileID: 2239515939792607513}
+  - component: {fileID: 9063798411466262771}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -14136,6 +14137,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9063798411466262771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051619359371699684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6324c796171e9d4c8b19f2dbda38b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightDistance: 5
+  rotation: 180
+  rotationSpeed: 100
+  speed: 1
+  sightAngle: 0
+  safeTimeAlert: 2
+  alertDuration: 30
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
+  edge:
+    serializedVersion: 2
+    m_Bits: 0
+  player: {fileID: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &2136634890224140668
 GameObject:
   m_ObjectHideFlags: 0
