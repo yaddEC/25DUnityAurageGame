@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RadioBehavior : MonoBehaviour
 {
+    private GameObject radioZoneClone;
+    private bool isZoneActive;
     public GameObject radioZone;
-    GameObject radioZoneClone;
-    public bool isZoneActive;
     public float distractionDuration=5;
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,6 @@ public class RadioBehavior : MonoBehaviour
     {
         if(!isZoneActive)
         {
-
             radioZoneClone = Instantiate(radioZone, transform.position, Quaternion.identity);
             isZoneActive = true;
         }

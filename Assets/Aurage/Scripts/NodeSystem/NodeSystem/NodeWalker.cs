@@ -17,7 +17,7 @@ public class NodeWalker : MonoBehaviour
     public float rotationSpeed = 5.0f;
 
     private bool isOnNode = false;
-    [HideInInspector] public bool isFreezed = false;
+    /*[HideInInspector]*/ public bool isFreezed = false;
 
     private void Awake()
     {
@@ -33,11 +33,6 @@ public class NodeWalker : MonoBehaviour
     {
         isOnNode = Vector3.Distance(transform.position, refCurrNodePath.transform.position) < 0.1f;
 
-        if (refCurrNodePath.hitPath)
-        {
-            refCurrNodePath.hitPath = false;
-        }
-
         if (isOnNode)
             OnNodeHandler();
 
@@ -49,8 +44,13 @@ public class NodeWalker : MonoBehaviour
     {
         refCurrNodePath.OnPlayerNodePath();
 
-        if (!InputManager.performX)
-            isFreezed = true;
+        if (NodeSettings.canStopOnNode)
+        {
+            if (!InputManager.performX)
+                isFreezed = true;
+            else
+                isFreezed = false;
+        }
         else
             isFreezed = false;
 

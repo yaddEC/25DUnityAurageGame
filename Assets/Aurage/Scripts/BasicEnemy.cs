@@ -8,16 +8,15 @@ public class BasicEnemy : MonoBehaviour
     // Start is called before the first frame update
     
     private Rigidbody rigidbody;
-    public bool alerted;
-    public bool playerDetected;
-    public bool isMoving;
-    public bool isTurning;
-    public bool isStunned;
-    public bool isDistracted;
+    private bool alerted;
+    private bool playerDetected;
+    private bool isMoving;
+    private bool isTurning;
+    private bool isStunned;
+    private bool isDistracted;
     public float sightDistance;
     public float rotation = 180;
     public float rotationSpeed = 100;
-    public float rotationDuration = 3;
     public float speed;
     public float sightAngle;
     public float safeTimeAlert = 2;
@@ -26,9 +25,9 @@ public class BasicEnemy : MonoBehaviour
     public LayerMask edge;
     public GameObject player;
     private GameObject machine;
-    public Vector3 dir;
-    public Vector3 moveDirection;
-    Coroutine lastRoutine;
+    private Vector3 dir;
+    [HideInInspector] public Vector3 moveDirection;
+    private Coroutine lastRoutine;
 
     void Start()
     {

@@ -10,11 +10,30 @@ public class NodeBuilder : MonoBehaviour
     [SerializeField] private bool containerHolderCreated;
     [SerializeField] private List<GameObject> nodeHolders = new List<GameObject>();
 
+    private void Update()
+    {
+        foreach (GameObject nodeHolder in nodeHolders)
+        {
+            if (nodeHolder.transform.parent != container)
+                nodeHolder.transform.parent = container;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        foreach (GameObject nodeHolder in nodeHolders)
+        {
+            if (nodeHolder.transform.parent != container)
+                nodeHolder.transform.parent = container;
+        }
+    }
+
     private void CreateNodeHolder()
     {
         nodeHolder = new GameObject();
         nodeHolder.transform.SetParent(container);
-        nodeHolder.AddComponent<NodeReference>();
+        var noderef = nodeHolder.AddComponent<NodeReference>();
+        noderef.mask = NodeSettings.mask;
 
         nodeHolder.name = "NodeHolder";
         nodeHolder.tag = "NodeHolder";
@@ -44,7 +63,7 @@ public class NodeBuilder : MonoBehaviour
             CreateNodeHolder();
     }
 
-    public void DestroyNodeHolder()
+    public void DestroyLastNodeHolder()
     {
 
         var index = nodeHolders.Count -1;
@@ -60,7 +79,7 @@ public class NodeBuilder : MonoBehaviour
         }
     }
 
-    public void DestroyAll()
+    public void DestroyAllNodeHolders()
     {
         foreach (GameObject nodeHolder in nodeHolders)
         {
