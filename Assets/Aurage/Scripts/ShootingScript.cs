@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class ShootingScript : MonoBehaviour
 {
-    public GameObject aimingArrow;
-    public GameObject rotationAxis;
-    public GameObject bullet;
+    private GameObject aimingArrow;
+    private GameObject rotationAxis;
+    private GameObject bullet;
     private GameObject rotationAxisClone;
     private GameObject aimingArrowClone;
     private GameObject bulletClone;
@@ -18,6 +18,9 @@ public class ShootingScript : MonoBehaviour
 
     private void Start()
     {
+        aimingArrow = Resources.Load<GameObject>("Prefabs/AimingArrow");
+        rotationAxis = Resources.Load<GameObject>("Prefabs/RotationAxis");
+        bullet = Resources.Load<GameObject>("Prefabs/ElectricityBullet");
         rotationAxisClone = Instantiate(rotationAxis, transform.position , Quaternion.identity);
         aimingArrowClone = Instantiate(aimingArrow, transform.position + Vector3.right, Quaternion.identity);
         playerPower = gameObject.GetComponent<PowerManager>();

@@ -6,11 +6,12 @@ public class RadioBehavior : MonoBehaviour
 {
     private GameObject radioZoneClone;
     private bool isZoneActive;
-    public GameObject radioZone;
+    private GameObject radioZone;
     public float distractionDuration=5;
     // Start is called before the first frame update
     void Start()
     {
+        radioZone = Resources.Load<GameObject>("Prefabs/RadioDetection");
         isZoneActive = false;
     }
 
