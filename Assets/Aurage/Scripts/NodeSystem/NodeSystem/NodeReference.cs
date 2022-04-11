@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [System.Serializable]
 public struct Node
@@ -46,13 +47,16 @@ public class NodeReference : MonoBehaviour
         foreach (Transform node in nodeList)
         {
             nodes.Add(Node.CreateNode(int.Parse(node.gameObject.name), node.gameObject, node.gameObject.transform));
-            //Gizmos.DrawIcon(node.position,  , true);
+            Gizmos.DrawIcon(node.position, "Light Gizmo.tiff", true);
         }
 
     }
 
     public void CreateNode()
     {
+        if (nodeList.Count < index)
+            index = nodeList.Count;
+
         node = new GameObject();
         node.transform.SetParent(this.transform);
         var noderef = node.AddComponent<NodeReference>();
@@ -76,11 +80,10 @@ public class NodeReference : MonoBehaviour
 
     public void DestroyAllNodes()
     {
-        foreach (Transform node in nodeList)
+        foreach (Node node in nodes)
         {
-            Destroy(node);
+            DestroyImmediate(node.nodeObject);
         }
-        nodeList.Clear();
     }
 
     private void CheckIndexReference()

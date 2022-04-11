@@ -17,6 +17,8 @@ public class PlayerMotion : MonoBehaviour
     public float dashCooldown = 10f;
     public float cachedDashCooldown;
 
+    public float dashPower = 10;
+
     public int currentplan;
     public float changePlanTime;
 
@@ -77,16 +79,19 @@ public class PlayerMotion : MonoBehaviour
             rb.velocity = Vector3.zero;
             refPowerManager.canLoosePower = false;
 
-            DashCheck();
+            if (NodeSettings.canDashOnNode)
+                DashCheck();
+            else
+                canDash = false;
         }
     }
 
     private void MovementFixedUpdate()
     {
-        if (!isInPath && isGrounded )
+        if (!isInPath && isGrounded)
             FloorMovement();
 
-        if (!isInPath )
+        if (!isInPath)
             rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
@@ -98,8 +103,8 @@ public class PlayerMotion : MonoBehaviour
     private void Dash(Vector2 input)
     {
         rb.velocity += new Vector3(input.x, input.y, 0).normalized * dashSpeed;
+        refPowerManager.currentPower -= dashPower;
         canDash = false;
-        refPowerManager.currentPower -= 10;
     }
 
     private void GroundCheck()

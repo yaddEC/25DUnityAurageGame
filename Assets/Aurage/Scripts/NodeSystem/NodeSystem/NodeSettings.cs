@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NodeSettings : MonoBehaviour
 {
+    [Header("NodeSystem Config")]
     public bool DashOnNode = false;
     public bool ClampOnCable = false;
     public bool StopOnNode = false;

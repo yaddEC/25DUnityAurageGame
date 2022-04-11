@@ -13,8 +13,6 @@ public class NodeWalker : MonoBehaviour
 
     /*[HideInInspector]*/ public NodePath refCurrNodePath;
 
-    ///*[HideInInspector]*/ public PowerManager refPowerManager;
-
     public float moveSpeed;
     public float rotationSpeed = 5.0f;
 
@@ -29,19 +27,21 @@ public class NodeWalker : MonoBehaviour
         refPrevNodePath = GameObject.FindObjectOfType<NodePath>();
 
         refCurrNodePath = GameObject.FindObjectOfType<NodePath>();
-
-        //refPowerManager = GameObject.FindObjectOfType<NodePath>();
     }
 
     private void Update()
     {
         isOnNode = Vector3.Distance(transform.position, refCurrNodePath.transform.position) < 0.1f;
 
-        if (isOnNode)
-            OnNodeHandler();
+        if (NodeSettings.canClampOnCable)
+        {
+            if (isOnNode)
+                OnNodeHandler();
 
-        if (refPlayerMotion.isInPath && !isFreezed && InputManager.inputAxis.x != 0)
-            WalkOnPath();
+            if (refPlayerMotion.isInPath && !isFreezed && InputManager.inputAxis.x != 0)
+                WalkOnPath();
+        }
+        else Debug.Log("yes");
     }
 
     private void OnNodeHandler()
@@ -64,8 +64,6 @@ public class NodeWalker : MonoBehaviour
 
     public void WalkOnPath()
     {
-        //refPowerManager.canLoosePower = false;
-
         var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
 
         refCurrNodePath = NodePath.NodePathTarget(InputManager.inputAxis, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);
