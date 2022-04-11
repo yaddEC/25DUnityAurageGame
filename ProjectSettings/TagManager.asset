@@ -13,6 +13,8 @@ TagManager:
   - NodeContainer
   - Wall
   - Radio
+  - Enemy
+  - Vignetage
   layers:
   - Default
   - TransparentFX
