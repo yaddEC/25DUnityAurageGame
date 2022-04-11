@@ -31,7 +31,7 @@ public class PowerManager : MonoBehaviour
 
     private void Update()
     {
-        if (outOfPower || Killzone.isDead)
+        if (outOfPower || KillZone.isDead)
             /*StartCoroutine(*/OnOutOfPowerEvent()/*)*/;
     }
 
