@@ -36,7 +36,7 @@ public class NodePath : MonoBehaviour
 
     private void Update()
     {
-        if(!refNodeWalker.refPlayerMotion.isInPath && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast)
+        if(!refNodeWalker.refPlayerMotion.isInPath && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast && NodeSettings.canClampOnCable)
             CheckRaycast();
     }
 

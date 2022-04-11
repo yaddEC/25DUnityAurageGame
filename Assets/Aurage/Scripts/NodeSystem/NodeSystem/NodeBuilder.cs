@@ -7,6 +7,7 @@ public class NodeBuilder : MonoBehaviour
     [SerializeField] private GameObject nodeHolder;
     [SerializeField] private GameObject containerHolder;
     [SerializeField] private Transform container;
+    private Transform parentTransform;
     [SerializeField] private bool containerHolderCreated;
     [SerializeField] private List<GameObject> nodeHolders = new List<GameObject>();
 
@@ -21,6 +22,8 @@ public class NodeBuilder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        parentTransform = container;
+
         foreach (GameObject nodeHolder in nodeHolders)
         {
             if (nodeHolder.transform.parent != container)
@@ -31,7 +34,7 @@ public class NodeBuilder : MonoBehaviour
     private void CreateNodeHolder()
     {
         nodeHolder = new GameObject();
-        nodeHolder.transform.SetParent(container);
+        nodeHolder.transform.SetParent(parentTransform);
         var noderef = nodeHolder.AddComponent<NodeReference>();
         noderef.mask = NodeSettings.mask;
 
@@ -43,7 +46,7 @@ public class NodeBuilder : MonoBehaviour
     private void CreateNodeContainer()
     {
         containerHolder = new GameObject();
-        containerHolder.transform.SetParent(transform);
+        containerHolder.transform.SetParent(parentTransform);
 
         containerHolder.name = "NodeContainer";
         containerHolder.tag = "NodeContainer";

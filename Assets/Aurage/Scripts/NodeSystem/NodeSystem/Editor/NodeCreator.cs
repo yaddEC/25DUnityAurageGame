@@ -6,6 +6,8 @@ public class NodeCreator : Editor
 {
     public override void OnInspectorGUI()
     {
+        //NodeReference.node = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Aurage/Scripts/NodeSystem/Objects/Node.prefab", typeof(GameObject));
+
         base.OnInspectorGUI();
         NodeReference builder = (NodeReference)target;
 

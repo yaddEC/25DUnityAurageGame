@@ -8,12 +8,13 @@ public class BasicEnemy : MonoBehaviour
     // Start is called before the first frame update
     
     private Rigidbody rigidbody;
-    private bool alerted;
-    private bool playerDetected;
-    private bool isMoving;
-    private bool isTurning;
-    private bool isStunned;
-    private bool isDistracted;
+    public bool alerted;
+    public bool playerDetected;
+    public bool isMoving;
+    public bool isTurning;
+    public bool isStunned;
+    public float turning;
+    public bool isDistracted;
     public float sightDistance;
     public float rotation = 180;
     public float rotationSpeed = 100;
@@ -21,16 +22,19 @@ public class BasicEnemy : MonoBehaviour
     public float sightAngle;
     public float safeTimeAlert = 2;
     public float alertDuration = 30;
-    public LayerMask obstacle;
-    public LayerMask edge;
-    public GameObject player;
+    private LayerMask obstacle;
+    private LayerMask edge;
+    private GameObject player;
     private GameObject machine;
-    private Vector3 dir;
+    public Vector3 dir;
     [HideInInspector] public Vector3 moveDirection;
     private Coroutine lastRoutine;
 
     void Start()
     {
+        edge = LayerMask.NameToLayer("Edge");
+        obstacle = LayerMask.NameToLayer("Obstacle");
+        player = GameObject.FindGameObjectWithTag("Player");
         alerted = false;
         isMoving = true;
         dir = Vector3.right;
@@ -98,16 +102,16 @@ public class BasicEnemy : MonoBehaviour
 
     private IEnumerator Turning()//Coroutine that makes gradual rotation
     {
-        float turning;
+        
         isTurning = true;
         if (dir.x <= 0)
             turning = rotation;
         
         else
-            turning = 90;
+            turning = 270;
         
         
-        while( transform.eulerAngles.y!=turning)
+        while(transform.eulerAngles.y!=turning)
         {
             float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, turning, rotationSpeed * Time.deltaTime);
             transform.eulerAngles = new Vector3(0, angle, 0);
@@ -203,5 +207,16 @@ public class BasicEnemy : MonoBehaviour
             
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            SceneManager.LoadScene("GameOverScreen");
+        }
+
+
+
     }
 }

@@ -8,7 +8,8 @@ public class KillZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
             isDead = true;
     }
 }
+
