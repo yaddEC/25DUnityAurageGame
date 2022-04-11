@@ -208,4 +208,15 @@ public class BasicEnemy : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            SceneManager.LoadScene("GameOverScreen");
+        }
+
+
+
+    }
 }
