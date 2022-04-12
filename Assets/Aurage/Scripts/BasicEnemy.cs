@@ -213,7 +213,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !isStunned)
         {
             SceneManager.LoadScene("GameOverScreen");
         }
