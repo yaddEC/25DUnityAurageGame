@@ -35,12 +35,13 @@ public class LampStation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(canCharge)
-            StartCoroutine(LightSwitchEvent());
+        if(canCharge && other.CompareTag("Player"))
+            StartCoroutine(LightSwitchEvent(other));
     }
 
-    private IEnumerator LightSwitchEvent()
+    private IEnumerator LightSwitchEvent(Collider other)
     {
+        other.transform.localScale = Vector3.one / 4;
         isFreezed = true;
         refLamp.isMachinUsed = true;
         RestorePowerEvent();
@@ -49,6 +50,7 @@ public class LampStation : MonoBehaviour
         meshRenderer.material = refLamp.machineMaterials[0];
         canCharge = false;
         isFreezed = false;
+        other.transform.localScale = Vector3.one;
     }
 
     private void RestorePowerEvent()

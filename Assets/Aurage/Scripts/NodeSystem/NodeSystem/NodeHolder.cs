@@ -23,7 +23,7 @@ public struct Node
     }
 }
 
-public class NodeReference : MonoBehaviour
+public class NodeHolder : MonoBehaviour
 {
     private GameObject node;
     private static int index;
@@ -35,6 +35,8 @@ public class NodeReference : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        mask = NodeSettings.mask;
+
         nodeList.Clear(); nodes.Clear();
         nodeList.AddRange(GetComponentsInChildren<Transform>());
 
@@ -47,7 +49,7 @@ public class NodeReference : MonoBehaviour
         foreach (Transform node in nodeList)
         {
             nodes.Add(Node.CreateNode(int.Parse(node.gameObject.name), node.gameObject, node.gameObject.transform));
-            Gizmos.DrawIcon(node.position, "Light Gizmo.tiff", true);
+            Gizmos.DrawIcon(node.position, "NodeIcon.tiff", true);
         }
 
     }
@@ -59,8 +61,7 @@ public class NodeReference : MonoBehaviour
 
         node = new GameObject();
         node.transform.SetParent(this.transform);
-        var noderef = node.AddComponent<NodeReference>();
-        noderef.mask = NodeSettings.mask;
+        var noderef = node.AddComponent<NodePath>();
 
         node.name = index.ToString();
         node.tag = "Node";
@@ -75,7 +76,6 @@ public class NodeReference : MonoBehaviour
         nodeList.RemoveAt(indexList);
         DestroyImmediate(t.gameObject);
         index--;
-        CheckIndexReference();
     }
 
     public void DestroyAllNodes()
@@ -84,11 +84,5 @@ public class NodeReference : MonoBehaviour
         {
             DestroyImmediate(node.nodeObject);
         }
-    }
-
-    private void CheckIndexReference()
-    {
-        if (index < 0)
-            index = 0;
     }
 }

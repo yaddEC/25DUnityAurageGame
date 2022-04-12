@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class NodePath : MonoBehaviour
 {
-    private NodeReference refNodeReference;
     private NodeWalker refNodeWalker;
+    public NodeHolder refNodeHolder;
 
     public Color lineColor = Color.white;
     public List<NodePath> nodePoints = new List<NodePath>();
-
-    public bool hitPath = false;
 
     public bool isSocketEntry = false;
 
@@ -25,18 +23,17 @@ public class NodePath : MonoBehaviour
 
     private void Start()
     {
-        refNodeReference = GameObject.FindObjectOfType<NodeReference>();
         refNodeWalker = GameObject.FindObjectOfType<NodeWalker>();
+        refNodeHolder = GetComponentInParent<NodeHolder>();
 
         foreach (NodePath node in nodePoints)
         {
             node.SetNodeReferences(this);
         }
     }
-
     private void Update()
     {
-        if(!refNodeWalker.refPlayerMotion.isInPath && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast && NodeSettings.canClampOnCable)
+        if (!refNodeWalker.refPlayerMotion.isInPath && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast && NodeSettings.canClampOnCable)
             CheckRaycast();
     }
 
@@ -73,10 +70,8 @@ public class NodePath : MonoBehaviour
 
         foreach (NodePath node in nodePoints)
         {
-            if(Physics.Linecast(transform.position, node.transform.position, out hit, refNodeReference.mask))
+            if (Physics.Linecast(transform.position, node.transform.position, out hit, refNodeHolder.mask))
             {
-                hitPath = true;
-
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;
                 refNodeWalker.refPrevNodePath = node;

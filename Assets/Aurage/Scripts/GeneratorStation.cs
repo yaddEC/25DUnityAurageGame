@@ -32,7 +32,7 @@ public class GeneratorStation : MonoBehaviour
         generatorsList = GameObject.FindGameObjectsWithTag("Generator");
 
         meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = refGenerator.machineMaterials[1];
+        meshRenderer.material = refGenerator.machineMaterials[2];
     }
 
     private void Update()
@@ -80,7 +80,7 @@ public class GeneratorStation : MonoBehaviour
             if (!obj.GetComponent<GeneratorStation>().checkointActivated)
             {
                 obj.GetComponent<GeneratorStation>().canCharge = true;
-                meshRenderer.material = refGenerator.machineMaterials[1];
+                meshRenderer.material = refGenerator.machineMaterials[2];
             }
         }
     }
@@ -89,6 +89,7 @@ public class GeneratorStation : MonoBehaviour
     {
         checkointActivated = true;
         refPowerManager.waypoint = transform;
+        meshRenderer.material = refGenerator.machineMaterials[3];
     }
 
     private void OnTriggerStay(Collider other)
@@ -97,6 +98,7 @@ public class GeneratorStation : MonoBehaviour
         {
             refGenerator.isMachinUsed = true;
             refPowerManager.isCharging = true;
+            meshRenderer.material = refGenerator.machineMaterials[1];
         }
 
         if (canCharge && !InputManager.performDash)

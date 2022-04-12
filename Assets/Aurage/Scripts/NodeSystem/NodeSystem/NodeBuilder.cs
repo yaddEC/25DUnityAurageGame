@@ -28,6 +28,8 @@ public class NodeBuilder : MonoBehaviour
         {
             if (nodeHolder.transform.parent != container)
                 nodeHolder.transform.parent = container;
+
+            Gizmos.DrawIcon(nodeHolder.transform.position, "HolderIcon.tiff", true);
         }
     }
 
@@ -35,7 +37,7 @@ public class NodeBuilder : MonoBehaviour
     {
         nodeHolder = new GameObject();
         nodeHolder.transform.SetParent(parentTransform);
-        var noderef = nodeHolder.AddComponent<NodeReference>();
+        var noderef = nodeHolder.AddComponent<NodeHolder>();
         noderef.mask = NodeSettings.mask;
 
         nodeHolder.name = "NodeHolder";

@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(NodeReference))]
+[CustomEditor(typeof(NodeHolder))]
 public class NodeCreator : Editor
 {
     public override void OnInspectorGUI()
     {
-        //NodeReference.node = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Aurage/Scripts/NodeSystem/Objects/Node.prefab", typeof(GameObject));
-
         base.OnInspectorGUI();
-        NodeReference builder = (NodeReference)target;
+        NodeHolder builder = (NodeHolder)target;
 
         if (GUILayout.Button("Create Node"))
             builder.CreateNode();
