@@ -101,9 +101,9 @@ public class GeneratorStation : MonoBehaviour
             meshRenderer.material = refGenerator.machineMaterials[1];
         }
 
-        if (canCharge && !InputManager.performDash)
+        if (canCharge && !InputManager.performA)
             isFreezed = true;
-        else if (InputManager.performDash)
+        else if (InputManager.performA)
             isFreezed = false;
     }
 

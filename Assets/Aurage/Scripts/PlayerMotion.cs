@@ -132,13 +132,12 @@ public class PlayerMotion : MonoBehaviour
             currentplan -= 1;
 
         transform.position = new Vector3(transform.position.x, transform.position.y, planList[currentplan]);
-        InputManager.performChangePlan = false;
     }
 
     //--------------------------------------------------
     private void DashCheck()
     {
-        if (InputManager.performDash && canDash)
+        if (InputManager.performA && canDash)
         {
             isInPath = false;
             Dash(InputManager.inputAxis);
@@ -160,7 +159,7 @@ public class PlayerMotion : MonoBehaviour
         var hitForward = Physics.Raycast(transform.position, Vector3.forward, 2, wallMask);
         var hitBackward = Physics.Raycast(transform.position, Vector3.back, 2, wallMask);
 
-        if (InputManager.performChangePlan && InputManager.inputAxis.y != 0)
+        if (InputManager.performY && InputManager.inputAxis.y != 0)
             ChangePlan(hitForward, hitBackward);
     }
 
