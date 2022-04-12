@@ -10,6 +10,7 @@ public class ElectricityBullet : MonoBehaviour
     public float bulletSpeed = 5;
     public float stunDuration = 5;
     public float radioDuration = 10;
+    public float maxDistance = 2;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,7 +20,7 @@ public class ElectricityBullet : MonoBehaviour
     {
         moveDirection = moveDirection.normalized;
         rb.velocity = new Vector3(moveDirection.x, moveDirection.y, moveDirection.z) * bulletSpeed;
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, maxDistance);
     }
 
     private void OnTriggerEnter(Collider other)
