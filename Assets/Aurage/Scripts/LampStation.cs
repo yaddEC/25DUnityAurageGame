@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LampStation : MonoBehaviour
 {
@@ -29,36 +30,54 @@ public class LampStation : MonoBehaviour
 
     private void Update()
     {
-        if (isFreezed)
-            FreezePlayer();
+        FreezePlayer();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(canCharge && other.CompareTag("Player"))
-            StartCoroutine(LightSwitchEvent(other));
+        if (other.tag == "Player")
+        {
+            PlayerMotion.isInMachine = true;
+            isFreezed = true;
+
+            if (canCharge)
+                RestorePowerEvent();
+        }
     }
 
-    private IEnumerator LightSwitchEvent(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        other.transform.localScale = Vector3.one / 4;
-        isFreezed = true;
-        refLamp.isMachinUsed = true;
-        RestorePowerEvent();
+        if(other.tag == "Player")
+        {
+            if (InputManager.performA)
+                isFreezed = false;
+        }
+    }
 
-        yield return new WaitForSeconds(.5f);
-        meshRenderer.material = refLamp.machineMaterials[0];
-        canCharge = false;
-        isFreezed = false;
-        other.transform.localScale = Vector3.one;
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            PlayerMotion.isInMachine = false;
+            canCharge = false;
+            meshRenderer.material = refLamp.machineMaterials[0];
+        }
     }
 
     private void RestorePowerEvent()
     {
         refPowerManager.currentPower += restorePower;
+        canCharge = false;
+        meshRenderer.material = refLamp.machineMaterials[0];
     }
     private void FreezePlayer()
     {
-        refPlayerMotion.transform.position = transform.position;
+        if(isFreezed)
+        {
+            refPlayerMotion.transform.position = transform.position;
+            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
+        else
+            refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
     }
 }

@@ -29,11 +29,19 @@ public class PlayerMotion : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
 
     public LayerMask wallMask;
+    public LayerMask floorMask;
 
     public bool isGrounded;
     public bool isAiming;
 
+    public static bool isInMachine;
+
     //--------------------------------------------------
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, transform.localScale.x/2);
+    }
     private void Awake()
     {
         cachedDashCooldown = dashCooldown;
@@ -69,15 +77,19 @@ public class PlayerMotion : MonoBehaviour
 
         if (!isInPath)
         {
+            if(!isInMachine)
+                PowerManager.canLoosePower = true;
+            else
+                PowerManager.canLoosePower = false;
+
             rb.useGravity = true;
-            refPowerManager.canLoosePower = true;
             GroundCheck();
         }
         else
         {
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
-            refPowerManager.canLoosePower = false;
+            PowerManager.canLoosePower = false;
 
             if (NodeSettings.canDashOnNode)
                 DashCheck();
@@ -109,19 +121,18 @@ public class PlayerMotion : MonoBehaviour
 
     private void GroundCheck()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.55f);
+        isGrounded = Physics.CheckSphere(transform.position, transform.localScale.x/2, floorMask);
     }
 
     private void FloorMovement()
     {
         DashCheck();
         PlanCheck();
-        
-        AimCheck();
-        if (!isAiming)
+
+        if (!InputManager.performTrigger)
             Move(InputManager.inputAxis);
         else
-            Move(new Vector2(0, 0));
+            Move(Vector2.zero);
     }
 
     private void ChangePlan(bool f, bool b)
@@ -144,15 +155,6 @@ public class PlayerMotion : MonoBehaviour
             StartCoroutine(RaycastDetection());
         }
     }
-
-    private void AimCheck()
-    {
-        if (InputManager.performTrigger)
-            isAiming = true;
-        else
-            isAiming = false;
-    }
-
 
     private void PlanCheck()
     {

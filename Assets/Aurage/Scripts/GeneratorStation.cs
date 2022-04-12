@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GeneratorStation : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class GeneratorStation : MonoBehaviour
 
     [Header("Generator UI/UX")]
     private MeshRenderer meshRenderer;
+    private Text text;
 
     [Header("Generator Stats")]
     public bool checkointActivated = false;
@@ -33,24 +34,24 @@ public class GeneratorStation : MonoBehaviour
 
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = refGenerator.machineMaterials[2];
+
+        text = GetComponentInChildren<Text>();
+        text.enabled = false;
     }
 
     private void Update()
     {
         if (refPowerManager.currentPower >= refPowerManager.maxPower && refGenerator.isMachinUsed)
         {
-            Debug.Log("ehere");
-
             canCharge = false;
             refPowerManager.currentPower = refPowerManager.maxPower;
         }
 
-        if (isFreezed)
-            FreezePlayer();
+        FreezePlayer();
 
         if (refPowerManager.isCharging)
             StartCoroutine(PluggedEvent(chargingPowerDelta));
-        else if (!refPowerManager.isCharging && !refPowerManager.outOfPower && refPowerManager.canLoosePower)
+        else if (!refPowerManager.isCharging && !refPowerManager.outOfPower && PowerManager.canLoosePower)
             StartCoroutine(UnpluggedEvent(refPowerManager.unchargePowerDelta));
     }
 
@@ -87,39 +88,55 @@ public class GeneratorStation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        checkointActivated = true;
-        refPowerManager.waypoint = transform;
-        meshRenderer.material = refGenerator.machineMaterials[3];
+        if (other.tag == "Player")
+        {
+            PlayerMotion.isInMachine = true;
+            text.enabled = true;
+            isFreezed = true;
+
+            if (!checkointActivated)
+                refPowerManager.waypoint = transform;
+
+            checkointActivated = true;
+            meshRenderer.material = refGenerator.machineMaterials[3];
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && canCharge && InputManager.performB)
+        if (other.tag == "Player")
         {
-            refGenerator.isMachinUsed = true;
-            refPowerManager.isCharging = true;
-            meshRenderer.material = refGenerator.machineMaterials[1];
-        }
+            if(canCharge && InputManager.performB)
+            {
+                refPowerManager.isCharging = true;
+                meshRenderer.material = refGenerator.machineMaterials[1];
+            }
 
-        if (canCharge && !InputManager.performA)
-            isFreezed = true;
-        else if (InputManager.performA)
-            isFreezed = false;
+            if (InputManager.performA)
+                isFreezed = false;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
-            refGenerator.isMachinUsed = false;
+            PlayerMotion.isInMachine = false;
             refPowerManager.isCharging = false;
             canCharge = false;
+            text.enabled = false;
             meshRenderer.material = refGenerator.machineMaterials[0];
         }
     }
 
     private void FreezePlayer()
     {
-        refPlayerMotion.transform.position = transform.position;
+        if (isFreezed)
+        {
+            refPlayerMotion.transform.position = transform.position;
+            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
+        else
+            refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
     }
 }

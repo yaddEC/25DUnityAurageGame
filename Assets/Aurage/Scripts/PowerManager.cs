@@ -12,7 +12,7 @@ public class PowerManager : MonoBehaviour
     public float unchargePowerDelta;
     public bool isCharging = false;
 
-    public bool canLoosePower = true;
+    public static bool canLoosePower = true;
 
     [Header("Player Stats")]
     public bool outOfPower;
@@ -33,6 +33,9 @@ public class PowerManager : MonoBehaviour
     {
         if (outOfPower || KillZone.isDead)
             /*StartCoroutine(*/OnOutOfPowerEvent()/*)*/;
+
+        if (currentPower > maxPower)
+            currentPower = maxPower;
     }
 
     private void OnOutOfPowerEvent()
