@@ -31,16 +31,20 @@ public class ShootingScript : MonoBehaviour
       
     }
 
-    public void Aim(InputAction.CallbackContext value)
+    public void AimCheck()
     {
-        isAiming = true;
-
-        if (value.performed)
+        if (InputManager.performTrigger && !isAiming)
+        {
+            isAiming = true;
             aimingArrowClone.transform.localScale = new Vector3(1, 1, 1);
+        }
+
     }
 
     void FixedUpdate()
     {
+        AimCheck();
+        FireCheck();
 
         input = InputManager.inputAxis;
         if (isAiming)
@@ -51,9 +55,9 @@ public class ShootingScript : MonoBehaviour
 
 
 
-    public void Fire(InputAction.CallbackContext value)
+    public void FireCheck()
     {
-        if (value.performed )
+        if (!InputManager.performTrigger && isAiming)
         {
             aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);
             isAiming = false;

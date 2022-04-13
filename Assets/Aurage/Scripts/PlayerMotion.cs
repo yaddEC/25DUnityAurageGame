@@ -32,7 +32,7 @@ public class PlayerMotion : MonoBehaviour
     public LayerMask floorMask;
 
     public bool isGrounded;
-    public bool isAiming;
+    
 
     public static bool isInMachine;
 
