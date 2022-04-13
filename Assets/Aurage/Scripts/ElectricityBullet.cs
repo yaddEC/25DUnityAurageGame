@@ -11,12 +11,12 @@ public class ElectricityBullet : MonoBehaviour
     public float stunDuration = 5;
     public float radioDuration = 10;
     public float maxDistance = 2;
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void Update()
     {
         moveDirection = moveDirection.normalized;
         rb.velocity = new Vector3(moveDirection.x, moveDirection.y, moveDirection.z) * bulletSpeed;
@@ -25,10 +25,10 @@ public class ElectricityBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("BasicEnemy"))
+        if (other.gameObject.tag == "BasicEnemy")
         {
-          other.gameObject.GetComponent<BasicEnemy>().Stun(stunDuration);
-          Destroy(gameObject);
+            other.gameObject.GetComponent<BasicEnemy>().Stun(stunDuration);
+            Destroy(gameObject);
         }
 
         if (other.gameObject.CompareTag("Turret"))
@@ -38,7 +38,7 @@ public class ElectricityBullet : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Radio"))
         {
-            other.gameObject.transform.GetComponent<RadioBehavior>().StartRadio();
+            other.gameObject.transform.GetComponent<RadioStation>().TurnRadioOn();
             Destroy(gameObject);
         }
 

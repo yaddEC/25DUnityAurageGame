@@ -4,29 +4,21 @@ using UnityEngine;
 
 public class RadioZone : MonoBehaviour
 {
-   [HideInInspector] public bool wasDeactivate = false;
-   [HideInInspector] public bool isDeactivate = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   [HideInInspector] public bool isActive = false;
+    private BasicEnemy refBasicEnemy;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("BasicEnemy"))
-            other.gameObject.GetComponent<BasicEnemy>().Distracted(gameObject);
+        if (other.gameObject.tag == "BasicEnemy")
+        {
+            refBasicEnemy = other.gameObject.GetComponent<BasicEnemy>();
+            refBasicEnemy.Distracted(this.gameObject);
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("BasicEnemy") && isDeactivate && wasDeactivate)
-            other.gameObject.GetComponent<BasicEnemy>().Focused();
+        if (other.gameObject.tag == "BasicEnemy" && isActive)
+            refBasicEnemy.Focused();
     }
 }

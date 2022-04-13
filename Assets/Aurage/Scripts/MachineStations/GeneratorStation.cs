@@ -85,6 +85,16 @@ public class GeneratorStation : MonoBehaviour
             }
         }
     }
+    private void FreezePlayer()
+    {
+        if (isFreezed)
+        {
+            refPlayerMotion.transform.position = transform.position;
+            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
+        else
+            refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -127,16 +137,5 @@ public class GeneratorStation : MonoBehaviour
             text.enabled = false;
             meshRenderer.material = refGenerator.machineMaterials[0];
         }
-    }
-
-    private void FreezePlayer()
-    {
-        if (isFreezed)
-        {
-            refPlayerMotion.transform.position = transform.position;
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
-        }
-        else
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
     }
 }
