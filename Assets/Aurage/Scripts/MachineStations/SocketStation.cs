@@ -7,12 +7,10 @@ public class SocketStation : MonoBehaviour
 {
     [Header("Reference")]
     private PlayerMotion refPlayerMotion;
+
     public GameObject socketTarget;
     public static float coolDown;
     private static float cachedCoolDown;
-
-    [Header("Lamp UI/UX")]
-    private MeshRenderer meshRenderer;
 
     private void Awake()
     {
@@ -28,8 +26,8 @@ public class SocketStation : MonoBehaviour
 
     private void TeleportToTarget()
     {
-        if (refPlayerMotion.isInPath)
-            refPlayerMotion.isInPath = false;
+        /*if (refPlayerMotion.isInPath)
+            refPlayerMotion.isInPath = false;*/
 
         coolDown = cachedCoolDown;
         refPlayerMotion.transform.position = socketTarget.transform.position;
@@ -39,8 +37,6 @@ public class SocketStation : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player" && coolDown <= 0)
-        {
             TeleportToTarget();
-        }
     }
 }
