@@ -10,10 +10,8 @@ public class SocketStation : MonoBehaviour
     public ColliderDetection[] refColliderDetection;
     private NodeSettings refNodeSettings;
     public Socket refSocket;
-    private int index;
+    public static int index;
     public bool inSocket = false;
-
-
 
     [Header("Lamp UI/UX")]
     private MeshRenderer meshRenderer;
@@ -30,15 +28,10 @@ public class SocketStation : MonoBehaviour
         meshRenderer.material = refSocket.machineMaterials[1];
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player"))
-        {
-            if(refColliderDetection[0].inObject)
-                StartCoroutine(ClampInCable(other, index = 1));
-            else
-                StartCoroutine(ClampInCable(other, index = 0));
-        }
+        if (ColliderDetection.inObject)
+            ClampInCable(ColliderDetection.coll, index);
     }
 
     private IEnumerator ClampInCable(Collider other, int index)
@@ -46,7 +39,7 @@ public class SocketStation : MonoBehaviour
         inSocket = true;
         other.transform.position = refColliderDetection[index].transform.position;
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         inSocket = false;
     }
 }
