@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_killzone
+  m_Name: M_Killzone
   m_Shader: {fileID: -6465566751694194690, guid: 3538d53b2681bba4395c8872a20263c6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
