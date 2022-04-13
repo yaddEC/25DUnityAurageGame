@@ -24,12 +24,18 @@ public class SocketStation : MonoBehaviour
     private void Update()
     {
         coolDown -= Time.deltaTime;
+
+        Debug.Log(refPlayerMotion.isInPath);
     }
 
     private void TeleportToTarget()
     {
+        if (refPlayerMotion.isInPath)
+            refPlayerMotion.isInPath = false;
+
         coolDown = cachedCoolDown;
         refPlayerMotion.transform.position = socketTarget.transform.position;
+
     }
 
     private void OnTriggerEnter(Collider other)
