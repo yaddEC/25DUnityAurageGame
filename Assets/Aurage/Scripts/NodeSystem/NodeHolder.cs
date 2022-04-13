@@ -56,7 +56,7 @@ public class NodeHolder : MonoBehaviour
 
     public void CreateNode()
     {
-        if (nodeList.Count < index)
+        if (nodeList.Count < index || nodeList.Count > index)
             index = nodeList.Count;
 
         node = new GameObject();
