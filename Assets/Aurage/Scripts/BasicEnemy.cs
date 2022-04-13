@@ -13,7 +13,6 @@ public class BasicEnemy : MonoBehaviour
     public bool isMoving;
     public bool isTurning;
     public bool isStunned;
-    public float turning;
     public bool isDistracted;
     public float sightDistance;
     public float rotation = 90;
@@ -104,7 +103,8 @@ public class BasicEnemy : MonoBehaviour
 
     private IEnumerator Turning()//Coroutine that makes gradual rotation
     {
-        
+        var turning = 0f;
+
         isTurning = true;
         if (dir.x <= 0)
             turning = 270;
@@ -214,11 +214,6 @@ public class BasicEnemy : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player") && !isStunned)
-        {
             SceneManager.LoadScene("GameOverScreen");
-        }
-
-
-
     }
 }

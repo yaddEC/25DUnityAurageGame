@@ -36,7 +36,6 @@ public class PlayerMotion : MonoBehaviour
 
     public static bool isInMachine;
 
-    //--------------------------------------------------
 
     private void OnDrawGizmos()
     {
