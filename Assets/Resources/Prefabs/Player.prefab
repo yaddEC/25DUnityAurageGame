@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8325189878180794314}
   - component: {fileID: 8325189878180794317}
   - component: {fileID: 8325189878180794315}
+  - component: {fileID: 2026387414}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -157,10 +158,6 @@ MonoBehaviour:
     m_ActionId: 5caad6b0-fde0-4617-92b2-25e3184ca3d5
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: eccfc236-89f6-44d7-9596-cdc925d5f049
-    m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
@@ -225,7 +222,19 @@ MonoBehaviour:
     m_ActionId: 1ed2e300-1a44-449d-bce1-7de5fec71920
     m_ActionName: Player/APressed
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: onTriggerInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 3f01c14c-b6c0-432a-9cf7-784301fd8fff
     m_ActionName: Player/Aim[/DualShock4GamepadHID/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
@@ -246,11 +255,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 600
-  planList: feffffff000000000200000004000000
-  dashSpeed: 5
-  dashGravity: -2
+  planList: f0fffffff2ffffffffffffff01000000
+  dashSpeed: 12
+  dashGravity: -4
   canDash: 1
-  dashCooldown: 1
+  dashCooldown: 2
   cachedDashCooldown: 0
   dashPower: 0
   currentplan: 0
@@ -265,7 +274,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   isGrounded: 0
-  isAiming: 0
 --- !u!114 &8325189878180794315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +290,19 @@ MonoBehaviour:
   refNextNodePath: {fileID: 0}
   refPrevNodePath: {fileID: 0}
   refCurrNodePath: {fileID: 0}
-  moveSpeed: 2
+  moveSpeed: 10
   rotationSpeed: 5
   isFreezed: 0
+--- !u!114 &2026387414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d983d439ea5254d9221368f6864afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {x: 0, y: 0}
