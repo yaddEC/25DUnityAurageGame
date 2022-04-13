@@ -24,8 +24,6 @@ public class SocketStation : MonoBehaviour
     private void Update()
     {
         coolDown -= Time.deltaTime;
-
-        Debug.Log(refPlayerMotion.isInPath);
     }
 
     private void TeleportToTarget()
