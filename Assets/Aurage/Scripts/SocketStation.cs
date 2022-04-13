@@ -6,47 +6,41 @@ using UnityEngine.SceneManagement;
 public class SocketStation : MonoBehaviour
 {
     [Header("Reference")]
-    private PowerManager refPowerManager;
-    public ColliderDetection[] refColliderDetection;
-    private NodeSettings refNodeSettings;
-    public Socket refSocket;
-    private int index;
-    public bool inSocket = false;
-
-
+    private PlayerMotion refPlayerMotion;
+    public GameObject socketTarget;
+    public static float coolDown;
+    private static float cachedCoolDown;
 
     [Header("Lamp UI/UX")]
     private MeshRenderer meshRenderer;
 
-    [Header("Lamp Stats")]
-    public bool isInSocket = false;
-
     private void Awake()
     {
-        refPowerManager = GameObject.FindObjectOfType<PowerManager>();
-        refColliderDetection = GetComponentsInChildren<ColliderDetection>();
+        coolDown = 2;
+        cachedCoolDown = coolDown;
 
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = refSocket.machineMaterials[1];
+        refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+    }
+    private void Update()
+    {
+        coolDown -= Time.deltaTime;
+    }
+
+    private void TeleportToTarget()
+    {
+        if (refPlayerMotion.isInPath)
+            refPlayerMotion.isInPath = false;
+
+        coolDown = cachedCoolDown;
+        refPlayerMotion.transform.position = socketTarget.transform.position;
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(other.tag == "Player" && coolDown <= 0)
         {
-            if(refColliderDetection[0].inObject)
-                StartCoroutine(ClampInCable(other, index = 1));
-            else
-                StartCoroutine(ClampInCable(other, index = 0));
+            TeleportToTarget();
         }
-    }
-
-    private IEnumerator ClampInCable(Collider other, int index)
-    {
-        inSocket = true;
-        other.transform.position = refColliderDetection[index].transform.position;
-
-        yield return new WaitForSeconds(0.2f);
-        inSocket = false;
     }
 }

@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: 0}
   bulletSpeed: 10
-  stunDuration: 1000
+  stunDuration: 10
   radioDuration: 10
 --- !u!54 &9107199907149728590
 Rigidbody:

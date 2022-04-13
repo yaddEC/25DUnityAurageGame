@@ -6,14 +6,6 @@
             "id": "b1d551b0-cad5-4724-9897-8ca1ad58d994",
             "actions": [
                 {
-                    "name": "MovePlan",
-                    "type": "Button",
-                    "id": "9db37086-c968-4f12-98a8-c859591d0c32",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Move",
                     "type": "Value",
                     "id": "5caad6b0-fde0-4617-92b2-25e3184ca3d5",
@@ -22,15 +14,15 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Fire",
+                    "name": "Aim",
                     "type": "Button",
-                    "id": "eccfc236-89f6-44d7-9596-cdc925d5f049",
+                    "id": "3f01c14c-b6c0-432a-9cf7-784301fd8fff",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Dash",
+                    "name": "YPressed",
                     "type": "Button",
                     "id": "c0b8d90e-1139-4400-8223-7d5bef2b2e37",
                     "expectedControlType": "Button",
@@ -54,14 +46,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Aim",
-                    "type": "Button",
-                    "id": "3f01c14c-b6c0-432a-9cf7-784301fd8fff",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "APressed",
                     "type": "Button",
                     "id": "1ed2e300-1a44-449d-bce1-7de5fec71920",
@@ -71,72 +55,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "Press(pressPoint=1E-11,behavior=1)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press(pressPoint=1E-11,behavior=1)",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "886e731e-7071-4ae4-95c0-e61739dad6fd",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Touch",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee3d0cd2-254e-47a7-a8cb-bc94d9658c54",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "Press(pressPoint=1E-11,behavior=1)",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8255d333-5683-4943-a58a-ccb207ff1dce",
-                    "path": "<XRController>/{PrimaryAction}",
-                    "interactions": "Press(pressPoint=1E-11,behavior=1)",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "713b2a11-f597-4356-84fe-1baa323aa314",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "MovePlan",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "978bfe49-cc26-4a3d-ab7b-7d7a29327403",
@@ -271,56 +189,12 @@
                 },
                 {
                     "name": "",
-                    "id": "0ab3d104-76a7-453a-9bef-abc2edd05d86",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c2577eaf-331c-4142-8ad9-f507d0f1ef1f",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5658cff2-c5f0-4abe-9809-b74c4cd5c262",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Touch",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b3e3d7b4-b84f-4ee3-8333-c211e3d02abc",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fdab3cc4-97b1-46d5-abd7-0e50dcee3cbc",
-                    "path": "<XRController>/{PrimaryAction}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Dash",
+                    "action": "YPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -343,6 +217,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "BPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb9fc4f5-25fe-42d4-a979-64f8689c70a7",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "APressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -376,17 +261,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "eb9fc4f5-25fe-42d4-a979-64f8689c70a7",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "APressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

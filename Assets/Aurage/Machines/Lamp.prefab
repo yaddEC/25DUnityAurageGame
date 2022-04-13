@@ -110,6 +110,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refLamp: {fileID: 11400000, guid: 5e4e8f2a3a40a2148b14165ac9e0c597, type: 2}
-  meshRenderer: {fileID: 0}
   restorePower: 20
   canCharge: 1
