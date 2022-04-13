@@ -24,7 +24,7 @@ public class ShootingScript : MonoBehaviour
         bullet = Resources.Load<GameObject>("Prefabs/ElectricityBullet");
         rotationAxisClone = Instantiate(rotationAxis, transform.position , Quaternion.identity);
         aimingArrowClone = Instantiate(aimingArrow, transform.position + Vector3.right, Quaternion.identity);
-        playerPower = gameObject.GetComponent<PowerManager>();
+        playerPower = GameObject.FindObjectOfType<PowerManager>();
         
         aimingArrowClone.transform.parent = rotationAxisClone.transform;
         aimingArrowClone.transform.localScale = new Vector3(0, 0, 0);

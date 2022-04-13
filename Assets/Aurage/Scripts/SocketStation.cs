@@ -6,40 +6,41 @@ using UnityEngine.SceneManagement;
 public class SocketStation : MonoBehaviour
 {
     [Header("Reference")]
-    private PowerManager refPowerManager;
-    public ColliderDetection[] refColliderDetection;
-    private NodeSettings refNodeSettings;
-    public Socket refSocket;
-    public static int index;
-    public bool inSocket = false;
+    private PlayerMotion refPlayerMotion;
+    public GameObject socketTarget;
+    public static float coolDown;
+    private static float cachedCoolDown;
 
     [Header("Lamp UI/UX")]
     private MeshRenderer meshRenderer;
 
-    [Header("Lamp Stats")]
-    public bool isInSocket = false;
-
     private void Awake()
     {
-        refPowerManager = GameObject.FindObjectOfType<PowerManager>();
-        refColliderDetection = GetComponentsInChildren<ColliderDetection>();
+        coolDown = 2;
+        cachedCoolDown = coolDown;
 
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = refSocket.machineMaterials[1];
+        refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
     }
-
     private void Update()
     {
-        if (ColliderDetection.inObject)
-            ClampInCable(ColliderDetection.coll, index);
+        coolDown -= Time.deltaTime;
     }
 
-    private IEnumerator ClampInCable(Collider other, int index)
+    private void TeleportToTarget()
     {
-        inSocket = true;
-        other.transform.position = refColliderDetection[index].transform.position;
+        if (refPlayerMotion.isInPath)
+            refPlayerMotion.isInPath = false;
 
-        yield return new WaitForSeconds(0.3f);
-        inSocket = false;
+        coolDown = cachedCoolDown;
+        refPlayerMotion.transform.position = socketTarget.transform.position;
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player" && coolDown <= 0)
+        {
+            TeleportToTarget();
+        }
     }
 }
