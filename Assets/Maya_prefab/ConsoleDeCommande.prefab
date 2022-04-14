@@ -203,6 +203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2995361650691998107}
+  - component: {fileID: 8336358260258048452}
   m_Layer: 0
   m_Name: ConsoleDeCommande
   m_TagString: Untagged
@@ -228,6 +229,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8336358260258048452
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2511452927032515361}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.39065552, y: 0.59381104, z: 0.54634094}
+  m_Center: {x: 0.033187866, y: 0.046634674, z: 0.18357086}
 --- !u!1 &3762315788295867843
 GameObject:
   m_ObjectHideFlags: 0

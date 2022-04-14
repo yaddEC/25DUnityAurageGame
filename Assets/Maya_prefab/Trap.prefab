@@ -172,6 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4897220590858228757}
   - component: {fileID: 1190852823888420469}
+  - component: {fileID: 6121602193698217693}
   m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
@@ -215,6 +216,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &6121602193698217693
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241552811390733999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0192964, y: 0.41204387, z: 2.0107641}
+  m_Center: {x: -0.0025643506, y: -0.0014502406, z: -0.0056532226}
 --- !u!1 &5760304993171800474
 GameObject:
   m_ObjectHideFlags: 0
