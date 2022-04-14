@@ -7,19 +7,17 @@ public class GeneratorStation : MonoBehaviour
 {
     [Header("Reference")]
     private PowerManager refPowerManager;
-    private PowerBar refPowerBar;
     private PlayerMotion refPlayerMotion;
 
-    public Generator refGenerator;
-
     [Header("Generator UI/UX")]
-    private MeshRenderer meshRenderer;
     private Text text;
 
     [Header("Generator Stats")]
     public bool checkointActivated = false;
     public float chargingPowerDelta;
     public bool canCharge = true;
+    public bool isInMachine = false;
+    public bool isCharging = false;
     private GameObject[] generatorsList;
 
     private bool isFreezed = false;
@@ -27,13 +25,8 @@ public class GeneratorStation : MonoBehaviour
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
-        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
-
         generatorsList = GameObject.FindGameObjectsWithTag("Generator");
-
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = refGenerator.machineMaterials[2];
 
         text = GetComponentInChildren<Text>();
         text.enabled = false;
@@ -41,51 +34,19 @@ public class GeneratorStation : MonoBehaviour
 
     private void Update()
     {
-        if (refPowerManager.currentPower >= refPowerManager.maxPower && refGenerator.isMachinUsed)
-        {
-            canCharge = false;
-            refPowerManager.currentPower = refPowerManager.maxPower;
-        }
+        ClampInMachine();
 
-        FreezePlayer();
-
-        if (refPowerManager.isCharging)
-            StartCoroutine(PluggedEvent(chargingPowerDelta));
-        else if (!refPowerManager.isCharging && !refPowerManager.outOfPower && PowerManager.canLoosePower)
-            StartCoroutine(UnpluggedEvent(refPowerManager.unchargePowerDelta));
+        if(isInMachine && canCharge)
+            StartCoroutine(RestorePower(chargingPowerDelta));
     }
 
-    private IEnumerator PluggedEvent(float powerAmount)
+    private IEnumerator RestorePower(float powerAmount)
     {
-        if (refPowerManager.currentPower >= refPowerManager.maxPower)
-            refPowerManager.isCharging = false;
-
         refPowerManager.currentPower += powerAmount * 0.0001f;
         yield return new WaitForSecondsRealtime(2f);
     }
 
-    private IEnumerator UnpluggedEvent(float powerAmount)
-    {
-        if (refPowerManager.currentPower <= 0)
-            refPowerManager.outOfPower = true;
-
-        refPowerManager.currentPower -= powerAmount * 0.0001f;
-        refPowerBar.SetLife(refPowerManager.currentPower);
-        yield return new WaitForSecondsRealtime(2f);
-    }
-
-    public void RestoreGeneratorStateEvent()
-    {
-        foreach (GameObject obj in generatorsList)
-        {
-            if (!obj.GetComponent<GeneratorStation>().checkointActivated)
-            {
-                obj.GetComponent<GeneratorStation>().canCharge = true;
-                meshRenderer.material = refGenerator.machineMaterials[2];
-            }
-        }
-    }
-    private void FreezePlayer()
+    private void ClampInMachine()
     {
         if (isFreezed)
         {
@@ -95,20 +56,26 @@ public class GeneratorStation : MonoBehaviour
         else
             refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
     }
+    public void RestoreGenerators()
+    {
+        foreach (GameObject obj in generatorsList)
+        {
+            if (!obj.GetComponent<GeneratorStation>().checkointActivated)
+                obj.GetComponent<GeneratorStation>().canCharge = true;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            PlayerMotion.isInMachine = true;
-            text.enabled = true;
+            PowerManager.canLoosePower = false;
+            isInMachine = true;
             isFreezed = true;
+            text.enabled = true;
 
-            if (!checkointActivated)
-                refPowerManager.waypoint = transform;
-
+            if (!checkointActivated) refPowerManager.waypoint = transform;
             checkointActivated = true;
-            meshRenderer.material = refGenerator.machineMaterials[3];
         }
     }
 
@@ -116,14 +83,8 @@ public class GeneratorStation : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if(canCharge && InputManager.performB)
-            {
-                refPowerManager.isCharging = true;
-                meshRenderer.material = refGenerator.machineMaterials[1];
-            }
-
-            if (InputManager.performA)
-                isFreezed = false;
+            if(canCharge && InputManager.performB) isCharging = true;
+            if (InputManager.performA) isFreezed = false;
         }
     }
 
@@ -131,11 +92,10 @@ public class GeneratorStation : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PlayerMotion.isInMachine = false;
-            refPowerManager.isCharging = false;
-            canCharge = false;
+            PowerManager.canLoosePower = true;
+            isInMachine = false;
+            isCharging = false;
             text.enabled = false;
-            meshRenderer.material = refGenerator.machineMaterials[0];
         }
     }
 }

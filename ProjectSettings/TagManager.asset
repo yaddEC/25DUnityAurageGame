@@ -16,6 +16,7 @@ TagManager:
   - Enemy
   - Vignetage
   - BushInteracter
+  - LockPosition
   layers:
   - Default
   - TransparentFX
