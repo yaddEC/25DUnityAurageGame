@@ -5,10 +5,11 @@ using UnityEngine;
 public class RoombaStation : MonoBehaviour
 {
     private PlayerMotion refPlayerMotion;
-    public GameObject Roomba;
     public bool isFreezed = false;
     public bool isInMachine = false;
     public float moveSpeed;
+
+    private bool canMove = false;
 
     private Rigidbody rb;
 
@@ -19,38 +20,50 @@ public class RoombaStation : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.tag == "Player")
+        ClampInMachine();
+    }
+
+    private void FixedUpdate()
+    {
+        if(canMove)
+            Move(InputManager.inputAxis);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
             PowerManager.canLoosePower = false;
+            canMove = true;
             isInMachine = true;
-            ClampInMachine();
+            isFreezed = true;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionStay(Collision collision)
     {
-        if (other.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            Move(InputManager.inputAxis);
-
+            canMove = true;
             if (InputManager.performA) isFreezed = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            PowerManager.canLoosePower = true;
+            canMove = false;
+            isInMachine = false;
         }
     }
 
     private void Move(Vector2 input)
     {
         rb.velocity = new Vector3(input.x * moveSpeed, rb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            PowerManager.canLoosePower = true;
-            isInMachine = false;
-        }
     }
 
     private void ClampInMachine()
