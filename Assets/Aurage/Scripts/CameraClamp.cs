@@ -15,7 +15,7 @@ public class CameraClamp : MonoBehaviour
         obj = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update()
+    void FixedUpdate()
     {
         transform.position = Vector3.SmoothDamp(transform.position, obj.transform.position + positionOffset, ref velocity, smoothTime);
         transform.rotation = Quaternion.Euler(orientationOffset.x, orientationOffset.y, orientationOffset.z);

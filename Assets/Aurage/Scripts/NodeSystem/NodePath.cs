@@ -48,9 +48,9 @@ public class NodePath : MonoBehaviour
         nodePoints.Add(nodePath);
     }
 
-    public static NodePath NodePathTarget(Vector2 input, NodePath[] nodePaths, Transform self)
+    public NodePath NodePathTarget(Vector2 input, NodePath[] nodePaths, Transform self)
     {
-        float minDistance = 9999999;
+        var minDistance = 9999999f;
         NodePath selectedPath = null;
 
         foreach (NodePath point in nodePaths)

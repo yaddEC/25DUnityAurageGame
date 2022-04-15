@@ -5,25 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class PowerManager : MonoBehaviour
 {
-    private GameObject refPlayer;
+    [Header("Reference")]
     private GeneratorStation refGeneratorStation;
+    private PowerBar refPowerBar;
 
     [Header("Charging Stats")]
     public float unchargePowerDelta;
-    public bool isCharging = false;
-
     public static bool canLoosePower = true;
 
-    [Header("Player Stats")]
-    public bool outOfPower;
+    [Header("Power Stats")]
+    public static bool outOfPower;
     public float maxPower;
     public float currentPower;
     public Transform waypoint;
 
-
     private void Awake()
     {
-        refPlayer = GameObject.FindGameObjectWithTag("Player");
+        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
         refGeneratorStation = GameObject.FindObjectOfType<GeneratorStation>();
 
         currentPower = maxPower;
@@ -31,26 +29,30 @@ public class PowerManager : MonoBehaviour
 
     private void Update()
     {
-        if (outOfPower || KillZone.isDead)
-            /*StartCoroutine(*/OnOutOfPowerEvent()/*)*/;
+        PowerState();
 
-        if (currentPower > maxPower)
-            currentPower = maxPower;
+        if (canLoosePower)
+            StartCoroutine(ConsumePower(unchargePowerDelta));
+    }
+
+    private void PowerState()
+    {
+        if (outOfPower) OnOutOfPowerEvent();
+        if (currentPower > maxPower) currentPower = maxPower;
     }
 
     private void OnOutOfPowerEvent()
     {
-        /*refPlayer.GetComponent<MeshRenderer>().enabled = false;
-        yield return new WaitForSecondsRealtime(2f);
-
-        refPlayer.GetComponent<MeshRenderer>().enabled = true;
-        currentPower = maxPower;
-        outOfPower = false;
-
-        refPlayer.transform.position = waypoint.position;
-        refGeneratorStation.RestoreGeneratorStateEvent();*/
-
         SceneManager.LoadScene("GameOverScreen");
+    }
+
+    private IEnumerator ConsumePower(float powerAmount)
+    {
+        if (currentPower <= 0) outOfPower = true;
+
+        currentPower -= powerAmount * 0.0001f;
+        refPowerBar.SetLife(currentPower);
+        yield return new WaitForSecondsRealtime(2f);
     }
 }
 
