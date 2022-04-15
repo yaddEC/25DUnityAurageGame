@@ -12,7 +12,6 @@ public class ShootingScript : MonoBehaviour
     private GameObject aimingArrowClone;
     private GameObject bulletClone;
     private PowerManager playerPower;
-    public Vector2 input;
 
     bool isAiming = false;
   
@@ -46,7 +45,6 @@ public class ShootingScript : MonoBehaviour
         AimCheck();
         FireCheck();
 
-        input = InputManager.inputAxis;
         if (isAiming)
             rotationAxisClone.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(InputManager.inputAxis.x, InputManager.inputAxis.y) * -180 / Mathf.PI + 90f);
        
