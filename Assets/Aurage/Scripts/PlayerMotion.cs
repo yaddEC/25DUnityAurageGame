@@ -28,6 +28,8 @@ public class PlayerMotion : MonoBehaviour
 
     public bool isGrounded;
 
+    public static bool canBeTargeted;
+
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
@@ -67,7 +69,7 @@ public class PlayerMotion : MonoBehaviour
         {
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
-            PowerManager.canLoosePower = false;
+            PowerManager.isInMachine = true;
 
             if (NodeSettings.canDashOnNode)
                 DashCheck();

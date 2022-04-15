@@ -9,55 +9,63 @@ public class RoombaStation : MonoBehaviour
     public bool isInMachine = false;
     public float moveSpeed;
 
+    public float cooldown;
+    private float cachedcooldown;
+
     private bool canMove = false;
 
     private Rigidbody rb;
+    private MeshRenderer mr;
 
     private void Awake()
     {
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
 
         rb = GetComponent<Rigidbody>();
+        mr = refPlayerMotion.GetComponent<MeshRenderer>();
+
+        cachedcooldown = cooldown;
     }
 
     private void Update()
     {
         ClampInMachine();
+
+        if (cooldown > 0) cooldown -= Time.deltaTime;
+        if(!isInMachine) rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
     private void FixedUpdate()
     {
-        if(canMove)
-            Move(InputManager.inputAxis);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            PowerManager.canLoosePower = false;
-            canMove = true;
-            isInMachine = true;
-            isFreezed = true;
-        }
+        if(canMove) Move(InputManager.inputAxis);
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && cooldown <= 0)
         {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            PowerManager.isInMachine = true;
+            mr.enabled = false;
             canMove = true;
+            isInMachine = true;
+            isFreezed = true;
+
             if (InputManager.performA) isFreezed = false;
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && cooldown <= 0 && isInMachine)
         {
-            PowerManager.canLoosePower = true;
+            PowerManager.isInMachine = false;
+            mr.enabled = true;
             canMove = false;
             isInMachine = false;
+
+            cooldown = cachedcooldown;
+            Debug.Log("exit");
         }
     }
 

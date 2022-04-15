@@ -91,8 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1357349170048177842}
   - component: {fileID: 1357349170048177840}
-  - component: {fileID: 1357349170048177846}
   - component: {fileID: 7925437119035469825}
+  - component: {fileID: 1357349170048177846}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -157,6 +157,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &7925437119035469825
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357349170048177837}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.60669756
+  m_Center: {x: -0.09575695, y: 1.709868, z: -0.10368931}
 --- !u!114 &1357349170048177846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,19 +185,6 @@ MonoBehaviour:
   chargingPowerDelta: 0
   canCharge: 1
   isInMachine: 0
---- !u!135 &7925437119035469825
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357349170048177837}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.60669756
-  m_Center: {x: -0.09575695, y: 1.709868, z: -0.10368931}
 --- !u!1 &3212387348459196627
 GameObject:
   m_ObjectHideFlags: 0

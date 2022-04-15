@@ -11,7 +11,7 @@ public class PowerManager : MonoBehaviour
 
     [Header("Charging Stats")]
     public float unchargePowerDelta;
-    public static bool canLoosePower = true;
+    public static bool  isInMachine = true;
 
     [Header("Power Stats")]
     public static bool outOfPower;
@@ -31,8 +31,10 @@ public class PowerManager : MonoBehaviour
     {
         PowerState();
 
-        if (canLoosePower)
+        if (!isInMachine)
             StartCoroutine(ConsumePower(unchargePowerDelta));
+        else
+            PlayerMotion.canBeTargeted = false;
     }
 
     private void PowerState()
@@ -52,6 +54,7 @@ public class PowerManager : MonoBehaviour
 
         currentPower -= powerAmount * 0.0001f;
         refPowerBar.SetLife(currentPower);
+        PlayerMotion.canBeTargeted = true;
         yield return new WaitForSecondsRealtime(2f);
     }
 }

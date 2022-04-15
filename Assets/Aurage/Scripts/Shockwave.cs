@@ -26,7 +26,6 @@ public class Shockwave : MonoBehaviour
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
-
         cachedCooldown = cooldown;
     }
     private void Update()
@@ -41,7 +40,7 @@ public class Shockwave : MonoBehaviour
         if (cooldown > 0) cooldown -= Time.deltaTime;
         if (cooldown <= 0) refresh = true;
 
-        if (InputManager.performY && cooldown <= 0 && refresh)
+        if (InputManager.performY && cooldown <= 0 && refresh && !PowerManager.isInMachine)
         {
             GetIntensity();
             Attack();

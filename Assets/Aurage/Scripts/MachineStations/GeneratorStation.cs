@@ -69,7 +69,7 @@ public class GeneratorStation : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PowerManager.canLoosePower = false;
+            PowerManager.isInMachine = true;
             isInMachine = true;
             isFreezed = true;
             text.enabled = true;
@@ -92,7 +92,7 @@ public class GeneratorStation : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PowerManager.canLoosePower = true;
+            PowerManager.isInMachine = false;
             isInMachine = false;
             isCharging = false;
             text.enabled = false;
