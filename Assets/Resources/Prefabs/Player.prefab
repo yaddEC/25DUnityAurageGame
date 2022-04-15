@@ -274,8 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 600
-  dashSpeed: 12
-  dashGravity: -4
+  dashSpeed: 400
+  dashGravity: 8
   canDash: 1
   dashCooldown: 2
   cachedDashCooldown: 0
