@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1097956091929138591}
   - component: {fileID: 8705134902436342562}
   - component: {fileID: 4906977339311073819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tete_Haut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 8960924114143861162}
   - component: {fileID: 801248904305870020}
   - component: {fileID: 8922142018148369397}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Robot
   m_TagString: BasicEnemy
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 4361960752311490781}
   - component: {fileID: 8685800536214981646}
   - component: {fileID: 5186574118464430130}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Doigts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +723,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5322104830140999747}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "Apr\xE8sBras"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 4300730975220580428}
   - component: {fileID: 4095902281448765087}
   - component: {fileID: 733422216155633081}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Epaule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9354,7 +9354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6009836450923469330}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9390,7 +9390,7 @@ GameObject:
   - component: {fileID: 2621992481784634099}
   - component: {fileID: 5665868021507323064}
   - component: {fileID: 3492685725101349721}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Arch (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10288,7 +10288,7 @@ GameObject:
   - component: {fileID: 6163890302606316976}
   - component: {fileID: 8222580719992581382}
   - component: {fileID: 5364319884933536102}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11402,7 +11402,7 @@ GameObject:
   - component: {fileID: 7265362992754521462}
   - component: {fileID: 6598908688549176966}
   - component: {fileID: 7422593572140110555}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12515,7 +12515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7214632669752040531}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AvantJambe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12551,7 +12551,7 @@ GameObject:
   - component: {fileID: 6983051235604841039}
   - component: {fileID: 1235106265745303204}
   - component: {fileID: 3495095696283809519}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dent_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12849,7 +12849,7 @@ GameObject:
   - component: {fileID: 4244001119433172978}
   - component: {fileID: 7820138494307411672}
   - component: {fileID: 4841363359785179517}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Machoire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13147,7 +13147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9107314577280989226}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Torse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13180,7 +13180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2025664531357756081}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BrasGauche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13214,7 +13214,7 @@ GameObject:
   - component: {fileID: 1700222813904039246}
   - component: {fileID: 5127838874992126674}
   - component: {fileID: 5097464618294929050}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Torse_Haut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13475,7 +13475,7 @@ GameObject:
   - component: {fileID: 1221588667629087313}
   - component: {fileID: 6785630854929562109}
   - component: {fileID: 4704664641762166852}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Arch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14373,7 +14373,7 @@ GameObject:
   - component: {fileID: 8827029790742762606}
   - component: {fileID: 2003874936252308786}
   - component: {fileID: 8325138309068669082}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pouce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14671,7 +14671,7 @@ GameObject:
   - component: {fileID: 5013169332207907261}
   - component: {fileID: 6275627370034222485}
   - component: {fileID: 8150742458783622813}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15785,7 +15785,7 @@ GameObject:
   - component: {fileID: 3162590324637447361}
   - component: {fileID: 5489504340242992604}
   - component: {fileID: 1683549329192072873}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16899,7 +16899,7 @@ GameObject:
   - component: {fileID: 5831898801940877734}
   - component: {fileID: 1447433592244895601}
   - component: {fileID: 496077287442988607}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pouce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17197,7 +17197,7 @@ GameObject:
   - component: {fileID: 9169118592100628013}
   - component: {fileID: 1317076024041632077}
   - component: {fileID: 3244626505876871552}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttrapeMachoire_Gauche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17495,7 +17495,7 @@ GameObject:
   - component: {fileID: 4570163076734960209}
   - component: {fileID: 8871085077473788532}
   - component: {fileID: 6945699807599504053}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18606,7 +18606,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6640200696360584703}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18643,7 +18643,7 @@ GameObject:
   - component: {fileID: 4055556465236137863}
   - component: {fileID: 8751549566009630766}
   - component: {fileID: 6253020991184996296}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Poignet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27238,7 +27238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 561489373783771753}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JambeDroite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27272,7 +27272,7 @@ GameObject:
   - component: {fileID: 1109671401975389538}
   - component: {fileID: 1350267479114966886}
   - component: {fileID: 4207774836741918022}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28383,7 +28383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4256177350349786131}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28419,7 +28419,7 @@ GameObject:
   - component: {fileID: 8596865808636017585}
   - component: {fileID: 3016843833486004937}
   - component: {fileID: 5188461880168203611}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29530,7 +29530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2547761364107009800}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AvantBras
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29563,7 +29563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4359259995721833062}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_Pied
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29598,7 +29598,7 @@ GameObject:
   - component: {fileID: 4497643985668659362}
   - component: {fileID: 5215940835860039683}
   - component: {fileID: 4163942768491314495}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pied
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29896,7 +29896,7 @@ GameObject:
   - component: {fileID: 6944727728954535643}
   - component: {fileID: 1943176455504102778}
   - component: {fileID: 8692167859965082602}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31010,7 +31010,7 @@ GameObject:
   - component: {fileID: 1509682467382728305}
   - component: {fileID: 1605026079402537586}
   - component: {fileID: 7687463507178917856}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Poignet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39605,7 +39605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1386131637307459911}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "Apr\xE8sBras"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39641,7 +39641,7 @@ GameObject:
   - component: {fileID: 8189761403688324954}
   - component: {fileID: 7768078997545929856}
   - component: {fileID: 9087215512038240148}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Epaule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48239,7 +48239,7 @@ GameObject:
   - component: {fileID: 8276784378609862563}
   - component: {fileID: 3693928180857459194}
   - component: {fileID: 3197435456575877410}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49353,7 +49353,7 @@ GameObject:
   - component: {fileID: 3951367732771071502}
   - component: {fileID: 6999797176766301472}
   - component: {fileID: 6418829605624013808}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50467,7 +50467,7 @@ GameObject:
   - component: {fileID: 8881394263641192560}
   - component: {fileID: 6012778443073807339}
   - component: {fileID: 4378749305415095509}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SousTete_haut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50765,7 +50765,7 @@ GameObject:
   - component: {fileID: 6726133939217943501}
   - component: {fileID: 6593676015636843028}
   - component: {fileID: 1937677892153223802}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59363,7 +59363,7 @@ GameObject:
   - component: {fileID: 3953893150364946890}
   - component: {fileID: 246168834506832968}
   - component: {fileID: 2481047541463530896}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Doigts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59661,7 +59661,7 @@ GameObject:
   - component: {fileID: 1929740767664330431}
   - component: {fileID: 3670159999448810413}
   - component: {fileID: 2053937201113080463}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Epaule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68256,7 +68256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 122464212083262430}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "Apr\xE8sJambe"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68292,7 +68292,7 @@ GameObject:
   - component: {fileID: 8845407918055683169}
   - component: {fileID: 614835191532849235}
   - component: {fileID: 5909563356014183644}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76890,7 +76890,7 @@ GameObject:
   - component: {fileID: 589233024446763679}
   - component: {fileID: 5857935064654556335}
   - component: {fileID: 3950491214056982005}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85488,7 +85488,7 @@ GameObject:
   - component: {fileID: 3007964598004894642}
   - component: {fileID: 3229634386440565705}
   - component: {fileID: 8008364806660976991}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Epaule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94086,7 +94086,7 @@ GameObject:
   - component: {fileID: 6890493833616105773}
   - component: {fileID: 4590892820732637893}
   - component: {fileID: 440816457909363218}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dent_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94381,7 +94381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7816741337478321070}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JambeGauche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94412,7 +94412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5724954070816889867}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BrasDroite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94446,7 +94446,7 @@ GameObject:
   - component: {fileID: 5271679214153335601}
   - component: {fileID: 1327103625426947887}
   - component: {fileID: 118658775658490119}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Arch (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95344,7 +95344,7 @@ GameObject:
   - component: {fileID: 2858544760812772567}
   - component: {fileID: 4282369683914990927}
   - component: {fileID: 7411165590888657520}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Poignet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103942,7 +103942,7 @@ GameObject:
   - component: {fileID: 8743340323851880073}
   - component: {fileID: 7851093832875174962}
   - component: {fileID: 8136335877032780619}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112540,7 +112540,7 @@ GameObject:
   - component: {fileID: 3169198302113990105}
   - component: {fileID: 6196152681295970391}
   - component: {fileID: 4912630441266940356}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pied
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112835,7 +112835,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1440385173525752180}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AvantBras
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112871,7 +112871,7 @@ GameObject:
   - component: {fileID: 3543035859108864378}
   - component: {fileID: 5949522012857086874}
   - component: {fileID: 486798800204146352}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113985,7 +113985,7 @@ GameObject:
   - component: {fileID: 3680046103068176726}
   - component: {fileID: 8671545458828244636}
   - component: {fileID: 5083598942288887429}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Torse_Bas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114370,7 +114370,7 @@ GameObject:
   - component: {fileID: 4758716501655140690}
   - component: {fileID: 4714435244724208395}
   - component: {fileID: 3281806309908273463}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Poignet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122965,7 +122965,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4098937499812100468}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_Pied
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122997,7 +122997,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9130539766305367752}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AvantJambe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123030,7 +123030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 13747961595094839}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "Apr\xE8sJambe"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123066,7 +123066,7 @@ GameObject:
   - component: {fileID: 3644961912467096661}
   - component: {fileID: 1439581458302452406}
   - component: {fileID: 6541528187335690516}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttrapeMachoire_Droite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123364,7 +123364,7 @@ GameObject:
   - component: {fileID: 6040325498489931610}
   - component: {fileID: 5708585187168697160}
   - component: {fileID: 8599417777896755713}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dent_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123662,7 +123662,7 @@ GameObject:
   - component: {fileID: 3709496318818766839}
   - component: {fileID: 6756495898303667786}
   - component: {fileID: 9148075663179200904}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dent_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123957,7 +123957,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 379574376778759689}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123992,7 +123992,7 @@ GameObject:
   - component: {fileID: 6138263584461674410}
   - component: {fileID: 7345916402728731747}
   - component: {fileID: 3114383459077766789}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Arch (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
