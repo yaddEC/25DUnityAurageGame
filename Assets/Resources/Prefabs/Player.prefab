@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8325189878180794312}
   - component: {fileID: 8325189878180794316}
   - component: {fileID: 8325189878180794314}
+  - component: {fileID: 4238211062149300378}
   - component: {fileID: 8325189878180794317}
   - component: {fileID: 8325189878180794315}
-  - component: {fileID: 2026387414}
+  - component: {fileID: 4996807403023991155}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -143,7 +144,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4238211062149300378}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onJoystickInput
         m_Mode: 0
@@ -159,7 +160,7 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4238211062149300378}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onYInput
         m_Mode: 0
@@ -175,7 +176,7 @@ MonoBehaviour:
     m_ActionName: Player/Dash[/Keyboard/shift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4238211062149300378}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onXInput
         m_Mode: 0
@@ -191,7 +192,7 @@ MonoBehaviour:
     m_ActionName: Player/XPressed[/XInputControllerWindows/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4238211062149300378}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onBInput
         m_Mode: 0
@@ -207,7 +208,7 @@ MonoBehaviour:
     m_ActionName: Player/BPressed[/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4238211062149300378}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onAInput
         m_Mode: 0
@@ -223,7 +224,7 @@ MonoBehaviour:
     m_ActionName: Player/APressed
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4238211062149300378}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onTriggerInput
         m_Mode: 0
@@ -242,6 +243,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4238211062149300378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee67bc9d1376b8e40a7f62dba5e1d759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InspectorInputAxis: {x: 0, y: 0}
+  InspectorXPressed: 0
+  InspectorBPressed: 0
+  InspectorAPressed: 0
+  InspectorYPressed: 0
+  InspectorTrigger: 0
 --- !u!114 &8325189878180794317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,15 +274,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 600
-  planList: f0fffffff2ffffffffffffff01000000
   dashSpeed: 12
   dashGravity: -4
   canDash: 1
   dashCooldown: 2
   cachedDashCooldown: 0
   dashPower: 0
-  currentplan: 0
-  changePlanTime: 20
   canBeDetectedByRaycast: 1
   isInPath: 0
   rb: {fileID: 0}
@@ -293,7 +309,7 @@ MonoBehaviour:
   moveSpeed: 10
   rotationSpeed: 5
   isFreezed: 0
---- !u!114 &2026387414
+--- !u!114 &4996807403023991155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,7 +318,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8325189878180794313}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d983d439ea5254d9221368f6864afe, type: 3}
+  m_Script: {fileID: 11500000, guid: 144f71686bae71140a805741057a6120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {x: 0, y: 0}
+  shockwavePower: 4
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  refresh: 1
+  cooldown: 2
+  waveZone: 08000000060000000400000002000000
+  zoneIndex: 0
