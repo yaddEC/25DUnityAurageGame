@@ -22,6 +22,7 @@ public class GeneratorStation : MonoBehaviour
 
     private bool isFreezed = false;
 
+
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
@@ -42,8 +43,9 @@ public class GeneratorStation : MonoBehaviour
 
     private IEnumerator RestorePower(float powerAmount)
     {
-        refPowerManager.currentPower += powerAmount * 0.0001f;
+        isCharging = true;
         yield return new WaitForSecondsRealtime(2f);
+        isCharging = false;
     }
 
     private void ClampInMachine()

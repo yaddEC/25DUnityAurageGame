@@ -7,7 +7,6 @@ public class PowerManager : MonoBehaviour
 {
     [Header("Reference")]
     private GeneratorStation refGeneratorStation;
-    private PowerBar refPowerBar;
 
     [Header("Charging Stats")]
     public float unchargePowerDelta;
@@ -21,7 +20,6 @@ public class PowerManager : MonoBehaviour
 
     private void Awake()
     {
-        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
         refGeneratorStation = GameObject.FindObjectOfType<GeneratorStation>();
 
         currentPower = maxPower;
@@ -32,9 +30,14 @@ public class PowerManager : MonoBehaviour
         PowerState();
 
         if (!isInMachine)
+        {
+            PlayerMotion.canBeTargeted = true;
             StartCoroutine(ConsumePower(unchargePowerDelta));
+        }
         else
+        {
             PlayerMotion.canBeTargeted = false;
+        }
     }
 
     private void PowerState()
@@ -45,7 +48,7 @@ public class PowerManager : MonoBehaviour
 
     private void OnOutOfPowerEvent()
     {
-        SceneManager.LoadScene("GameOverScreen");
+        SceneSwitcher.GameOverScreen();
     }
 
     private IEnumerator ConsumePower(float powerAmount)
@@ -53,8 +56,6 @@ public class PowerManager : MonoBehaviour
         if (currentPower <= 0) outOfPower = true;
 
         currentPower -= powerAmount * 0.0001f;
-        refPowerBar.SetLife(currentPower);
-        PlayerMotion.canBeTargeted = true;
         yield return new WaitForSecondsRealtime(2f);
     }
 }
