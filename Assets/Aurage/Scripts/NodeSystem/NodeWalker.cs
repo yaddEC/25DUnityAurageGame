@@ -17,7 +17,7 @@ public class NodeWalker : MonoBehaviour
     public float rotationSpeed = 5.0f;
 
     private bool isOnNode = false;
-    /*[HideInInspector]*/ public bool isFreezed = false;
+    [HideInInspector] public bool isFreezed = false;
 
     private void Awake()
     {
@@ -41,7 +41,6 @@ public class NodeWalker : MonoBehaviour
             if (refPlayerMotion.isInPath && !isFreezed && InputManager.inputAxis.x != 0)
                 WalkOnPath();
         }
-        else Debug.Log("yes");
     }
 
     private void OnNodeHandler()
@@ -66,7 +65,7 @@ public class NodeWalker : MonoBehaviour
     {
         var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
 
-        refCurrNodePath = NodePath.NodePathTarget(InputManager.inputAxis, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);
+        refCurrNodePath = refCurrNodePath.NodePathTarget(InputManager.inputAxis, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);
 
         transform.position = Vector3.MoveTowards(transform.position, refCurrNodePath.transform.position, moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, moveSpeed * Time.deltaTime);

@@ -8,7 +8,6 @@ public class PlayerMotion : MonoBehaviour
     private PowerManager refPowerManager;
 
     public float moveSpeed;
-    public int[] planList;
 
     public float dashSpeed;
     public float dashGravity;
@@ -17,9 +16,6 @@ public class PlayerMotion : MonoBehaviour
     public float cachedDashCooldown;
 
     public float dashPower = 10;
-
-    public int currentplan = 1;
-    public float changePlanTime;
 
     public bool canBeDetectedByRaycast = true;
     public bool isInPath;
@@ -91,7 +87,7 @@ public class PlayerMotion : MonoBehaviour
 
     private void Move(Vector2 input)
     {
-        rb.velocity = new Vector3(-input.x, rb.velocity.y, -input.y) * moveSpeed * Time.fixedDeltaTime;
+        rb.velocity = new Vector3(input.x * moveSpeed, rb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
     }
 
     private void Dash()

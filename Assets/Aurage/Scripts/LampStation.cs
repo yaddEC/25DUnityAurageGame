@@ -9,6 +9,9 @@ public class LampStation : MonoBehaviour
     private PowerManager refPowerManager;
     private PlayerMotion refPlayerMotion;
 
+    [Header("Lamp UI/UX")]
+    private MeshRenderer meshRenderer;
+
     [Header("Lamp Stats")]
     public float chargingPowerDelta;
     public bool canCharge = true;
@@ -22,6 +25,7 @@ public class LampStation : MonoBehaviour
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
         lockPosition = UnityFinder.FindGameObjectInChildWithTag(this.gameObject, "LockPosition");
+        meshRenderer = GameObject.FindGameObjectWithTag("Player").GetComponent<MeshRenderer>();
     }
 
     private void Update()
@@ -33,7 +37,7 @@ public class LampStation : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.gameObject.transform.localScale = Vector3.zero;
+            meshRenderer.enabled = false;
             PowerManager.canLoosePower = false;
             isInMachine = true;
             isFreezed = true;
@@ -51,7 +55,7 @@ public class LampStation : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.gameObject.transform.localScale = Vector3.one;
+            meshRenderer.enabled = true;
             PowerManager.canLoosePower = true;
             isInMachine = false;
             canCharge = false;
@@ -63,6 +67,7 @@ public class LampStation : MonoBehaviour
         refPowerManager.currentPower += chargingPowerDelta;
         canCharge = false;
     }
+
     private void ClampInMachine()
     {
         if (isFreezed)
