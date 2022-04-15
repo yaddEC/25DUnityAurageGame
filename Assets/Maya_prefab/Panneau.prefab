@@ -252,6 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8338388823827734584}
+  - component: {fileID: 4522821050516749266}
   m_Layer: 0
   m_Name: Panneau
   m_TagString: Untagged
@@ -276,3 +277,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 35, z: 0}
+--- !u!136 &4522821050516749266
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717905481091693186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.8914081
+  m_Height: 43.148396
+  m_Direction: 2
+  m_Center: {x: -0.06993353, y: -0.000000004519537, z: 21.65297}
