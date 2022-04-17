@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8424052072678578226}
   m_Layer: 5
   m_Name: Display
-  m_TagString: BushInteracter
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,36 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &187665914836707373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4076680117854798940}
+  m_Layer: 0
+  m_Name: LockPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4076680117854798940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187665914836707373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.426, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8449639162402911965}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3043015478688987580
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,8 +541,8 @@ GameObject:
   - component: {fileID: 8449639162402911522}
   - component: {fileID: 671149390491588482}
   m_Layer: 0
-  m_Name: Generator
-  m_TagString: Generator
+  m_Name: GeneratorStation
+  m_TagString: GeneratorStation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,6 +560,7 @@ Transform:
   m_Children:
   - {fileID: 6743068227471748043}
   - {fileID: 4494924502514262534}
+  - {fileID: 4076680117854798940}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -586,11 +617,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa42771f18a2e048bfc89ea7bf7e449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  refPowerManager: {fileID: 0}
+  refPlayerMotion: {fileID: 0}
+  text: {fileID: 0}
+  bC: {fileID: 0}
+  mR: {fileID: 0}
+  tagToSearch: 
+  isFreezed: 0
+  isInMachine: 0
+  isUsable: 0
+  doEvent: 0
+  cooldown: 2
+  lockPosition: {fileID: 0}
+  machineList: []
   checkointActivated: 0
   chargingPowerDelta: 1000
-  canCharge: 1
-  isInMachine: 0
-  isCharging: 0
 --- !u!65 &671149390491588482
 BoxCollider:
   m_ObjectHideFlags: 0

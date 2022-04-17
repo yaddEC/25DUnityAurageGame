@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class NodeBuilder : MonoBehaviour
 {
+    [SerializeField] private Transform transformParent;
     [SerializeField] private GameObject nodeHolder;
     [SerializeField] private GameObject containerHolder;
     [SerializeField] private Transform container;
     private Transform parentTransform;
-    [SerializeField] private bool containerHolderCreated;
+    private bool containerHolderCreated;
     [SerializeField] private List<GameObject> nodeHolders = new List<GameObject>();
-
-    private void Update()
-    {
-        foreach (GameObject nodeHolder in nodeHolders)
-        {
-            if (nodeHolder.transform.parent != container)
-                nodeHolder.transform.parent = container;
-        }
-    }
-
     private void OnDrawGizmos()
     {
+        transformParent = GameObject.Find("App").GetComponent<Transform>();
+        containerHolder.transform.SetParent(transformParent);
+
         parentTransform = container;
 
         foreach (GameObject nodeHolder in nodeHolders)
@@ -32,6 +26,16 @@ public class NodeBuilder : MonoBehaviour
             Gizmos.DrawIcon(nodeHolder.transform.position, "HolderIcon.tiff", true);
         }
     }
+
+    private void Update()
+    {
+        foreach (GameObject nodeHolder in nodeHolders)
+        {
+            if (nodeHolder.transform.parent != container)
+                nodeHolder.transform.parent = container;
+        }
+    }
+
 
     private void CreateNodeHolder()
     {
@@ -48,7 +52,7 @@ public class NodeBuilder : MonoBehaviour
     private void CreateNodeContainer()
     {
         containerHolder = new GameObject();
-        containerHolder.transform.SetParent(parentTransform);
+        containerHolder.transform.SetParent(transformParent);
 
         containerHolder.name = "NodeContainer";
         containerHolder.tag = "NodeContainer";

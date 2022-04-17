@@ -3,101 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GeneratorStation : MonoBehaviour
+public class GeneratorStation : Station
 {
-    [Header("Reference")]
-    private PowerManager refPowerManager;
-    private PlayerMotion refPlayerMotion;
-
-    [Header("Generator UI/UX")]
-    private Text text;
-
     [Header("Generator Stats")]
     public bool checkointActivated = false;
     public float chargingPowerDelta;
-    public bool canCharge = true;
-    public bool isInMachine = false;
-    public bool isCharging = false;
-    private GameObject[] generatorsList;
 
-    private bool isFreezed = false;
-
-
-    private void Awake()
-    {
-        refPowerManager = GameObject.FindObjectOfType<PowerManager>();
-        refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
-        generatorsList = GameObject.FindGameObjectsWithTag("Generator");
-
-        text = GetComponentInChildren<Text>();
-        text.enabled = false;
-    }
-
+    //-------------------------------------------------------------
+    private void Awake() { var t = gameObject.name; tagToSearch = t; }
+    private void Start() { RegisterReferences(); }
     private void Update()
     {
+        CooldownHandler(false); 
         ClampInMachine();
 
-        if(isInMachine && canCharge)
-            StartCoroutine(RestorePower(chargingPowerDelta));
+        if (doEvent && isUsable) StartCoroutine(RestorePower(chargingPowerDelta));
     }
-
+    //-------------------------------------------------------------
     private IEnumerator RestorePower(float powerAmount)
     {
-        isCharging = true;
+        refPowerManager.currentPower += powerAmount * 0.0001f;
         yield return new WaitForSecondsRealtime(2f);
-        isCharging = false;
     }
-
-    private void ClampInMachine()
+    private void CheckpointChecker()
     {
-        if (isFreezed)
+        if (!checkointActivated)
         {
-            refPlayerMotion.transform.position = transform.position;
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
-        }
-        else
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
-    }
-    public void RestoreGenerators()
-    {
-        foreach (GameObject obj in generatorsList)
-        {
-            if (!obj.GetComponent<GeneratorStation>().checkointActivated)
-                obj.GetComponent<GeneratorStation>().canCharge = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            PowerManager.isInMachine = true;
-            isInMachine = true;
-            isFreezed = true;
-            text.enabled = true;
-
-            if (!checkointActivated) refPowerManager.waypoint = transform;
+            refPowerManager.waypoint = transform;
             checkointActivated = true;
         }
     }
-
-    private void OnTriggerStay(Collider other)
+    //-------------------------------------------------------------
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && cooldown <= 0)
         {
-            if(canCharge && InputManager.performB) isCharging = true;
-            if (InputManager.performA) isFreezed = false;
+            EnterMachine(); 
+            CheckpointChecker();
         }
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player" && cooldown <= 0)
+        {
+            StayMachine(false);
+            if (isUsable && InputManager.performB) doEvent = true;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && cooldown <= 0)
         {
-            PowerManager.isInMachine = false;
-            isInMachine = false;
-            isCharging = false;
-            text.enabled = false;
+            if (doEvent) isUsable = false;
+            doEvent = false;
+            ExitMachine();
         }
     }
 }

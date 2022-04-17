@@ -61,7 +61,11 @@ public class NodeHolder : MonoBehaviour
 
         node = new GameObject();
         node.transform.SetParent(this.transform);
+        node.transform.position = nodeList[nodeList.Count - 1].transform.position;
         var noderef = node.AddComponent<NodePath>();
+
+        var refpath = nodeList[nodeList.Count - 1].GetComponent<NodePath>();
+        refpath.nodePoints.Add(noderef);
 
         node.name = index.ToString();
         node.tag = "Node";
@@ -72,6 +76,9 @@ public class NodeHolder : MonoBehaviour
     {
         var indexList = nodeList.Count - 1;
         var t = nodeList[indexList];
+
+        var refpath = nodeList[indexList-1].GetComponent<NodePath>();
+        refpath.nodePoints.Remove(nodeList[indexList].GetComponent<NodePath>());
 
         nodeList.RemoveAt(indexList);
         DestroyImmediate(t.gameObject);

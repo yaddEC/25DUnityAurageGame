@@ -28,7 +28,7 @@ public class BasicEnemy : MonoBehaviour
     public Vector3 dir;
     [HideInInspector] public Vector3 moveDirection;
     private Coroutine lastRoutine;
-    private Material enemyHead;
+    public Material enemyHead;
 
     void Start()
     {

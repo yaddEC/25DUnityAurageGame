@@ -26,11 +26,15 @@ public class SocketStation : MonoBehaviour
 
     private void TeleportToTarget()
     {
-        /*if (refPlayerMotion.isInPath)
-            refPlayerMotion.isInPath = false;*/
-
         coolDown = cachedCoolDown;
-        refPlayerMotion.transform.position = socketTarget.transform.position;
+        if(socketTarget.name == "In")
+        {
+            refPlayerMotion.isInPath = false;
+            refPlayerMotion.canBeDetectedByRaycast = false;
+            refPlayerMotion.transform.position = socketTarget.transform.position;
+        }    
+        else
+            refPlayerMotion.transform.position = socketTarget.transform.position;
 
     }
 
