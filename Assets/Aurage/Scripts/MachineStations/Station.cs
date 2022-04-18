@@ -11,6 +11,7 @@ public abstract class Station : MonoBehaviour
 
     [Header("Machine UI/UX")]
     public Text text;
+    public Image image;
     public BoxCollider bC;
     public MeshRenderer mR;
 
@@ -34,6 +35,7 @@ public abstract class Station : MonoBehaviour
         if(tagToSearch != null) machineList = GameObject.FindGameObjectsWithTag(tagToSearch);
 
         text = GetComponentInChildren<Text>(); text.enabled = false;
+        image = GetComponentInChildren<Image>(); image.enabled = false;
         lockPosition = UnityFinder.FindTransformInChildWithTag(gameObject, "LockPosition");
 
         isUsable = true;
@@ -79,6 +81,7 @@ public abstract class Station : MonoBehaviour
         isInMachine = true;
         isFreezed = true;
         text.enabled = true;
+        image.enabled = true;
     }
     public virtual void StayMachine(bool autoExec)
     {
@@ -92,6 +95,7 @@ public abstract class Station : MonoBehaviour
         isInMachine = false;
         doEvent = false;
         text.enabled = false;
+        image.enabled = false;
         cooldown = cachedCooldown;
     }
 }

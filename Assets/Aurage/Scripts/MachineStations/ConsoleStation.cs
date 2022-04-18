@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColliderTrap : Station
+public class ConsoleStation : Station
 {
     [Header("Property Info")]
-    private GameObject trap;
-    private Animator trapAnim;
-    private BoxCollider trapBC;
+    public bool isOpen = false;
+    public GameObject objectToInteractWith;
+    public Animator objectAnim;
+    public BoxCollider objectBC;
     //-------------------------------------------------------------
     private void Awake() 
     {
         var t = transform.parent.gameObject.name; tagToSearch = t;
-        trap = UnityFinder.FindGameObjectInChildWithTag(transform.parent.gameObject, "Trap");
-        trapAnim = trap.GetComponent<Animator>();
-        trapBC = trap.GetComponent<BoxCollider>();
+        objectToInteractWith = UnityFinder.FindGameObjectInChildWithTag(transform.parent.gameObject, transform.parent.GetComponentInChildren<Animator>().gameObject.tag);
+        objectAnim = objectToInteractWith.GetComponent<Animator>();
+        objectBC = objectToInteractWith.GetComponent<BoxCollider>();
     }
     private void Start() { RegisterReferences(); }
     private void Update()
@@ -23,17 +24,19 @@ public class ColliderTrap : Station
         CooldownHandler(false);
         ClampInMachine();
 
-        if(TrapAnimIsPlaying()) trapBC.isTrigger = true;
-        else trapBC.isTrigger = false;
+        if(TrapAnimIsPlaying()) isOpen = true;
+        else isOpen = false;
 
-    }
+        if (isOpen) { objectBC.isTrigger = true; }
+        else { objectBC.isTrigger = false; }
+        }
     //-------------------------------------------------------------
     private void OpenTrap()
     {
-        trapAnim.SetTrigger("open");
+        objectAnim.SetTrigger("open");
         doEvent = false;
     }
-    private bool TrapAnimIsPlaying() { return trapAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1; }
+    private bool TrapAnimIsPlaying() { return objectAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1; }
     //-------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {

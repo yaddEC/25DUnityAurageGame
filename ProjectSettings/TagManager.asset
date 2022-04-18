@@ -22,6 +22,9 @@ TagManager:
   - LampStation
   - RoombaStation
   - TrapStation
+  - ConsoleStation
+  - Door
+  - DoorStation
   layers:
   - Default
   - TransparentFX
