@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MidPressed",
+                    "type": "Button",
+                    "id": "0dcfb5eb-a02a-46ec-ba1c-a3392170b8e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -118,6 +126,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "TriggerStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6358390e-3456-4b00-bbf9-355d7c438918",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MidPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

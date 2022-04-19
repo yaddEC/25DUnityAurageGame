@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/WinningScreen.unity
     guid: 80a937fc0dbfade4bb80b7fdc18a46ef
   - enabled: 0
-    path: Assets/Scenes/EnemyScene.unity
-    guid: 930b9f3bf71a0be479020e790195c6aa
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 612282bd9e3d0b44d9f30f0e3a8db56a, type: 2}
