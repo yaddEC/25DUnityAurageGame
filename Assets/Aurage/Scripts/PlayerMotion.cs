@@ -40,10 +40,10 @@ public class PlayerMotion : MonoBehaviour
 
     private void Update()
     {
+        if (PowerManager.isInMachine) rb.useGravity = false;
         MovementUpdate();
 
-        if (!canDash)
-            dashCooldown -= Time.deltaTime;
+        if (!canDash) dashCooldown -= Time.deltaTime;
 
         if (dashCooldown <= 0)
         {
@@ -54,7 +54,7 @@ public class PlayerMotion : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovementFixedUpdate();
+        if (!isInPath) MovementFixedUpdate();
     }
 
     //--------------------------------------------------
@@ -68,23 +68,17 @@ public class PlayerMotion : MonoBehaviour
         else
         {
             rb.useGravity = false;
-            rb.velocity = Vector3.zero;
             PowerManager.isInMachine = true;
 
-            if (NodeSettings.canDashOnNode)
-                DashCheck();
-            else
-                canDash = false;
+            if (NodeSettings.canDashOnNode) DashCheck();
+            else canDash = false;
         }
     }
 
     private void MovementFixedUpdate()
     {
-        if (!isInPath && isGrounded)
-            FloorMovement();
-
-        if (!isInPath)
-            rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+        if(isGrounded) FloorMovement();
+        rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
@@ -94,7 +88,17 @@ public class PlayerMotion : MonoBehaviour
 
     private void Dash()
     {
-        rb.AddForce(dashSpeed * Vector2.up);
+        if(isGrounded)
+        {
+            if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * InputManager.inputAxis);
+            else rb.AddForce(dashSpeed * Vector3.up);
+        }
+        else
+        {
+            if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
+            else rb.AddForce(dashSpeed * 1.5f * Vector3.up);
+        }
+
         refPowerManager.currentPower -= dashPower;
         canDash = false;
     }
@@ -108,10 +112,8 @@ public class PlayerMotion : MonoBehaviour
     {
         DashCheck();
 
-        if (!InputManager.performTrigger && InputManager.inputAxis != Vector2.zero)
-            Move(InputManager.inputAxis);
-        else
-            Move(Vector2.zero);
+        if (!InputManager.performTrigger && InputManager.inputAxis != Vector2.zero) Move(InputManager.inputAxis);
+        else Move(Vector2.zero);
     }
 
     //--------------------------------------------------
@@ -119,16 +121,16 @@ public class PlayerMotion : MonoBehaviour
     {
         if (InputManager.performA && canDash)
         {
-            isInPath = false;
+            if(isInPath) StartCoroutine(RaycastDetection());
             Dash();
-            StartCoroutine(RaycastDetection());
         }
     }
 
     private IEnumerator RaycastDetection()
     {
+        rb.useGravity = true; isInPath = false;
         canBeDetectedByRaycast = false;
-        yield return new WaitUntil(() => isGrounded == true);
+        yield return new WaitForSeconds(0.1f);
         canBeDetectedByRaycast = true;
     }
 }

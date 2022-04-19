@@ -30,4 +30,13 @@ public static class UnityFinder
         }
         return null;
     }
+
+    public static Vector3 Projection(Vector3 p, Vector3 a, Vector3 b)
+    {
+        Vector3 axis = b - a;
+        Vector3 point = p - a;
+        float dp = Vector3.Dot(point, axis);
+        return new Vector3((dp / (axis.x * axis.x + axis.y * axis.y)) * axis.x,
+            (dp / (axis.x * axis.x + axis.y * axis.y)) * axis.y) + a;
+    }
 }
