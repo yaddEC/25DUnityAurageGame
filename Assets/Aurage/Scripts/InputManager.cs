@@ -35,7 +35,6 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        inputAxis.Normalize();
         InspectorInputAxis = inputAxis;
 
         InspectorXPressed = performX;
