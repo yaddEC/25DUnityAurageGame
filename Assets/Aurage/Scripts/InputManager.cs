@@ -13,7 +13,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private bool InspectorYPressed;
 
     [SerializeField] private bool InspectorTrigger;
-   
+    [SerializeField] private bool InspectorMid;
+
     public static Vector2 inputAxis;
 
     public static bool performX;
@@ -22,6 +23,8 @@ public class InputManager : MonoBehaviour
     public static bool performY;
 
     public static bool performTrigger;
+
+    public static bool performMid;
 
     public void onJoystickInput(InputAction.CallbackContext context)
     {
@@ -43,6 +46,9 @@ public class InputManager : MonoBehaviour
         InspectorYPressed = performY;
 
         InspectorTrigger = performTrigger;
+        InspectorMid = performMid;
+
+        if (performMid) Debug.Log("ew");
 
     }
 
@@ -63,5 +69,10 @@ public class InputManager : MonoBehaviour
     public void onAInput(InputAction.CallbackContext context)
     {
         performA = context.performed;
+    }
+
+    public void onMidInput(InputAction.CallbackContext context)
+    {
+        performMid = context.performed;
     }
 }
