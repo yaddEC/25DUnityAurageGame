@@ -25,6 +25,7 @@ TagManager:
   - ConsoleStation
   - Door
   - DoorStation
+  - WayPoint
   layers:
   - Default
   - TransparentFX
