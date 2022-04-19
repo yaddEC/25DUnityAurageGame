@@ -279,7 +279,7 @@ MonoBehaviour:
   canDash: 1
   dashCooldown: 2
   cachedDashCooldown: 0
-  dashPower: 0
+  dashPower: 5
   canBeDetectedByRaycast: 1
   isInPath: 0
   rb: {fileID: 0}

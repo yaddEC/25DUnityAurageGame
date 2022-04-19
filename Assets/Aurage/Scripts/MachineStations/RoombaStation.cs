@@ -2,79 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoombaStation : MonoBehaviour
+public class RoombaStation : Station
 {
-    private PlayerMotion refPlayerMotion;
-    public bool isFreezed = false;
-    public bool isInMachine = false;
+    [Header("Property Info")]
     public float moveSpeed;
-
-    private bool canMove = false;
-
     private Rigidbody rb;
-
-    private void Awake()
-    {
-        refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
-
+    //-------------------------------------------------------------
+    private void Awake() { 
+        var t = gameObject.name; tagToSearch = t;
         rb = GetComponent<Rigidbody>();
     }
-
+    private void Start() { RegisterReferences(); }
     private void Update()
     {
+        CooldownHandler(true);
         ClampInMachine();
+        FreezeRoomba();
     }
-
     private void FixedUpdate()
     {
-        if(canMove)
-            Move(InputManager.inputAxis);
+        if(doEvent) Move(InputManager.inputAxis);
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            PowerManager.canLoosePower = false;
-            canMove = true;
-            isInMachine = true;
-            isFreezed = true;
-        }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            canMove = true;
-            if (InputManager.performA) isFreezed = false;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            PowerManager.canLoosePower = true;
-            canMove = false;
-            isInMachine = false;
-        }
-    }
-
+    //-------------------------------------------------------------
     private void Move(Vector2 input)
     {
         rb.velocity = new Vector3(input.x * moveSpeed, rb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
     }
-
-    private void ClampInMachine()
+    private void FreezeRoomba()
     {
-        if (isFreezed)
-        {
-            refPlayerMotion.transform.position = transform.position;
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
-        }
-        else
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
+        if (!isInMachine) rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        else rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
-
+    //-------------------------------------------------------------
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" && cooldown <= 0)
+        {
+            EnterMachine();
+            StayMachine(true);
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" && cooldown <= 0) ExitMachine();
+    }
 }

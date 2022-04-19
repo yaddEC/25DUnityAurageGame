@@ -7,7 +7,7 @@ public class BasicEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
     
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
     public bool alerted;
     public bool playerDetected;
     public bool isMoving;
@@ -28,7 +28,7 @@ public class BasicEnemy : MonoBehaviour
     public Vector3 dir;
     [HideInInspector] public Vector3 moveDirection;
     private Coroutine lastRoutine;
-    private Material enemyHead;
+    public Material enemyHead;
 
     void Start()
     {
@@ -38,7 +38,7 @@ public class BasicEnemy : MonoBehaviour
         alerted = false;
         isMoving = true;
         dir = Vector3.right;
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody>();
         lastRoutine = null;
         enemyHead = gameObject.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Renderer>().material;
     }
@@ -136,7 +136,7 @@ public class BasicEnemy : MonoBehaviour
     private void Move()//moving/roaming function
     {
         float move = dir.x * Time.fixedDeltaTime;
-        rigidbody.velocity = new Vector3(10 * speed * move, 0, 0);
+        rb.velocity = new Vector3(10 * speed * move, 0, 0);
     }
 
     private void ChangeDir()//Coroutine that change the direction/ stop the moving for the gradual rotation

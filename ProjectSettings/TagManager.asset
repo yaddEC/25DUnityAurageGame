@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Generator
   - Node
   - NodeHolder
   - BasicEnemy
@@ -15,8 +14,17 @@ TagManager:
   - Radio
   - Enemy
   - Vignetage
-  - BushInteracter
   - LockPosition
+  - Trap
+  - Console
+  - Disjoncteur
+  - GeneratorStation
+  - LampStation
+  - RoombaStation
+  - TrapStation
+  - ConsoleStation
+  - Door
+  - DoorStation
   layers:
   - Default
   - TransparentFX

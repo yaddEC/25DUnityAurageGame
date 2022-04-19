@@ -13,6 +13,11 @@ public class PowerBar : MonoBehaviour
         refLifeSlider = GameObject.FindObjectOfType<Slider>();
         SetMaxLife(refPowerManager.maxPower);
     }
+    private void Update()
+    {
+        SetLife(refPowerManager.currentPower);
+    }
+
     public void SetMaxLife(float life)
     {
         refLifeSlider.maxValue = life;
