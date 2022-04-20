@@ -94,7 +94,7 @@ public class BasicEnemy : MonoBehaviour
         //timed rotation when edge is encounter
 
         dir = (wpAIM.transform.position - transform.position).normalized;
-        Debug.DrawLine(dir*10, transform.position);
+     
         //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt turning or already alerted
         if (SeeThePlayer() && !alerted && !isTurning && !isStunned && !isDistracted)
             StartCoroutine(Alerted());
