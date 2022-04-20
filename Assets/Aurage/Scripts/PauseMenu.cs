@@ -41,4 +41,13 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(newScene.name);
         onBackPresed();
     }
+
+    public void goToMainMenu()
+    {
+        KillZone.isDead = false;
+        Scene newScene = SceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(newScene.name);
+        SceneManager.LoadScene("Menu");
+        onBackPresed();
+    }
 }
