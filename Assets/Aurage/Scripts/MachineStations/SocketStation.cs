@@ -27,10 +27,11 @@ public class SocketStation : MonoBehaviour
     private void TeleportToTarget()
     {
         coolDown = cachedCoolDown;
-        if(socketTarget.name == "In")
+        refPlayerMotion.rb.velocity = Vector3.zero;
+
+        if (socketTarget.name == "In")
         {
             refPlayerMotion.isInPath = false;
-            refPlayerMotion.canBeDetectedByRaycast = false;
             refPlayerMotion.transform.position = socketTarget.transform.position;
         }    
         else

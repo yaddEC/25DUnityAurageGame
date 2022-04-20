@@ -15,7 +15,7 @@ public class RoombaStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(true);
+        CooldownHandler(false);
         ClampInMachine();
         FreezeRoomba();
     }
@@ -30,20 +30,21 @@ public class RoombaStation : Station
     }
     private void FreezeRoomba()
     {
-        if (!isInMachine) rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-        else rb.constraints = RigidbodyConstraints.FreezeRotation;
+        if (!isInMachine) rb.constraints = RigidbodyConstraints.FreezeAll;
+        else rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
     }
     //-------------------------------------------------------------
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player" && cooldown <= 0)
-        {
-            EnterMachine();
-            StayMachine(true);
-        }
+        if (other.tag == "Player" && cooldown <= 0) EnterMachine();
     }
-    private void OnCollisionExit(Collision collision)
+
+    private void OnTriggerStay(Collider other)
     {
-        if (collision.gameObject.tag == "Player" && cooldown <= 0) ExitMachine();
+        if (other.tag == "Player" && cooldown <= 0) { StayMachine(true); }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player" && cooldown <= 0) ExitMachine();
     }
 }
