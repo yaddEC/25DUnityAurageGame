@@ -28,6 +28,8 @@ public class PauseMenu : MonoBehaviour
             Debug.Log("Pause");
             onBackPresed();
             m_EventSystem.firstSelectedGameObject.GetComponent<Button>().Select();
+            m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = false;
+            m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = true;
         }
     }
 
