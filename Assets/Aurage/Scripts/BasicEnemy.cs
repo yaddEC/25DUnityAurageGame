@@ -24,26 +24,51 @@ public class BasicEnemy : MonoBehaviour
     private LayerMask obstacle;
     private LayerMask edge;
     public GameObject player;
+    public GameObject wpAIM;
     private GameObject machine;
     public Vector3 dir;
     [HideInInspector] public Vector3 moveDirection;
     private Coroutine lastRoutine;
     public Material enemyHead;
+    public List<GameObject> wayPoints;
+    public float turning = 0f;
 
     void Start()
     {
+        getWayPoints();
+        wpAIM = wayPoints[0];
         edge = LayerMask.GetMask("Edge");
         obstacle = LayerMask.GetMask("Obstacle");
         player = GameObject.FindGameObjectWithTag("Player");
+
+        dir = (wpAIM.transform.position - transform.position).normalized;
+        transform.rotation = Quaternion.LookRotation(dir) ;
+        turning = Vector3.Angle(transform.forward, dir);
         alerted = false;
         isMoving = true;
-        dir = Vector3.right;
+        
         rb = gameObject.GetComponent<Rigidbody>();
         lastRoutine = null;
-        enemyHead = gameObject.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Renderer>().material;
+       // enemyHead = gameObject.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Renderer>().material;
     }
 
-    // Update is called once per frame
+    private void getWayPoints()
+    {
+        GameObject[] gameWayPoints = GameObject.FindGameObjectsWithTag("WayPoint");
+        GameObject temp;
+        for (int i = 0; i < gameWayPoints.Length; i++)
+        {
+            if (gameWayPoints[i].transform.parent.parent == transform.parent)
+            {
+                wayPoints.Add(gameWayPoints[i]);
+            }
+        }
+
+
+    }
+
+
+
 
     public bool SeeThePlayer()//return true if the player is in enemy line of sight+no obstacle separating them
     {
@@ -67,15 +92,15 @@ public class BasicEnemy : MonoBehaviour
     void Update()
     {
         //timed rotation when edge is encounter
-        if (isEdge() && !isDistracted)
-            ChangeDir();
-        
+
+        dir = (wpAIM.transform.position - transform.position).normalized;
+     
         //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt turning or already alerted
         if (SeeThePlayer() && !alerted && !isTurning && !isStunned && !isDistracted)
             StartCoroutine(Alerted());
 
         //State debug
-        if (playerDetected)
+       /* if (playerDetected)
             enemyHead.SetColor("_EmissionColor", Color.red);
         else if (isStunned)
             enemyHead.SetColor("_EmissionColor", Color.black);
@@ -84,7 +109,7 @@ public class BasicEnemy : MonoBehaviour
         else if (alerted)
             enemyHead.SetColor("_EmissionColor", Color.yellow);
         else
-            enemyHead.SetColor("_EmissionColor", Color.cyan);
+            enemyHead.SetColor("_EmissionColor", Color.cyan);*/
 
     }
 
@@ -103,22 +128,18 @@ public class BasicEnemy : MonoBehaviour
 
     private IEnumerator Turning()//Coroutine that makes gradual rotation
     {
-        var turning = 0f;
+        
 
-        isTurning = true;
-        if (dir.x <= 0)
-            turning = 270;
-        
-        else
-            turning = rotation;
-        
-        
-        while(transform.eulerAngles.y!=turning)
+        yield return new WaitForSeconds(0.1f);
+        Quaternion look = Quaternion.LookRotation(dir);
+        float time = 0f;
+        while (time<1)
         {
-            float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, turning, rotationSpeed * Time.deltaTime);
-            transform.eulerAngles = new Vector3(0, angle, 0);
-            
-            yield return new WaitForSeconds(0.001f);
+            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time/20);
+            transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
+            time += Time.deltaTime * rotationSpeed;
+            turning = time;
+            yield return null;
         }
 
         if(!isStunned)
@@ -135,15 +156,28 @@ public class BasicEnemy : MonoBehaviour
 
     private void Move()//moving/roaming function
     {
-        float move = dir.x * Time.fixedDeltaTime;
-        rb.velocity = new Vector3(10 * speed * move, 0, 0);
+        float movex = dir.x * Time.fixedDeltaTime;
+        float movez = dir.z * Time.fixedDeltaTime;
+        rb.velocity = new Vector3(10 * speed * movex, 0, 10 * speed * movez);
     }
 
-    private void ChangeDir()//Coroutine that change the direction/ stop the moving for the gradual rotation
+    public void ChangeWayPoint(GameObject actualWayPoint)//Coroutine that change the direction/ stop the moving for the gradual rotation
     {
         isMoving = false;
-        dir *= -1;
+        for (int i = 0; i < wayPoints.Count; i++)
+        {
+            
+            if (wayPoints[i] == actualWayPoint)
+            {
+                if(i+1== wayPoints.Count)
+                    wpAIM = wayPoints[0];
+                else
+                    wpAIM = wayPoints[i+1];
+                  
+            }
+        }
         lastRoutine = StartCoroutine(Turning());
+        
     }
 
     public void Stun(float stunDuration)
@@ -171,8 +205,8 @@ public class BasicEnemy : MonoBehaviour
         isDistracted = true;
         this.machine = machine;
         moveDirection = (machine.transform.position - transform.position).normalized;
-        if (Mathf.RoundToInt(moveDirection.x) != dir.x)
-            ChangeDir();
+        //if (Mathf.RoundToInt(moveDirection.x) != dir.x)
+            //ChangeDir();
     }
 
     public void Focused()

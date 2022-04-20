@@ -6,65 +6,49 @@ public class Shockwave : MonoBehaviour
 {
     private PowerManager refPowerManager;
     public int shockwavePower = 4;
-    private float intensity;
     public LayerMask mask;
     public bool refresh = true;
     public float cooldown = 2;
     private float cachedCooldown;
+    private GameObject shockWavePrefab;
+    private GameObject shockWaveClone;
+    public int scale;
+    public float fadeSpeed;
+    public float duration;
 
-    public int[] waveZone;
-    public int zoneIndex;
 
-    private int delta;
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, delta);
-    }
 
     private void Awake()
     {
+        shockWavePrefab = Resources.Load<GameObject>("Prefabs/ElectricShock");
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         cachedCooldown = cooldown;
     }
     private void Update()
     {
-        if      (refPowerManager.currentPower >= 75)   zoneIndex = 0;
-        else if (refPowerManager.currentPower >= 45)   zoneIndex = 1;
-        else if (refPowerManager.currentPower >= 20)   zoneIndex = 2;
-        else                                           zoneIndex = 3;
-
-        delta = waveZone[zoneIndex];
+        if (refPowerManager.currentPower >= 75)      { scale = 10; fadeSpeed = 2; duration = 1f; } 
+        else if (refPowerManager.currentPower >= 45) { scale = 8; fadeSpeed = 3; duration = 0.65f; }
+        else if (refPowerManager.currentPower >= 20) { scale = 6; fadeSpeed = 4; duration = 0.5f; }  
+        else                                         { scale = 4; fadeSpeed = 5; duration = 0.4f; }              
 
         if (cooldown > 0) cooldown -= Time.deltaTime;
         if (cooldown <= 0) refresh = true;
 
         if (InputManager.performY && cooldown <= 0 && refresh && !PowerManager.isInMachine)
         {
-            GetIntensity();
             Attack();
         }
     }
 
-    private void GetIntensity()
-    {
-        intensity = refPowerManager.currentPower - (refPowerManager.currentPower / shockwavePower);
-        refPowerManager.currentPower /= shockwavePower;
-        refresh = false;
-    }
 
     private void Attack()
     {
-        Collider[] colliders;
-
-        colliders = Physics.OverlapSphere(transform.position, delta, mask);
-        foreach (Collider col in colliders)
-        {
-            var c = col.GetComponent<Rigidbody>();
-            if (c) c.AddForce((c.transform.position - transform.position).normalized * intensity * 100); 
-        }
-
+        shockWaveClone = Instantiate(shockWavePrefab, transform.position, Quaternion.identity);
+        shockWaveClone.GetComponent<ElectricShock>().oneScale *= (scale - 1);
+        shockWaveClone.GetComponent<ElectricShock>().fadeSpeed =fadeSpeed ;
+        Destroy(shockWaveClone, duration);
+        refPowerManager.currentPower -= refPowerManager.currentPower / shockwavePower;
+        refresh = false;
         cooldown = cachedCooldown;
     }
 }

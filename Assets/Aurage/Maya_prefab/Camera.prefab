@@ -334,6 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8139505263101164470}
   - component: {fileID: 3084449231174013623}
+  - component: {fileID: 8981810223738923395}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -372,3 +373,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 21.795868, y: 50.738804, z: 22.270657}
   m_Center: {x: -0.8333564, y: -39.958878, z: -36.053097}
+--- !u!95 &8981810223738923395
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916709748223598860}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 695a8c2acf8518348bdadaf300d74535, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

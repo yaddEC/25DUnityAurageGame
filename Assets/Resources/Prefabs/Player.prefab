@@ -238,6 +238,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3f01c14c-b6c0-432a-9cf7-784301fd8fff
     m_ActionName: Player/Aim[/DualShock4GamepadHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4238211062149300378}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: onMidInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0dcfb5eb-a02a-46ec-ba1c-a3392170b8e7
+    m_ActionName: Player/MidPressed[/DualShock4GamepadHID/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -261,6 +277,7 @@ MonoBehaviour:
   InspectorAPressed: 0
   InspectorYPressed: 0
   InspectorTrigger: 0
+  InspectorMid: 0
 --- !u!114 &8325189878180794317
 MonoBehaviour:
   m_ObjectHideFlags: 0

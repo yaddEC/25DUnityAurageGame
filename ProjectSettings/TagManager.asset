@@ -25,6 +25,8 @@ TagManager:
   - ConsoleStation
   - Door
   - DoorStation
+  - WayPoint
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
