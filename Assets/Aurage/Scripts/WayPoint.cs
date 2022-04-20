@@ -19,7 +19,7 @@ public class WayPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "BasicEnemy")
+        if (other.gameObject.tag == "BasicEnemy" )
         {
             refBasicEnemy = other.gameObject.GetComponent<BasicEnemy>();
             refBasicEnemy.ChangeWayPoint(this.gameObject);
