@@ -70,7 +70,7 @@ public class PlayerMotion : MonoBehaviour
             rb.useGravity = false;
             PowerManager.isInMachine = true;
 
-            if (NodeSettings.canDashOnNode) DashCheck();
+            if (NodeSettings.canDashOnNode) DashCheck(true);
             else canDash = false;
         }
     }
@@ -88,19 +88,18 @@ public class PlayerMotion : MonoBehaviour
 
     private void Dash()
     {
-        if(isGrounded)
+        if(isGrounded && !PowerManager.isInMachine)
         {
-            if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * InputManager.inputAxis);
-            else rb.AddForce(dashSpeed * Vector3.up);
+            rb.AddForce(dashSpeed * Vector3.up);
+
+            refPowerManager.currentPower -= dashPower;
+            canDash = false;
         }
         else
         {
             if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
             else rb.AddForce(dashSpeed * 1.5f * Vector3.up);
         }
-
-        refPowerManager.currentPower -= dashPower;
-        canDash = false;
     }
 
     private void GroundCheck()
@@ -110,20 +109,25 @@ public class PlayerMotion : MonoBehaviour
 
     private void FloorMovement()
     {
-        DashCheck();
+        DashCheck(true);
 
         if (!InputManager.performTrigger && InputManager.inputAxis != Vector2.zero) Move(InputManager.inputAxis);
         else Move(Vector2.zero);
     }
 
     //--------------------------------------------------
-    private void DashCheck()
+    public void DashCheck(bool b)
     {
-        if (InputManager.performA && canDash)
+        if(b)
         {
-            if(isInPath) StartCoroutine(RaycastDetection());
-            Dash();
+            if (InputManager.performA && canDash)
+            {
+                if (isInPath) StartCoroutine(RaycastDetection());
+                Dash();
+            }
         }
+        else
+            Dash();
     }
 
     private IEnumerator RaycastDetection()

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RadioZone : MonoBehaviour
 {
-   [HideInInspector] public bool isActive = false;
+    [HideInInspector] public bool isActive = false;
     private BasicEnemy refBasicEnemy;
+
+ 
 
     private void OnTriggerEnter(Collider other)
     {

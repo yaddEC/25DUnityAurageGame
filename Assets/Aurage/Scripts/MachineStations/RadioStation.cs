@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadioStation : MonoBehaviour
+public class RadioStation : Station
 {
     private GameObject radioZoneClone;
     private GameObject radioZone;
-    private bool isRadioActive = false;
-    public float cooldown = 5;
+    public bool isRadioActive = false;
+
 
     private void Awake()
     {
+        var t = gameObject.name; tagToSearch = t;
         radioZone = Resources.Load<GameObject>("Prefabs/RadioDetection");
     }
+
+    private void Start() { RegisterReferences(); }
 
     public void TurnRadioOn()
     {
@@ -23,23 +26,47 @@ public class RadioStation : MonoBehaviour
         }
     }
 
-    private IEnumerator TurnRadioOff()
+    public IEnumerator TurnRadioOff()
     {
         radioZoneClone.GetComponent<RadioZone>().isActive = false;
            
-        yield return new WaitForSeconds(cooldown);
+        yield return new WaitForSeconds(5);
         radioZoneClone.GetComponent<RadioZone>().isActive = true;
     
         yield return new WaitForSeconds(1f);
         Destroy(radioZoneClone);
         isRadioActive = false;
     }
-
-    private void OnCollisionEnter(Collision other)
+    private void Update()
     {
-        if (other.gameObject.tag == "BasicEnemy" && isRadioActive)
-            StartCoroutine(TurnRadioOff());
+        CooldownHandler(false);
+        ClampInMachine();
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player" && cooldown <= 0)
+        {
+            StayMachine(false);
+            if (isUsable && InputManager.performB) doEvent = true;
+            else doEvent = false;
+            if (doEvent) TurnRadioOn();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" && cooldown <= 0) EnterMachine();
+    }
+
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player") ExitMachine();
+    }
+
+   
 }
 
 

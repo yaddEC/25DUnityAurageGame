@@ -85,8 +85,14 @@ public abstract class Station : MonoBehaviour
     }
     public virtual void StayMachine(bool autoExec)
     {
+        refPlayerMotion.rb.velocity = Vector3.zero;
+
         if(autoExec) doEvent = true;
-        if (InputManager.performX) isFreezed = false;
+        if (InputManager.performX)
+        { 
+            isFreezed = false;
+            refPlayerMotion.DashCheck(false);
+        }
     }
     public virtual void ExitMachine()
     {

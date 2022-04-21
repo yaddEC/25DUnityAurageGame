@@ -27,6 +27,9 @@ TagManager:
   - DoorStation
   - WayPoint
   - PauseMenu
+  - RadioStation
+  - OptionMenu
+  - BoxEnemy
   layers:
   - Default
   - TransparentFX
