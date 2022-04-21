@@ -14,7 +14,15 @@ public class NodeBuilder : MonoBehaviour
     private void OnDrawGizmos()
     {
         transformParent = GameObject.Find("App").GetComponent<Transform>();
-        containerHolder.transform.SetParent(transformParent);
+
+        containerHolder = GameObject.FindGameObjectWithTag("NodeContainer").gameObject;
+        if (containerHolder != null)
+        {
+            container = containerHolder.transform;
+            containerHolder.transform.SetParent(transformParent);
+        }
+
+        if (nodeHolder == null && nodeHolders.Count >= 1) nodeHolder = GameObject.FindGameObjectWithTag("NodeHolder").gameObject;
 
         parentTransform = container;
 
@@ -74,29 +82,52 @@ public class NodeBuilder : MonoBehaviour
 
     public void DestroyLastNodeHolder()
     {
-
-        var index = nodeHolders.Count -1;
-        var t = nodeHolders[index];
-
-        nodeHolders.RemoveAt(index);
-        DestroyImmediate(t);
-
-        if(nodeHolders.Count <= 1)
+        if (nodeHolders.Count <= 0) return;
+        else
         {
-            containerHolderCreated = false;
-            DestroyImmediate(containerHolder);
+            var index = nodeHolders.Count-1;
+
+            if (nodeHolders.Count <= 1)
+            {
+                nodeHolders[0] = SafeDestroyGameObject(nodeHolders[0]);
+                nodeHolders.RemoveAt(0);
+
+                containerHolderCreated = false;
+                DestroyImmediate(containerHolder);
+                Debug.Log(index + " 2");
+            }
+            else
+            {
+                for (int i = 0; i < nodeHolders.Count; i++)
+                {
+                    if(i == index) nodeHolders[i] = SafeDestroyGameObject(nodeHolders[i]);
+                }
+                nodeHolders.RemoveAt(index);
+                Debug.Log(index + " 1");
+            }
         }
     }
 
     public void DestroyAllNodeHolders()
     {
-        foreach (GameObject nodeHolder in nodeHolders)
-        {
-            DestroyImmediate(nodeHolder);
-        }
+        for (int i = 0; i < nodeHolders.Count; i++)
+            nodeHolders[i] = SafeDestroyGameObject(nodeHolders[i]);
+
         nodeHolders.Clear();
 
         DestroyImmediate(containerHolder, true);
         containerHolderCreated = false;
+    }
+
+    public static T SafeDestroy<T>(T obj) where T : Object
+    {
+        if (Application.isEditor) Object.DestroyImmediate(obj);
+        else Object.Destroy(obj);
+        return null;
+    }
+    public static T SafeDestroyGameObject<T>(T gameObject) where T : Object
+    {
+        if (gameObject != null) SafeDestroy(gameObject);
+        return null;
     }
 }
