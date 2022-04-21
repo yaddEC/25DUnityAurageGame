@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "M_T\xEAteRobot_Yellow"
+  m_Shader: {fileID: -6465566751694194690, guid: 6f265c369e47ab749adc63c71873076b, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_0d7c8483fd6845debf6102dc511cea98: 0.378
+    - Vector1_9d3f4cfdca3d4288ac0c11f66a285779: 0.493
+    - Vector1_ba3a8b9032ac4a4fa4b935974a7c0f2f: 1
+    - Vector1_d11b7e84959e4b7681d7e5d0c243cb96: 0.398
+    m_Colors:
+    - Color_148c67a332544cd1a744eeec0d4af46f: {r: 33.89676, g: 11.708824, b: 0, a: 1}
+    - Color_a9f5846a0fd645bda0005223ec2f9a07: {r: 33.89676, g: 14.812036, b: 0, a: 1}
+    - Color_fabb89e1dfeb42a4878173cb2faee3b1: {r: 1.3960785, g: 1.135805, b: 0, a: 1}
+  m_BuildTextureStacks: []
