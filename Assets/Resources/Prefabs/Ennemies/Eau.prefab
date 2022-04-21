@@ -166,7 +166,7 @@ MonoBehaviour:
       m_Fill: 1
       m_Scale: {x: 1, y: 1}
       m_Offset: {x: 0, y: 0}
-      m_Rotation: 0
+      m_Rotation: 127.1674
       m_Anchor: 9
     m_Material: {fileID: 0}
     m_SubmeshIndex: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
       m_Fill: 1
       m_Scale: {x: 1, y: 1}
       m_Offset: {x: 0, y: 0}
-      m_Rotation: 0
+      m_Rotation: 127.1674
       m_Anchor: 9
     m_Material: {fileID: 0}
     m_SubmeshIndex: 0
@@ -294,18 +294,18 @@ MonoBehaviour:
   - {x: -3, y: 0, z: 0}
   - {x: 17, y: 0, z: 0}
   m_Textures0:
-  - {x: 3, y: 0}
-  - {x: -17, y: 0}
-  - {x: 3, y: 1}
-  - {x: -17, y: 1}
+  - {x: -13.439895, y: -7.166665}
+  - {x: -1.3569794, y: 8.770811}
+  - {x: -12.643021, y: -7.770811}
+  - {x: -0.5601053, y: 8.166665}
   - {x: 0, y: 0}
   - {x: -4, y: 0}
   - {x: 0, y: 1}
   - {x: -4, y: 1}
-  - {x: 17, y: 0}
-  - {x: -3, y: 0}
-  - {x: 17, y: 1}
-  - {x: -3, y: 1}
+  - {x: 0.5601053, y: -7.166665}
+  - {x: 12.643021, y: 8.770811}
+  - {x: 1.3569794, y: -7.770811}
+  - {x: 13.439895, y: 8.166665}
   - {x: 4, y: 0}
   - {x: 0, y: 0}
   - {x: 4, y: 1}
@@ -321,18 +321,18 @@ MonoBehaviour:
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
+  - {x: 0.60414594, y: 0.7968737, z: 0, w: -1}
+  - {x: 0.60414594, y: 0.7968737, z: 0, w: -1}
+  - {x: 0.60414594, y: 0.7968737, z: 0, w: -1}
+  - {x: 0.60414594, y: 0.7968737, z: 0, w: -1}
   - {x: 0, y: 0, z: 1, w: -1}
   - {x: 0, y: 0, z: 1, w: -1}
   - {x: 0, y: 0, z: 1, w: -1}
   - {x: 0, y: 0, z: 1, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
+  - {x: -0.60414594, y: 0.7968737, z: 0, w: -1}
+  - {x: -0.60414594, y: 0.7968737, z: 0, w: -1}
+  - {x: -0.60414594, y: 0.7968737, z: 0, w: -1}
+  - {x: -0.60414594, y: 0.7968737, z: 0, w: -1}
   - {x: 0, y: 0, z: -1, w: -1}
   - {x: 0, y: 0, z: -1, w: -1}
   - {x: 0, y: 0, z: -1, w: -1}
@@ -377,7 +377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b504e99c1f2e02f44ab5a5e8378c3868, type: 2}
+  - {fileID: 2100000, guid: 91f8aca71568316409493d7277e365b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
