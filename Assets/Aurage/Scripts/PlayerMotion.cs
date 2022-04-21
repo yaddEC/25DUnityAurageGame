@@ -90,8 +90,7 @@ public class PlayerMotion : MonoBehaviour
     {
         if(isGrounded)
         {
-            if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * InputManager.inputAxis);
-            else rb.AddForce(dashSpeed * Vector3.up);
+            rb.AddForce(dashSpeed * Vector3.up);
         }
         else
         {
