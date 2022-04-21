@@ -411,7 +411,7 @@ MonoBehaviour:
   safeTimeAlert: 2
   alertDuration: 30
   player: {fileID: 0}
-  wpAIM: {fileID: 0}
+  nextWayPoint: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   enemyHead: {fileID: 0}
