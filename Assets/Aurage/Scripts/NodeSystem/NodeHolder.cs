@@ -31,7 +31,7 @@ public class NodeHolder : MonoBehaviour
     public LayerMask mask;
 
     public List<Node> nodes = new List<Node>();
-    private List<Transform> nodeList = new List<Transform>();
+    public List<Transform> nodeList = new List<Transform>();
 
     private void OnDrawGizmos()
     {
@@ -61,11 +61,17 @@ public class NodeHolder : MonoBehaviour
 
         node = new GameObject();
         node.transform.SetParent(this.transform);
-        node.transform.position = nodeList[nodeList.Count - 1].transform.position;
+
+        if (nodeList.Count > 1) node.transform.position = nodeList[nodeList.Count - 1].transform.position;
+        else node.transform.position = this.transform.position;
+
         var noderef = node.AddComponent<NodePath>();
 
-        var refpath = nodeList[nodeList.Count - 1].GetComponent<NodePath>();
-        refpath.nodePoints.Add(noderef);
+        if (nodeList.Count > 0)
+        {
+            var refpath = nodeList[nodeList.Count - 1].GetComponent<NodePath>();
+            refpath.nodePoints.Add(noderef); // adds reference of new node to prev node
+        }
 
         node.name = index.ToString();
         node.tag = "Node";
@@ -74,22 +80,30 @@ public class NodeHolder : MonoBehaviour
 
     public void DestroyLastNode()
     {
-        var indexList = nodeList.Count - 1;
-        var t = nodeList[indexList];
+        if (nodes.Count <= 0)
+            return;
+        else
+        { 
+            var indexList = nodeList.Count - 1;
+            var t = nodeList[indexList];
 
-        var refpath = nodeList[indexList-1].GetComponent<NodePath>();
-        refpath.nodePoints.Remove(nodeList[indexList].GetComponent<NodePath>());
+            var refpath = nodeList[indexList-1].GetComponent<NodePath>();
+            refpath.nodePoints.Remove(nodeList[indexList].GetComponent<NodePath>());
 
-        nodeList.RemoveAt(indexList);
-        DestroyImmediate(t.gameObject);
-        index--;
+            nodeList.RemoveAt(indexList);
+            DestroyImmediate(t.gameObject);
+            index--;
+        }
     }
 
     public void DestroyAllNodes()
     {
-        foreach (Node node in nodes)
-        {
-            DestroyImmediate(node.nodeObject);
+        if (nodes.Count <= 0) 
+            return;
+        else
+        { 
+            foreach (Node node in nodes) 
+                DestroyImmediate(node.nodeObject);
         }
     }
 }
