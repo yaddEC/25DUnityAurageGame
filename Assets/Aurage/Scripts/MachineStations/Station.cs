@@ -63,7 +63,7 @@ public abstract class Station : MonoBehaviour
             refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
         }
         else
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.None;
+            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
     public virtual void RestoreMachines()
     {
@@ -87,7 +87,7 @@ public abstract class Station : MonoBehaviour
     {
         refPlayerMotion.rb.velocity = Vector3.zero;
 
-        if(autoExec) doEvent = true;
+        if(autoExec && isInMachine) doEvent = true;
         if (InputManager.performX)
         { 
             isFreezed = false;

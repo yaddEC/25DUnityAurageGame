@@ -227,8 +227,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9876375, y: 0.54332256, z: 1.9792994}
-  m_Center: {x: -0.014392376, y: -0.061552525, z: 0.028915107}
+  m_Size: {x: 1.9876375, y: 0.83167505, z: 1.9792994}
+  m_Center: {x: -0.014392376, y: 0.09537816, z: 0.028915107}
 --- !u!114 &5796612835512290199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
   refPowerManager: {fileID: 0}
   refPlayerMotion: {fileID: 0}
   text: {fileID: 0}
+  image: {fileID: 0}
   bC: {fileID: 0}
   mR: {fileID: 0}
   tagToSearch: 
