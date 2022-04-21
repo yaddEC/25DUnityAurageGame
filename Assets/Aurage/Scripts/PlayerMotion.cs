@@ -23,7 +23,6 @@ public class PlayerMotion : MonoBehaviour
     public Rigidbody rb;
     private Vector3 velocity = Vector3.zero;
 
-    public LayerMask wallMask;
     public LayerMask floorMask;
 
     public bool isGrounded;
@@ -33,9 +32,10 @@ public class PlayerMotion : MonoBehaviour
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
-
         cachedDashCooldown = dashCooldown;
+
         rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void Update()
@@ -78,7 +78,7 @@ public class PlayerMotion : MonoBehaviour
     private void MovementFixedUpdate()
     {
         if(isGrounded) FloorMovement();
-        rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+        else rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
