@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4598824253602587623}
   - component: {fileID: 4598824253602587616}
   - component: {fileID: 4598824253602587617}
-  - component: {fileID: 4598824253602587618}
+  - component: {fileID: 4944597981340886968}
+  - component: {fileID: 2214563731630416777}
   m_Layer: 0
   m_Name: Eau
   m_TagString: Untagged
@@ -83,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4598824253602587618
+--- !u!114 &4944597981340886968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,13 +93,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4598824253602587619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6a6df342b52d24092cf6bbb590c535, type: 3}
+  m_Script: {fileID: 11500000, guid: 81d2deea7e152164bb74a748c239c128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveHeight: 0.5
-  waveFrequency: 0.5
-  waveLength: 0.75
-  waveOriginPosition: {x: 0, y: 0, z: 0}
+--- !u!65 &2214563731630416777
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598824253602587619}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 728.5377, y: 104.46917, z: 761.9061}
+  m_Center: {x: -0.24188648, y: -50.38006, z: 4.505884}
 --- !u!1 &4598824255562676588
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +121,6 @@ GameObject:
   - component: {fileID: 4598824255562676560}
   - component: {fileID: 4598824255562676561}
   - component: {fileID: 4598824255562676562}
-  - component: {fileID: 4598824255562676563}
   m_Layer: 0
   m_Name: BaseEau
   m_TagString: Untagged
@@ -397,18 +406,4 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4598824255562676588}
-  m_Mesh: {fileID: 0}
---- !u!64 &4598824255562676563
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4598824255562676588}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}
