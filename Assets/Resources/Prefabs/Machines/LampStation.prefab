@@ -105,6 +105,7 @@ MonoBehaviour:
   refPowerManager: {fileID: 0}
   refPlayerMotion: {fileID: 0}
   text: {fileID: 0}
+  image: {fileID: 0}
   bC: {fileID: 0}
   mR: {fileID: 0}
   tagToSearch: 
@@ -176,7 +177,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 486cad25633a54049a61ece7a878bfc4, type: 3}
+  - {fileID: 2100000, guid: db4cee176bcfea24bb369a30f2cfffd8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -257,7 +258,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 486cad25633a54049a61ece7a878bfc4, type: 3}
+  - {fileID: 2100000, guid: db4cee176bcfea24bb369a30f2cfffd8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
