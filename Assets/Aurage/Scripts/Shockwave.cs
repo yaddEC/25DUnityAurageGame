@@ -20,7 +20,7 @@ public class Shockwave : MonoBehaviour
 
     private void Awake()
     {
-        shockWavePrefab = Resources.Load<GameObject>("Prefabs/ElectricShock");
+        shockWavePrefab = Resources.Load<GameObject>("Prefabs/Setup/ElectricShock");
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         cachedCooldown = cooldown;
     }
