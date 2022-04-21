@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     public EventSystem m_EventSystem;
+    public GameObject menu;
 
     int boolToInt(bool value)
     {
@@ -18,19 +19,16 @@ public class PauseMenu : MonoBehaviour
     }
     public void onBackPresed()
     {
-        this.gameObject.SetActive(!this.gameObject.activeSelf);
-        Time.timeScale = boolToInt(!this.gameObject.activeSelf);
+        menu.SetActive(!menu.activeSelf);
+        Time.timeScale = boolToInt(!menu.activeSelf);
     }
-    public void onActivate(InputAction.CallbackContext context)
+    public void onActivate()
     {
-        if (context.performed)
-        {
-            Debug.Log("Pause");
-            onBackPresed();
-            m_EventSystem.firstSelectedGameObject.GetComponent<Button>().Select();
-            m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = false;
-            m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = true;
-        }
+        Debug.Log("Pause");
+        onBackPresed();
+        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().Select();
+        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = false;
+        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = true;
     }
 
     public void onRestartPresed()
@@ -49,5 +47,13 @@ public class PauseMenu : MonoBehaviour
         SceneManager.UnloadSceneAsync(newScene.name);
         SceneManager.LoadScene("Menu");
         onBackPresed();
+    }
+
+    public void oppenOption()
+    {
+        menu.SetActive(!menu.activeSelf);
+        GameObject.FindGameObjectWithTag("OptionMenu").GetComponent<OptionMenu>().onActivate();
+        //Time.timeScale = 1;
+        //onBackPresed();
     }
 }

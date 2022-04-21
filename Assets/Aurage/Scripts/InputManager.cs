@@ -48,7 +48,12 @@ public class InputManager : MonoBehaviour
         InspectorTrigger = performTrigger;
         InspectorMid = performMid;
 
-        if (performMid) Debug.Log("ew");
+        if (performMid)
+        {
+            if (GameObject.FindGameObjectWithTag("OptionMenu") != null) GameObject.FindGameObjectWithTag("OptionMenu").GetComponent<OptionMenu>().onDisable();
+            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().onActivate();
+            performMid = false;
+        }
 
     }
 

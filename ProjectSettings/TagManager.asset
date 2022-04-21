@@ -28,6 +28,7 @@ TagManager:
   - WayPoint
   - PauseMenu
   - RadioStation
+  - OptionMenu
   layers:
   - Default
   - TransparentFX
