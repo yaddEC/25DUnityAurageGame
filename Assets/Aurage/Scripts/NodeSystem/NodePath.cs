@@ -72,7 +72,6 @@ public class NodePath : MonoBehaviour
         {
             if (Physics.Linecast(transform.position, node.transform.position, out hit, refNodeHolder.mask))
             {
-                Debug.Log("ici gros fdp");
                 refNodeWalker.refPlayerMotion.rb.velocity = Vector3.zero;
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;
