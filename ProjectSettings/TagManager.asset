@@ -29,6 +29,7 @@ TagManager:
   - PauseMenu
   - RadioStation
   - OptionMenu
+  - BoxEnemy
   layers:
   - Default
   - TransparentFX

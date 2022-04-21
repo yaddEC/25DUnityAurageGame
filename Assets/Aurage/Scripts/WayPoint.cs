@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WayPoint : MonoBehaviour
 {
-    private BasicEnemy refBasicEnemy;
+    private BasicEnemy  refBasicEnemy;
     // Start is called before the first frame update
     void Start()
     {
