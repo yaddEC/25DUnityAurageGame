@@ -26,7 +26,7 @@ public class ConsoleStation : Station
         if(TrapAnimIsPlaying()) isOpen = true;
         else isOpen = false;
 
-        if (isOpen) { objectBC.isTrigger = true; }
+        if (isOpen) { objectBC.isTrigger = true; CloseTrap(); }
         else { objectBC.isTrigger = false; }
         }
     //-------------------------------------------------------------
@@ -34,6 +34,11 @@ public class ConsoleStation : Station
     {
         objectAnim.SetTrigger("open");
         doEvent = false;
+    }
+    private void CloseTrap()
+    {
+        objectAnim.SetTrigger("close");
+        isOpen = false;
     }
     private bool TrapAnimIsPlaying() { return objectAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1; }
     //-------------------------------------------------------------
@@ -46,7 +51,6 @@ public class ConsoleStation : Station
         if (other.tag == "Player" && cooldown <= 0)
         {
             StayMachine(false);
-            if (isUsable && InputManager.performB) doEvent = true;
             if (doEvent) OpenTrap();
         }
     }

@@ -11,7 +11,7 @@ public class ControllerType : MonoBehaviour
     private void Start()
     {
         var gamepad = Gamepad.current;
-        Debug.Log(gamepad);
+        //Debug.Log(gamepad);
         string[] types = { "PS", "XBOX"};
         string[] triggers = { "shock", };
 

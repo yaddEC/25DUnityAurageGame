@@ -30,7 +30,7 @@ public class SocketStation : MonoBehaviour
     private void TeleportToTarget()
     {
         coolDown = cachedCoolDown;
-        refPlayerMotion.rb.velocity = Vector3.zero;
+        refPlayerMotion.playerRb.velocity = Vector3.zero;
         refPlayerMotion.transform.position = socketTarget.transform.position;
         refCamerClamp.changeZPos(refPlayerMotion.transform.position.z);
     }

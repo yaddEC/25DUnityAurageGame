@@ -1436,7 +1436,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4740726960800382348}
-  - component: {fileID: 2621793909236143114}
   m_Layer: 0
   m_Name: DoorStation
   m_TagString: DoorStation
@@ -1460,25 +1459,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2621793909236143114
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4740726960800382349}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 407f2402a069b184a877d6774b137615, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4740726960833910669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,6 +2318,7 @@ GameObject:
   - component: {fileID: 4740726962008322708}
   - component: {fileID: 4740726962008322714}
   - component: {fileID: 4740726962008322715}
+  - component: {fileID: 7317831983959537446}
   m_Layer: 0
   m_Name: Console
   m_TagString: Console
@@ -2373,8 +2354,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.39065552, y: 0.59381104, z: 0.54634094}
-  m_Center: {x: 0.033187866, y: 0.046634674, z: 0.18357086}
+  m_Size: {x: 0.7373025, y: 0.59381104, z: 0.54634094}
+  m_Center: {x: -0.14013559, y: 0.046634674, z: 0.18357086}
 --- !u!114 &4740726962008322715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2394,7 +2375,6 @@ MonoBehaviour:
   bC: {fileID: 0}
   mR: {fileID: 0}
   tagToSearch: 
-  isFreezed: 0
   isInMachine: 0
   isUsable: 0
   doEvent: 0
@@ -2406,6 +2386,25 @@ MonoBehaviour:
   objectToInteractWith: {fileID: 0}
   objectAnim: {fileID: 0}
   objectBC: {fileID: 0}
+--- !u!95 &7317831983959537446
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4740726962008322709}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 407f2402a069b184a877d6774b137615, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4816697753634837940
 GameObject:
   m_ObjectHideFlags: 0

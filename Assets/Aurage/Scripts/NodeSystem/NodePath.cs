@@ -72,7 +72,7 @@ public class NodePath : MonoBehaviour
         {
             if (Physics.Linecast(transform.position, node.transform.position, out hit, refNodeHolder.mask))
             {
-                refNodeWalker.refPlayerMotion.rb.velocity = Vector3.zero;
+                refNodeWalker.refPlayerMotion.playerRb.velocity = Vector3.zero;
                 refNodeWalker.refPlayerMotion.isInPath = true;
                 refNodeWalker.isFreezed = false;
                 refNodeWalker.refPrevNodePath = node;

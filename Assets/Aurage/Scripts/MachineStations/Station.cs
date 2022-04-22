@@ -74,7 +74,7 @@ public abstract class Station : MonoBehaviour
     }
     public virtual void StayMachine(bool autoExec)
     {
-        refPlayerMotion.rb.velocity = Vector3.zero;
+        refPlayerMotion.playerRb.velocity = Vector3.zero;
 
         if (autoExec && isInMachine) doEvent = true;
         if (!autoExec && InputManager.performB) doEvent = true;
