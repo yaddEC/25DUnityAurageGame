@@ -7,7 +7,7 @@ public class UI : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneSwitcher.GoToSelectedScene(LevelSelector.actualLevel.ToString());
+        SceneSwitcher.GoToSelectedScene("LevelSelector");
     }
 
     public void QuitGame()
