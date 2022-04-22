@@ -77,7 +77,6 @@ public abstract class Station : MonoBehaviour
         refPlayerMotion.playerRb.velocity = Vector3.zero;
 
         if (autoExec && isInMachine) doEvent = true;
-        if (!autoExec && InputManager.performB) doEvent = true;
 
         if (InputManager.performA)
         {

@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1829581800870728235}
   - component: {fileID: 7034297168187787295}
+  - component: {fileID: 7369318801162325852}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -131,6 +132,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7593384, y: 0.5, z: 0.112068176}
   m_Center: {x: 0.053863525, y: 0.25, z: 0.030036926}
+--- !u!95 &7369318801162325852
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308342252599969937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 407f2402a069b184a877d6774b137615, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1718858161129582774
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,7 +2338,6 @@ GameObject:
   - component: {fileID: 4740726962008322708}
   - component: {fileID: 4740726962008322714}
   - component: {fileID: 4740726962008322715}
-  - component: {fileID: 7317831983959537446}
   m_Layer: 0
   m_Name: Console
   m_TagString: Console
@@ -2386,25 +2405,6 @@ MonoBehaviour:
   objectToInteractWith: {fileID: 0}
   objectAnim: {fileID: 0}
   objectBC: {fileID: 0}
---- !u!95 &7317831983959537446
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4740726962008322709}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 407f2402a069b184a877d6774b137615, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4816697753634837940
 GameObject:
   m_ObjectHideFlags: 0
