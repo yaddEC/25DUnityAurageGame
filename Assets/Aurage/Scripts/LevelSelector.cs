@@ -7,7 +7,6 @@ public class LevelSelector : MonoBehaviour
 {
     public static int actualLevel = 1;
     private GoToSelectedLevel[] goToSelectedLevels;
-
     private void Awake()
     {
         goToSelectedLevels = GameObject.FindObjectsOfType<GoToSelectedLevel>();
