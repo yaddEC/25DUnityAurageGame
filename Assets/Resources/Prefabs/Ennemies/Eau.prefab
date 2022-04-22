@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4598824253602587617}
   - component: {fileID: 4944597981340886968}
   - component: {fileID: 2214563731630416777}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Eau
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4598824255562676560}
   - component: {fileID: 4598824255562676561}
   - component: {fileID: 4598824255562676562}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: BaseEau
   m_TagString: Untagged
   m_Icon: {fileID: 0}
