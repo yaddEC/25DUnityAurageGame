@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 4282380937249077717}
   - component: {fileID: 1596926434702737656}
   - component: {fileID: 5796612835512290199}
+  - component: {fileID: 4912395993109877336}
   m_Layer: 0
   m_Name: RoombaStation
   m_TagString: RoombaStation
@@ -239,6 +240,25 @@ MonoBehaviour:
   lockPosition: {fileID: 0}
   machineList: []
   moveSpeed: 800
+--- !u!95 &4912395993109877336
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469392845915480943}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b331f19f5186ee14ba15fe361e600a99, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3592974758127939504
 GameObject:
   m_ObjectHideFlags: 0
