@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!241 &24100000
+AudioMixerController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sound
+  m_OutputGroup: {fileID: 0}
+  m_MasterGroup: {fileID: 24300002}
+  m_Snapshots:
+  - {fileID: 24500006}
+  m_StartSnapshot: {fileID: 24500006}
+  m_SuspendThreshold: -80
+  m_EnableSuspend: 1
+  m_UpdateMode: 0
+  m_ExposedParameters:
+  - guid: b233989c657257f41b8082eee50be68c
+    name: MasterVolume
+  - guid: 9254013a538c57645840968875dba2c3
+    name: MusicVolume
+  - guid: 1387ab8378db0924280674c71adddd2e
+    name: SoundVolume
+  m_AudioMixerGroupViews:
+  - guids:
+    - 466c9228405a98148827002ae9c9b129
+    - 31f393b4761952f48b56483e067add6c
+    - 84731e7c2a9fd3840955872f8ea5644f
+    name: View
+  m_CurrentViewIndex: 0
+  m_TargetSnapshot: {fileID: 24500006}
+--- !u!243 &24300002
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Master
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 466c9228405a98148827002ae9c9b129
+  m_Children:
+  - {fileID: 4213876546604893973}
+  - {fileID: 6324890503984092382}
+  m_Volume: b233989c657257f41b8082eee50be68c
+  m_Pitch: 0e811b7ab9c2f4b4589073aa2aea9787
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 24400004}
+  m_UserColorIndex: 3
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &24400004
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 28b13843e00c737409b867343f93b49e
+  m_EffectName: Attenuation
+  m_MixLevel: f5594612cd0047a4299adbfd04ae3fc7
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &24500006
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Snapshot
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: ebf4bcb8cde5e45418f6d0425ca22925
+  m_FloatValues:
+    0e811b7ab9c2f4b4589073aa2aea9787: 1
+    b233989c657257f41b8082eee50be68c: 0
+  m_TransitionOverrides: {}
+--- !u!244 &454013072968167552
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 0179daea5b5b93843ba4be42d940035e
+  m_EffectName: Attenuation
+  m_MixLevel: c078667342d748445b38960a137acf31
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &1818861103703390143
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: e447de271fc699b44a210bed0cebadbe
+  m_EffectName: Attenuation
+  m_MixLevel: f520e5894f0f8bc4caffb90b94b4f6fd
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &4213876546604893973
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Music
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 84731e7c2a9fd3840955872f8ea5644f
+  m_Children: []
+  m_Volume: 9254013a538c57645840968875dba2c3
+  m_Pitch: e7cc5f8c89911d94bbb1c8e6172c40e8
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 1818861103703390143}
+  m_UserColorIndex: 2
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &6324890503984092382
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sound
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 31f393b4761952f48b56483e067add6c
+  m_Children: []
+  m_Volume: 1387ab8378db0924280674c71adddd2e
+  m_Pitch: cad1499b16f2ceb4c82a8b3150ae34b9
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 454013072968167552}
+  m_UserColorIndex: 2
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
