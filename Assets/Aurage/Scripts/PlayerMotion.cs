@@ -47,7 +47,7 @@ public class PlayerMotion : MonoBehaviour
     private void Update()
     {
         if (PowerManager.isInMachine) rb.useGravity = false;
-        MovementUpdate();
+            MovementUpdate();
 
         if (!canDash) dashCooldown -= Time.deltaTime;
 
@@ -83,8 +83,8 @@ public class PlayerMotion : MonoBehaviour
 
     private void MovementFixedUpdate()
     {
-        if(isGrounded) FloorMovement();
-        else rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+        FloorMovement();
+        rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
