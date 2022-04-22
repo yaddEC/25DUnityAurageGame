@@ -284,7 +284,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37ccc4eb106c204880c476d14c03690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInObject: 0
+  refPowerManager: {fileID: 0}
+  refPlayerMotion: {fileID: 0}
+  text: {fileID: 0}
+  image: {fileID: 0}
+  bC: {fileID: 0}
+  mR: {fileID: 0}
+  tagToSearch: 
+  isFreezed: 0
+  isInMachine: 0
+  isUsable: 0
+  doEvent: 0
+  cooldown: 0
+  cachedCooldown: 0
+  lockPosition: {fileID: 0}
+  machineList: []
+  isOpen: 0
+  objectToInteractWith: {fileID: 0}
+  objectAnim: {fileID: 0}
+  objectBC: {fileID: 0}
 --- !u!1 &3762315788295867843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1033,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.541}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 2, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &110811168915440168
 Canvas:
