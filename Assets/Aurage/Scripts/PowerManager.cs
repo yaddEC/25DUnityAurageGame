@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class PowerManager : MonoBehaviour
 {
-    [Header("Reference")]
-    private GeneratorStation refGeneratorStation;
-
     [Header("Charging Stats")]
     public float unchargePowerDelta;
     public static float unchargeCache;
     public static bool  isInMachine = true;
+    public static bool isFreezed = false;
+    public bool isPlayerFreeze = false;
+    public bool isPlayerInMachine = false;
 
     [Header("Power Stats")]
     public static bool outOfPower;
@@ -23,7 +23,6 @@ public class PowerManager : MonoBehaviour
 
     private void Awake()
     {
-        refGeneratorStation = GameObject.FindObjectOfType<GeneratorStation>();
         unchargeCache = unchargePowerDelta;
         currentPower = maxPower;
         isInMachine = false;
@@ -32,6 +31,8 @@ public class PowerManager : MonoBehaviour
 
     private void Update()
     {
+        isPlayerFreeze = isFreezed;
+        isPlayerInMachine = isInMachine;
         PowerState();
         PlayerRender();
 

@@ -22,7 +22,6 @@ public class ConsoleStation : Station
     private void Update()
     {
         CooldownHandler(false);
-        ClampInMachine();
 
         if(TrapAnimIsPlaying()) isOpen = true;
         else isOpen = false;
@@ -40,7 +39,7 @@ public class ConsoleStation : Station
     //-------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && cooldown <= 0) EnterMachine();
+        if (other.tag == "Player" && cooldown <= 0) EnterMachine(this.GetComponent<ConsoleStation>());
     }
     private void OnTriggerStay(Collider other)
     {

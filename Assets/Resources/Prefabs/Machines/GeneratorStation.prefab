@@ -407,8 +407,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4268809186684981415}
   - component: {fileID: 4268809186684981413}
-  - component: {fileID: 4268809186684982104}
   - component: {fileID: 5129208046160048632}
+  - component: {fileID: 4268809186684982104}
   m_Layer: 0
   m_Name: GeneratorStation
   m_TagString: GeneratorStation
@@ -474,6 +474,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5129208046160048632
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4268809186684981411}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0776927, y: 0.7754369, z: 1.1931248}
+  m_Center: {x: 0.0010230541, y: 0.51261497, z: -0.0013468266}
 --- !u!114 &4268809186684982104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,7 +506,6 @@ MonoBehaviour:
   bC: {fileID: 0}
   mR: {fileID: 0}
   tagToSearch: 
-  isFreezed: 0
   isInMachine: 0
   isUsable: 0
   doEvent: 0
@@ -503,19 +515,6 @@ MonoBehaviour:
   machineList: []
   checkointActivated: 0
   chargingPowerDelta: 500
---- !u!65 &5129208046160048632
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4268809186684981411}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0776927, y: 0.7754369, z: 1.1931248}
-  m_Center: {x: 0.0010230541, y: 0.51261497, z: -0.0013468266}
 --- !u!1 &5540628749516738135
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5540628749516738135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.426, z: 0}
+  m_LocalPosition: {x: 0, y: 0.878, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4268809186684981415}

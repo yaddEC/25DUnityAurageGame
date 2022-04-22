@@ -7,24 +7,24 @@ public class RoombaStation : Station
     [Header("Property Info")]
     public float moveSpeed;
     private Rigidbody rb;
+    private Transform roomba;
     //-------------------------------------------------------------
     private void Awake() { 
         var t = gameObject.name; tagToSearch = t;
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponentInChildren<Rigidbody>();
     }
     private void Start() { RegisterReferences(); }
     private void Update()
     {
         CooldownHandler(true);
-        ClampInMachine();
         FreezeRoomba();
     }
     private void FixedUpdate()
     {
-        if(doEvent) Move(InputManager.inputAxis);
+        if(doEvent) MoveRoomba(InputManager.inputAxis);
     }
     //-------------------------------------------------------------
-    private void Move(Vector2 input)
+    private void MoveRoomba(Vector2 input)
     {
         rb.velocity = new Vector3(input.x * moveSpeed, rb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
     }
@@ -36,7 +36,7 @@ public class RoombaStation : Station
     //-------------------------------------------------------------
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && cooldown <= 0) EnterMachine();
+        if (collision.gameObject.tag == "Player" && cooldown <= 0) EnterMachine(this.GetComponent<RoombaStation>());
     }
     private void OnCollisionStay(Collision collision)
     {

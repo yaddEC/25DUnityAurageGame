@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerMotion : MonoBehaviour
 {
     private PowerManager refPowerManager;
-
+    public static Station refStation;
+    public Station station;
     public float moveSpeed;
 
     public float dashSpeed;
@@ -46,8 +47,10 @@ public class PlayerMotion : MonoBehaviour
 
     private void Update()
     {
+        station = refStation;
+
         if (PowerManager.isInMachine) rb.useGravity = false;
-        MovementUpdate();
+            MovementUpdate();
 
         if (!canDash) dashCooldown -= Time.deltaTime;
 
@@ -56,6 +59,8 @@ public class PlayerMotion : MonoBehaviour
             dashCooldown = cachedDashCooldown;
             canDash = true;
         }
+
+        if (PowerManager.isFreezed) ClampInMachine();
     }
 
     private void FixedUpdate()
@@ -68,7 +73,7 @@ public class PlayerMotion : MonoBehaviour
     {
         if (!isInPath)
         {
-            rb.useGravity = true;
+            if(!PowerManager.isInMachine) rb.useGravity = true;
             GroundCheck();
         }
         else
@@ -84,7 +89,7 @@ public class PlayerMotion : MonoBehaviour
     private void MovementFixedUpdate()
     {
         if(isGrounded) FloorMovement();
-        else rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+        else if(!isGrounded && !PowerManager.isInMachine) rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
@@ -144,5 +149,10 @@ public class PlayerMotion : MonoBehaviour
         canBeDetectedByRaycast = false;
         yield return new WaitForSeconds(0.1f);
         canBeDetectedByRaycast = true;
+    }
+    public void ClampInMachine()
+    {
+        transform.position = refStation.lockPosition.position;
+        Debug.Log("here");
     }
 }
