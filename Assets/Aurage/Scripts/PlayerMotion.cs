@@ -47,7 +47,7 @@ public class PlayerMotion : MonoBehaviour
     private void Update()
     {
         if (PowerManager.isInMachine) rb.useGravity = false;
-        MovementUpdate();
+            MovementUpdate();
 
         if (!canDash) dashCooldown -= Time.deltaTime;
 
@@ -83,8 +83,8 @@ public class PlayerMotion : MonoBehaviour
 
     private void MovementFixedUpdate()
     {
-        if(isGrounded) FloorMovement();
-        else rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+        FloorMovement();
+        rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
@@ -101,7 +101,7 @@ public class PlayerMotion : MonoBehaviour
             refPowerManager.currentPower -= dashPower;
             canDash = false;
         }
-        else
+        else if(PowerManager.isInMachine)
         {
             if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
             else rb.AddForce(dashSpeed * 1.5f * Vector3.up);
@@ -112,7 +112,7 @@ public class PlayerMotion : MonoBehaviour
 
     private void GroundCheck()
     {
-        isGrounded = Physics.CheckSphere(transform.position, transform.localScale.x/2, floorMask);
+        isGrounded = Physics.CheckSphere(transform.position + Vector3.down / 5, transform.localScale.x / 2, floorMask);
     }
 
     private void FloorMovement()
