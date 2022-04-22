@@ -33,6 +33,7 @@ public class PowerManager : MonoBehaviour
     {
         isPlayerFreeze = isFreezed;
         isPlayerInMachine = isInMachine;
+
         PowerState();
         PlayerRender();
 
