@@ -10,6 +10,7 @@ public class PowerManager : MonoBehaviour
 
     [Header("Charging Stats")]
     public float unchargePowerDelta;
+    public static float unchargeCache;
     public static bool  isInMachine = true;
 
     [Header("Power Stats")]
@@ -23,7 +24,7 @@ public class PowerManager : MonoBehaviour
     private void Awake()
     {
         refGeneratorStation = GameObject.FindObjectOfType<GeneratorStation>();
-
+        unchargeCache = unchargePowerDelta;
         currentPower = maxPower;
         isInMachine = false;
         playerMaterial = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material;
@@ -34,7 +35,7 @@ public class PowerManager : MonoBehaviour
         PowerState();
         PlayerRender();
 
-        if (!isInMachine) StartCoroutine(ConsumePower(unchargePowerDelta));
+        if (!isInMachine) StartCoroutine(ConsumePower(unchargeCache));
         else PlayerMotion.canBeTargeted = false;
     }
 
@@ -49,7 +50,7 @@ public class PowerManager : MonoBehaviour
         SceneSwitcher.GameOverScreen();
     }
 
-    private IEnumerator ConsumePower(float powerAmount)
+    public IEnumerator ConsumePower(float powerAmount)
     {
         PlayerMotion.canBeTargeted = true;
         if (currentPower <= 0) outOfPower = true;

@@ -47,5 +47,17 @@ public class ElectricShock : MonoBehaviour
         {
             other.gameObject.GetComponent<BasicEnemy>().Stun(stunDuration);
         }
+
+        if (other.gameObject.tag == "BoxEnemy")
+        {
+            
+            other.gameObject.GetComponent<BoxEnemy>().Stun(stunDuration);
+        }
+
+        if (other.gameObject.tag == "Tesla")
+        {
+            
+            other.transform.parent.parent.GetChild(0).GetComponent<TeslaZone>().Stun(stunDuration);
+        }
     }
 }
