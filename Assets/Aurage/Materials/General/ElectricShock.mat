@@ -21,19 +21,34 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ElectricShock
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 4af4a446f1f6f1c4fa1795011fa7e200, type: 3}
   m_ShaderKeywords: _EMISSION _RECEIVE_SHADOWS_OFF _SPECULAR_SETUP
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_334b7df4465f44d28d3ed160ec73b97c:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_63fddfe65d77497fbe7b2f168a85c171:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_e46eb706c5d74c3084f6e0782b8ff50d:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -91,6 +106,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Magnification_: 0.1
+    - Size_: 0.1
+    - Vector1_4280e0f5975949a485072a23fcbd30b0: 0
+    - Vector1_cec7b96775a94a4cbe5d0071bb53e90b: 1
     - _AlphaClip: 0
     - _Blend: 2
     - _BumpScale: 1
@@ -118,6 +137,9 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors:
+    - Focal_point_: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - Main_color_: {r: 0, g: 0.1428909, b: 16, a: 0}
+    - Vector2_d5a6b444026441aea185e8d54f7c80bc: {r: 0.05, g: 0.1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 0.8235294, b: 0.0047169924, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 5.4670916, g: 4.5415506, b: 0.60030806, a: 1}
