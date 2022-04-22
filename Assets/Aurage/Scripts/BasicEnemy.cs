@@ -90,9 +90,9 @@ public class BasicEnemy : MonoBehaviour
     void Update()
     {
         //timed rotation when edge is encounter
-       
-            dir = (nextWayPoint.transform.position - transform.position).normalized;
 
+        dir = (nextWayPoint.transform.position - transform.position).normalized ;
+        Debug.DrawLine(transform.position, dir);
         //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt turning or already alerted
         if (SeeThePlayer() && !alerted && !isTurning && !isStunned && !isDistracted)
             StartCoroutine(Alerted());

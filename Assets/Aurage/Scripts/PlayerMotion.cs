@@ -21,7 +21,7 @@ public class PlayerMotion : MonoBehaviour
     public bool canBeDetectedByRaycast = true;
     public bool isInPath;
 
-    public Rigidbody rb;
+    public Rigidbody playerRb;
     private Vector3 velocity = Vector3.zero;
 
     public LayerMask floorMask;
@@ -41,16 +41,20 @@ public class PlayerMotion : MonoBehaviour
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         cachedDashCooldown = dashCooldown;
 
-        rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        playerRb = GetComponent<Rigidbody>();
+        playerRb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void Update()
     {
+        Debug.Log(playerRb.useGravity + " gravity");
+
+        if (PowerManager.isInMachine) playerRb.useGravity = false;
+        else playerRb.useGravity = true;
+
         station = refStation;
 
-        if (PowerManager.isInMachine) rb.useGravity = false;
-            MovementUpdate();
+        MovementUpdate();
 
         if (!canDash) dashCooldown -= Time.deltaTime;
 
@@ -60,7 +64,7 @@ public class PlayerMotion : MonoBehaviour
             canDash = true;
         }
 
-        if (PowerManager.isFreezed) ClampInMachine();
+        ClampInMachine();
     }
 
     private void FixedUpdate()
@@ -73,12 +77,13 @@ public class PlayerMotion : MonoBehaviour
     {
         if (!isInPath)
         {
-            if(!PowerManager.isInMachine) rb.useGravity = true;
+            //if(!PowerManager.isInMachine) playerRb.useGravity = true;
+            //else playerRb.useGravity = false;
             GroundCheck();
         }
         else
         {
-            rb.useGravity = false;
+            //playerRb.useGravity = false;
             PowerManager.isInMachine = true;
 
             if (NodeSettings.canDashOnNode) DashCheck(true);
@@ -88,28 +93,30 @@ public class PlayerMotion : MonoBehaviour
 
     private void MovementFixedUpdate()
     {
-        if(isGrounded) FloorMovement();
-        else if(!isGrounded && !PowerManager.isInMachine) rb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+        if (isGrounded) FloorMovement();
+
+        else if (!isGrounded)
+            playerRb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
     {
-        rb.velocity = new Vector3(input.x * moveSpeed, rb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
+        playerRb.velocity = new Vector3(input.x * moveSpeed, playerRb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
     }
 
     private void Dash()
     {
         if(isGrounded && !PowerManager.isInMachine)
         {
-            rb.AddForce(dashSpeed * Vector3.up);
+            playerRb.AddForce(dashSpeed * Vector3.up);
 
             refPowerManager.currentPower -= dashPower;
             canDash = false;
         }
         else if(PowerManager.isInMachine)
         {
-            if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
-            else rb.AddForce(dashSpeed * 1.5f * Vector3.up);
+            if (InputManager.inputAxis != Vector2.zero) playerRb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
+            else playerRb.AddForce(dashSpeed * 1.5f * Vector3.up);
         }
 
         PowerManager.isInMachine = false;
@@ -140,19 +147,22 @@ public class PlayerMotion : MonoBehaviour
             }
         }
         else
-            Dash();
+            if (InputManager.performA)
+                Dash();
     }
 
     private IEnumerator RaycastDetection()
     {
-        rb.useGravity = true; isInPath = false;
+        Debug.Log("StartedRaycastDetection");
+        //playerRb.useGravity = true; 
+        isInPath = false;
         canBeDetectedByRaycast = false;
         yield return new WaitForSeconds(0.1f);
         canBeDetectedByRaycast = true;
     }
     public void ClampInMachine()
     {
-        transform.position = refStation.lockPosition.position;
-        Debug.Log("here");
+        if (PowerManager.isInMachine)
+            transform.position = refStation.lockPosition.position;
     }
 }

@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1829581800870728235}
   - component: {fileID: 7034297168187787295}
-  - component: {fileID: 1308342252599969936}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -132,25 +131,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7593384, y: 0.5, z: 0.112068176}
   m_Center: {x: 0.053863525, y: 0.25, z: 0.030036926}
---- !u!95 &1308342252599969936
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308342252599969937}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d89ab14434381f4399a8b4f0f1f9525, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1718858161129582774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4740726960800382348}
+  - component: {fileID: 2621793909236143114}
   m_Layer: 0
   m_Name: DoorStation
   m_TagString: DoorStation
@@ -1479,6 +1460,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2621793909236143114
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4740726960800382349}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 407f2402a069b184a877d6774b137615, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4740726960833910669
 GameObject:
   m_ObjectHideFlags: 0
