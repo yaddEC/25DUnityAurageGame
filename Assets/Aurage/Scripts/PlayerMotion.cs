@@ -162,7 +162,7 @@ public class PlayerMotion : MonoBehaviour
     }
     public void ClampInMachine()
     {
-        if (PowerManager.isInMachine)
+        if (PowerManager.isInMachine && refStation != null)
             transform.position = refStation.lockPosition.position;
     }
 }
