@@ -28,20 +28,22 @@ public class SocketStation : MonoBehaviour
     {
         coolDown = cachedCoolDown;
         refPlayerMotion.rb.velocity = Vector3.zero;
-
-        if (socketTarget.name == "In")
-        {
-            refPlayerMotion.isInPath = false;
-            refPlayerMotion.transform.position = socketTarget.transform.position;
-        }    
-        else
-            refPlayerMotion.transform.position = socketTarget.transform.position;
-
+        refPlayerMotion.transform.position = socketTarget.transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player" && coolDown <= 0)
             TeleportToTarget();
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            refPlayerMotion.isInPath = false;
+            refPlayerMotion.isGrounded = false;
+            Debug.Log("Here");
+        }
+
     }
 }

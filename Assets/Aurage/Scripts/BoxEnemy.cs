@@ -8,7 +8,7 @@ public class BoxEnemy : MonoBehaviour
     // Start is called before the first frame update
 
     private Rigidbody rb;
-    
+
     public bool playerDetected;
     public bool isMoving;
     public bool isTurning;
@@ -112,14 +112,47 @@ public class BoxEnemy : MonoBehaviour
 
     public void Stun(float stunDuration)
     {
+        if (!isStunned)
+        {
+            StopCoroutine(lastRoutine);
+            StartCoroutine(Stunned(stunDuration));
+        }
+
+    }
+
+    public void Guard(float guardDuration, float direction)
+    {
+
         StopCoroutine(lastRoutine);
-        StartCoroutine(Stunned(stunDuration));
+        StartCoroutine(Guarded(guardDuration, direction));
+
+
     }
 
     public IEnumerator Stunned(float stunDuration)//Coroutine that stun the enemy, then unstun him
     {
         isMoving = false;
         isStunned = true;
+        yield return new WaitForSeconds(stunDuration);
+        isStunned = false;
+        lastRoutine = StartCoroutine(Turning());
+    }
+
+    public IEnumerator Guarded(float stunDuration, float direction)//Coroutine that stun the enemy, then unstun him
+    {
+        isMoving = false;
+        isStunned = true;
+        Quaternion look = Quaternion.Euler(0,direction,0);
+        float time = 0f;
+        while (time < 1)
+        {
+            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 20);
+            transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
+            time += Time.deltaTime * rotationSpeed;
+            turning = time;
+            yield return null;
+        }
+
         yield return new WaitForSeconds(stunDuration);
         isStunned = false;
         lastRoutine = StartCoroutine(Turning());

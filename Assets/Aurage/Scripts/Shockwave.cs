@@ -16,11 +16,9 @@ public class Shockwave : MonoBehaviour
     public float fadeSpeed;
     public float duration;
 
-
-
     private void Awake()
     {
-        shockWavePrefab = Resources.Load<GameObject>("Prefabs/ElectricShock");
+        shockWavePrefab = Resources.Load<GameObject>("Prefabs/Setup/ElectricShock");
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         cachedCooldown = cooldown;
     }
@@ -34,10 +32,7 @@ public class Shockwave : MonoBehaviour
         if (cooldown > 0) cooldown -= Time.deltaTime;
         if (cooldown <= 0) refresh = true;
 
-        if (InputManager.performY && cooldown <= 0 && refresh && !PowerManager.isInMachine)
-        {
-            Attack();
-        }
+        if (InputManager.performY && cooldown <= 0 && refresh && !PowerManager.isInMachine) Attack();
     }
 
 

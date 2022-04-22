@@ -29,6 +29,12 @@ public class PlayerMotion : MonoBehaviour
 
     public static bool canBeTargeted;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + Vector3.down / 5, transform.localScale.x / 2);
+    }
+
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
@@ -100,6 +106,8 @@ public class PlayerMotion : MonoBehaviour
             if (InputManager.inputAxis != Vector2.zero) rb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
             else rb.AddForce(dashSpeed * 1.5f * Vector3.up);
         }
+
+        PowerManager.isInMachine = false;
     }
 
     private void GroundCheck()
