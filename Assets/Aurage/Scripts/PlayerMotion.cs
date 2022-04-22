@@ -29,6 +29,12 @@ public class PlayerMotion : MonoBehaviour
 
     public static bool canBeTargeted;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + Vector3.down / 5, transform.localScale.x / 2);
+    }
+
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
