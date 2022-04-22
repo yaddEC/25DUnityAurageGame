@@ -12,12 +12,15 @@ public class SocketStation : MonoBehaviour
     public static float coolDown;
     private static float cachedCoolDown;
 
+    private CameraClamp refCamerClamp;
+
     private void Awake()
     {
         coolDown = 2;
         cachedCoolDown = coolDown;
 
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+        refCamerClamp = GameObject.FindObjectOfType<CameraClamp>();
     }
     private void Update()
     {
@@ -29,6 +32,7 @@ public class SocketStation : MonoBehaviour
         coolDown = cachedCoolDown;
         refPlayerMotion.rb.velocity = Vector3.zero;
         refPlayerMotion.transform.position = socketTarget.transform.position;
+        refCamerClamp.changeZPos(refPlayerMotion.transform.position.z);
     }
 
     private void OnTriggerEnter(Collider other)
