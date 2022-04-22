@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 8166421682775299911}
   - component: {fileID: 8166421682775299910}
   - component: {fileID: 8166421682775299909}
+  - component: {fileID: 7441934911812715393}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Turret
@@ -455,6 +456,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3252767, y: 1.255996, z: 1}
   m_Center: {x: 0.13846932, y: 0.2990843, z: 0}
+--- !u!95 &7441934911812715393
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166421682775299915}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bfd655ca43040224b8b4e6ed84b98721, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8166421683190269356
 GameObject:
   m_ObjectHideFlags: 0
