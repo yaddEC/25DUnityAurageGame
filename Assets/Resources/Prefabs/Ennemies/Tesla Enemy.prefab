@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff1d2d1f975cd64589032519a0d47ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drainingPower: 100
+  drainingPower: 200
   playerPos: {x: 0, y: 0, z: 0}
   linePos: {x: 0, y: 0, z: 0}
 --- !u!1 &4754605216769767615

@@ -18,8 +18,16 @@ public class PowerMeterStation : Station
             if (isEntry) refPowerManager.currentPower = refPowerManager.maxPower;
             else
             {
-                SceneSwitcher.GoToSelectedScene("LevelSelector");
-                PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel")+1);
+                if(LevelSelector.actualLevel == 6)
+                {
+                    SceneSwitcher.GoToSelectedScene("WinningScreen");
+                    PlayerPrefs.SetInt("UnlockedLevel", 1);
+                }
+                else
+                {
+                    SceneSwitcher.GoToSelectedScene("LevelSelector");
+                    PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel")+1);
+                }
             }
         }
     }
