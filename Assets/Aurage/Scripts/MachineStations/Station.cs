@@ -17,7 +17,6 @@ public abstract class Station : MonoBehaviour
 
     [Header("Machine Info")]
     public string tagToSearch;
-    public bool isFreezed;
     public bool isInMachine;
     public bool isUsable;
     public bool doEvent;
@@ -44,26 +43,15 @@ public abstract class Station : MonoBehaviour
         bC = GetComponent<BoxCollider>();
         mR = refPlayerMotion.GetComponent<MeshRenderer>();
     }
-
     public virtual void CooldownHandler(bool b)
     {
         if (cooldown > 0)
         {
             cooldown -= Time.deltaTime;
-            if(!b) bC.isTrigger = false;
+            if(bC != null && !b) bC.isTrigger = false;
         }
-        else if(!b && cooldown < 0)
+        else if(bC != null && !b && cooldown < 0)
             bC.isTrigger = true;
-    }
-    public virtual void ClampInMachine()
-    {
-        if (isFreezed)
-        {
-            refPlayerMotion.transform.position = lockPosition.position;
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
-        }
-        else
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
     public virtual void RestoreMachines()
     {
@@ -74,23 +62,26 @@ public abstract class Station : MonoBehaviour
         }
     }
 
-    public virtual void EnterMachine()
+    public virtual void EnterMachine(Station station)
     {
-        mR.enabled = false;
+        PowerManager.isFreezed = true;
+        PlayerMotion.refStation = station;
         PowerManager.isInMachine = true;
+        mR.enabled = false;
         isInMachine = true;
-        isFreezed = true;
         text.enabled = true;
         image.enabled = true;
     }
     public virtual void StayMachine(bool autoExec)
     {
-        refPlayerMotion.rb.velocity = Vector3.zero;
+        refPlayerMotion.playerRb.velocity = Vector3.zero;
 
-        if(autoExec && isInMachine) doEvent = true;
-        if (InputManager.performX)
-        { 
-            isFreezed = false;
+        if (autoExec && isInMachine) doEvent = true;
+        if (!autoExec && InputManager.performB) doEvent = true;
+
+        if (InputManager.performA)
+        {
+            PowerManager.isFreezed = false;
             refPlayerMotion.DashCheck(false);
         }
     }

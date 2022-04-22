@@ -14,8 +14,7 @@ public class GeneratorStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(false); 
-        ClampInMachine();
+        CooldownHandler(false);
 
         if (doEvent && isUsable) StartCoroutine(RestorePower(chargingPowerDelta));
     }
@@ -38,7 +37,7 @@ public class GeneratorStation : Station
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
-            EnterMachine(); 
+            EnterMachine(this.GetComponent<GeneratorStation>()); 
             CheckpointChecker();
         }
     }

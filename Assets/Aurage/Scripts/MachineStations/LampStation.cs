@@ -14,7 +14,6 @@ public class LampStation : Station
     private void Update()
     {
         CooldownHandler(false);
-        ClampInMachine();
         if (doEvent && isUsable) RestorePower();
     }
     //-------------------------------------------------------------
@@ -26,7 +25,7 @@ public class LampStation : Station
     //-------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && cooldown <= 0) EnterMachine();
+        if (other.tag == "Player" && cooldown <= 0) EnterMachine(this.GetComponent<LampStation>());
     }
     private void OnTriggerStay(Collider other)
     {
