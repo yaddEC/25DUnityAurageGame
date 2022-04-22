@@ -51,6 +51,7 @@ public class ConsoleStation : Station
         if (other.tag == "Player" && cooldown <= 0)
         {
             StayMachine(false);
+            if (InputManager.performB) doEvent = true;
             if (doEvent) OpenTrap();
         }
     }
