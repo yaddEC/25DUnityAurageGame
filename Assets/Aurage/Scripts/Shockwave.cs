@@ -32,7 +32,7 @@ public class Shockwave : MonoBehaviour
         if (cooldown > 0) cooldown -= Time.deltaTime;
         if (cooldown <= 0) refresh = true;
 
-        if (InputManager.performY && cooldown <= 0 && refresh && !PowerManager.isInMachine) Attack();
+        if (InputManager.performY && cooldown <= 0 && refresh && !PlayerState.isInMachine) Attack();
     }
 
 

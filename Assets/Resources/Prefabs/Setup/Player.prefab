@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 8325189878180794317}
   - component: {fileID: 8325189878180794315}
   - component: {fileID: 4996807403023991155}
+  - component: {fileID: 2400734286683653926}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -370,7 +371,7 @@ MonoBehaviour:
     m_ActionId: 0dcfb5eb-a02a-46ec-ba1c-a3392170b8e7
     m_ActionName: Player/MidPressed[/DualShock4GamepadHID/start]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -405,20 +406,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edd58dc4d9b53f429b88f7b29e4260a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  refStation: {fileID: 0}
   moveSpeed: 600
   dashSpeed: 800
   dashGravity: 20
-  canDash: 1
   dashCooldown: 2
   cachedDashCooldown: 0
   dashPower: 5
-  canBeDetectedByRaycast: 1
-  isInPath: 0
-  rb: {fileID: 0}
+  playerRb: {fileID: 0}
   floorMask:
     serializedVersion: 2
     m_Bits: 1024
-  isGrounded: 0
 --- !u!114 &8325189878180794315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,3 +457,15 @@ MonoBehaviour:
   scale: 0
   fadeSpeed: 0
   duration: 0
+--- !u!114 &2400734286683653926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72051e4571fe92c46a82abfcbeb3a1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

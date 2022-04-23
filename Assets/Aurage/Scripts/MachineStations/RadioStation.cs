@@ -15,7 +15,7 @@ public class RadioStation : Station
     }
     private void Update()
     {
-        CooldownHandler(false);
+        CooldownHandler();
     }
 
     public void TurnRadioOn()
@@ -46,7 +46,7 @@ public class RadioStation : Station
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
-            StayMachine(false);
+            StayMachine(autoExec = false);
             if (isUsable && InputManager.performB) doEvent = true;
             else doEvent = false;
             if (doEvent) TurnRadioOn();

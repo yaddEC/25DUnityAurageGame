@@ -90,7 +90,7 @@ public class EnemyCamera : MonoBehaviour
     public bool SeeThePlayer()//return true if the player is in enemy line of sight+no obstacle separating them
     {
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-        if (!PowerManager.isInMachine)
+        if (!PlayerState.isInMachine)
         {
             if (playerDistance < sightDistance)
             {

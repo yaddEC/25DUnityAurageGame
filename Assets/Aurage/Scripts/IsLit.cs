@@ -17,7 +17,6 @@ public class IsLit : MonoBehaviour
         obstacle = LayerMask.GetMask("Obstacle");
     }
 
-    // Update is called once per frame
     void Update()
     {
        /* if (PlayerState.isVisible)
@@ -50,7 +49,7 @@ public class IsLit : MonoBehaviour
     {
         Vector3 playerVector = player.transform.position - transform.position;
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-        if (!PowerManager.isInMachine)
+        if (!PlayerState.isInMachine)
         {
             if (playerDistance < sightDistance)
             {

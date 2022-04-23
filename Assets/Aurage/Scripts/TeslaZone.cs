@@ -54,13 +54,13 @@ public class TeslaZone : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(isStunned || PowerManager.isInMachine)
+        if(isStunned || PlayerState.isInMachine)
         {
             laser.SetPosition(1, Vector3.zero);
             laser.SetWidth(0, 0);
 
         }
-        else if (other.gameObject.tag == "Player" && !PowerManager.isInMachine)
+        else if (other.gameObject.tag == "Player" && !PlayerState.isInMachine)
         {
             linePos = other.transform.position - this.transform.GetChild(0).position;
 

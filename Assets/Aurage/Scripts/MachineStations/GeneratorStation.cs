@@ -14,9 +14,9 @@ public class GeneratorStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(false);
+        CooldownHandler();
 
-        if (doEvent && isUsable) StartCoroutine(RestorePower(chargingPowerDelta));
+        if (doEvent) StartCoroutine(RestorePower(chargingPowerDelta));
     }
     //-------------------------------------------------------------
     private IEnumerator RestorePower(float powerAmount)
@@ -45,7 +45,7 @@ public class GeneratorStation : Station
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
-            StayMachine(false);
+            StayMachine(autoExec = false);
             if (isUsable && InputManager.performB) doEvent = true;
         }
     }

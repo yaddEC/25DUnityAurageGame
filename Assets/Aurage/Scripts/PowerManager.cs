@@ -8,10 +8,6 @@ public class PowerManager : MonoBehaviour
     [Header("Charging Stats")]
     public float unchargePowerDelta;
     public static float unchargeCache;
-    public static bool  isInMachine = true;
-    public static bool isFreezed = false;
-    public bool isPlayerFreeze = false;
-    public bool isPlayerInMachine = false;
 
     [Header("Power Stats")]
     public static bool outOfPower;
@@ -25,20 +21,15 @@ public class PowerManager : MonoBehaviour
     {
         unchargeCache = unchargePowerDelta;
         currentPower = maxPower;
-        isInMachine = false;
         playerMaterial = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material;
     }
 
     private void Update()
     {
-        isPlayerFreeze = isFreezed;
-        isPlayerInMachine = isInMachine;
-
         PowerState();
         PlayerRender();
 
-        if (!isInMachine) StartCoroutine(ConsumePower(unchargeCache));
-        else PlayerMotion.canBeTargeted = false;
+        if (!PlayerState.isInMachine || !PlayerState.isInNodePath) StartCoroutine(ConsumePower(unchargeCache));
     }
 
     private void PowerState()
@@ -54,9 +45,7 @@ public class PowerManager : MonoBehaviour
 
     public IEnumerator ConsumePower(float powerAmount)
     {
-        PlayerMotion.canBeTargeted = true;
         if (currentPower <= 0) outOfPower = true;
-
         currentPower -= powerAmount * 0.0001f;
         yield return new WaitForSecondsRealtime(2f);
     }

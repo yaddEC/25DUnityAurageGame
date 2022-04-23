@@ -8,13 +8,11 @@ public class GoToSelectedLevel : MonoBehaviour
     public bool goToNextLevel = false;
     public bool canAccess = false;
 
-    public bool isInMachine = false;
-
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player")
         {
-            isInMachine = true;
+            PlayerState.isInMachine = true;
 
             if (InputManager.performB && canAccess)
                 goToNextLevel = true;
@@ -24,6 +22,6 @@ public class GoToSelectedLevel : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
-            isInMachine = false;
+            PlayerState.isInMachine = false;
     }
 }
