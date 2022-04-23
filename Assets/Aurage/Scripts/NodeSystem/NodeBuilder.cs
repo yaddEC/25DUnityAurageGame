@@ -14,8 +14,8 @@ public class NodeBuilder : MonoBehaviour
     private void OnDrawGizmos()
     {
         transformParent = GameObject.Find("App").GetComponent<Transform>();
-
         containerHolder = GameObject.FindGameObjectWithTag("NodeContainer").gameObject;
+
         if (containerHolder != null)
         {
             container = containerHolder.transform;
@@ -43,7 +43,6 @@ public class NodeBuilder : MonoBehaviour
                 nodeHolder.transform.parent = container;
         }
     }
-
 
     private void CreateNodeHolder()
     {
