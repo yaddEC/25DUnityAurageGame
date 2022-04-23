@@ -14,7 +14,7 @@ public class GeneratorStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler();
+        CooldownHandler(special = false);
 
         if (doEvent) StartCoroutine(RestorePower(chargingPowerDelta));
     }
@@ -49,13 +49,14 @@ public class GeneratorStation : Station
             if (isUsable && InputManager.performB) doEvent = true;
         }
     }
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
             if (doEvent) isUsable = false;
+
             doEvent = false;
             ExitMachine();
         }
-    }
+    }*/
 }

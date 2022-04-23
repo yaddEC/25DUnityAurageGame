@@ -16,15 +16,15 @@ public class PlayerState : MonoBehaviour
     public static bool isGrounded = false;
     public static bool canDash = true;
 
-    public bool InspectorisVisible = true;
-    public bool InspectorcanBeTargeted = true;
+    public bool InspectorIsVisible = true;
+    public bool InspectorIsCanBeTargeted = true;
 
-    public bool InspectorisFreezed = false;
-    public bool InspectorisInMachine = false;
-    public bool InspectorisInNodePath = false;
+    public bool InspectorIsFreezed = false;
+    public bool InspectorIsInMachine = false;
+    public bool InspectorIsInNodePath = false;
 
-    public bool InspectorisGrounded = false;
-    public bool InspectorcanDash = true;
+    public bool InspectorIsGrounded = false;
+    public bool InspectorIsCanDash = true;
 
     private void Awake()
     {
@@ -36,15 +36,17 @@ public class PlayerState : MonoBehaviour
 
     private void Update()
     {
-        InspectorDisplay();
+        InspectorIisplay();
 
         if (isInMachine)
         {
+            isFreezed = true;
             refPlayerMotion.playerRb.useGravity = false;
             canBeTargeted = false;
         }
         else
         {
+            isFreezed = false;
             refPlayerMotion.playerRb.useGravity = true;
             canBeTargeted = true;
         }
@@ -61,15 +63,15 @@ public class PlayerState : MonoBehaviour
         refPlayerMotion.playerRb.constraints = RigidbodyConstraints.None;
     }
 
-    private void InspectorDisplay()
+    private void InspectorIisplay()
     {
-        InspectorisVisible = isVisible;
-        InspectorcanBeTargeted = canBeTargeted;
-        InspectorisFreezed = isFreezed;
-        InspectorisInMachine = isInMachine;
-        InspectorisInNodePath = isInNodePath;
-        InspectorisGrounded = isGrounded;
-        InspectorcanDash = canDash;
-        InspectorisVisible = isVisible;
+        InspectorIsVisible = isVisible;
+        InspectorIsCanBeTargeted = canBeTargeted;
+        InspectorIsFreezed = isFreezed;
+        InspectorIsInMachine = isInMachine;
+        InspectorIsInNodePath = isInNodePath;
+        InspectorIsGrounded = isGrounded;
+        InspectorIsCanDash = canDash;
+        InspectorIsVisible = isVisible;
     }
 }

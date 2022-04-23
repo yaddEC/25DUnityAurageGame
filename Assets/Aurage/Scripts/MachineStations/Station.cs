@@ -17,6 +17,7 @@ public abstract class Station : MonoBehaviour
 
     [Header("Machine Info")]
     public bool autoExec = false;
+    public bool special = false;
     public string tagToSearch;
     public bool isInStation;
     public bool isUsable;
@@ -45,12 +46,18 @@ public abstract class Station : MonoBehaviour
         bC = GetComponent<BoxCollider>();
         mR = refPlayerMotion.GetComponent<MeshRenderer>();
     }
-    public virtual void CooldownHandler()
+    public virtual void CooldownHandler(bool special)
     {
-        PlayerState.isInMachine = isInStation;
-
         if (cooldown > 0)
             cooldown -= Time.deltaTime;
+
+        if(!special)
+        {
+            if (cooldown <= 0)
+                bC.isTrigger = true;
+            else
+                bC.isTrigger = false;
+        }
     }
     public virtual void RestoreMachines()
     {
@@ -64,6 +71,7 @@ public abstract class Station : MonoBehaviour
     public virtual void EnterMachine(Station station)
     {
         isInStation = true;
+        PlayerState.isInMachine = isInStation;
 
         refPlayerMotion.refStation = station;
         PlayerState.FreezePlayer();
@@ -77,16 +85,16 @@ public abstract class Station : MonoBehaviour
         PlayerState.FreezePlayer();
 
         if (autoExec && isInStation) doEvent = true;
+        if (isInStation && InputManager.performX && InputManager.inputAxis != Vector2.zero) ExitMachine();
 
-        else if (!autoExec && isInStation && InputManager.performA)
-        {
-            PlayerState.UnFreezePlayer();
-            refPlayerMotion.DashCheck(true);
-        }
     }
     public virtual void ExitMachine()
     {
+        PlayerState.UnFreezePlayer();
+        refPlayerMotion.DashMachine(InputManager.inputAxis);
+
         isInStation = false;
+        PlayerState.isInMachine = isInStation;
         doEvent = false;
 
         mR.enabled = true;

@@ -16,22 +16,22 @@ public class RoombaStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler();
+        CooldownHandler(special = true);
         FreezeRoomba();
     }
     private void FixedUpdate()
     {
-        if(doEvent) MoveRoomba(InputManager.inputAxis);
+        MoveRoomba(InputManager.inputAxis);
     }
     //-------------------------------------------------------------
     private void MoveRoomba(Vector2 input)
     {
-        roombaRb.velocity = new Vector3(input.x * moveSpeed, roombaRb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
+        if(doEvent) roombaRb.velocity = new Vector3(input.x * moveSpeed, roombaRb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
     }
     private void FreezeRoomba()
     {
         if (!PlayerState.isInMachine) roombaRb.constraints = RigidbodyConstraints.FreezeAll;
-        else roombaRb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        else roombaRb.constraints = RigidbodyConstraints.FreezeRotation;
     }
     //-------------------------------------------------------------
     private void OnCollisionEnter(Collision collision)

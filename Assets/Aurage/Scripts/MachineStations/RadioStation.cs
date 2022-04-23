@@ -15,7 +15,7 @@ public class RadioStation : Station
     }
     private void Update()
     {
-        CooldownHandler();
+        CooldownHandler(special = false);
     }
 
     public void TurnRadioOn()

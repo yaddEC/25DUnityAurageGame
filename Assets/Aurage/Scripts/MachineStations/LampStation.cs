@@ -13,7 +13,7 @@ public class LampStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler();
+        CooldownHandler(special = false);
         if (doEvent && isUsable) RestorePower();
     }
     //-------------------------------------------------------------

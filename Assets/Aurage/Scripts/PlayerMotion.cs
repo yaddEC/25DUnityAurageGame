@@ -24,7 +24,7 @@ public class PlayerMotion : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position + Vector3.down / 5, transform.localScale.x / 2);
+        Gizmos.DrawSphere(transform.position, transform.localScale.x / 2);
     }
 
     private void Awake()
@@ -38,7 +38,7 @@ public class PlayerMotion : MonoBehaviour
 
     private void Update()
     {
-        MovementUpdate();
+        PlayerStateChecker();
 
         if (!PlayerState.canDash) dashCooldown -= Time.deltaTime;
 
@@ -57,7 +57,7 @@ public class PlayerMotion : MonoBehaviour
     }
 
     //--------------------------------------------------
-    private void MovementUpdate()
+    private void PlayerStateChecker()
     {
         if (!PlayerState.isInNodePath) GroundCheck();
 
@@ -65,7 +65,7 @@ public class PlayerMotion : MonoBehaviour
         {
             PlayerState.isInMachine = true;
 
-            if (NodeSettings.canDashOnNode) DashCheck(true);
+            if (NodeSettings.canDashOnNode) DashCheck();
             else PlayerState.canDash = false;
         }
     }
@@ -83,42 +83,40 @@ public class PlayerMotion : MonoBehaviour
 
     private void Dash()
     {
-        if(PlayerState.isGrounded && !PlayerState.isInMachine)
+        if(PlayerState.isGrounded)
         {
             playerRb.AddForce(dashSpeed * Vector3.up);
 
             refPowerManager.currentPower -= dashPower;
             PlayerState.canDash = false;
         }
-        else if(PlayerState.isInMachine)
-        {
-            if (InputManager.inputAxis != Vector2.zero) playerRb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
-        }
 
         PlayerState.isInMachine = false;
     }
 
+    public void DashMachine(Vector2 input)
+    {
+        playerRb.AddForce(new Vector3(input.x, input.y, input.y) * dashSpeed * 1.2f);
+        Debug.Log("Dash Machine");
+    }
+
     private void GroundCheck()
     {
-        PlayerState.isGrounded = Physics.CheckSphere(transform.position + Vector3.down / 5, transform.localScale.x / 2, floorMask);
+        PlayerState.isGrounded = Physics.CheckSphere(transform.position, transform.localScale.x / 2, floorMask);
     }
 
     private void FloorMovement()
     {
-        DashCheck(false);
+        DashCheck();
 
         if (InputManager.inputAxis != Vector2.zero) Move(InputManager.inputAxis);
+        else Move(Vector2.zero);
     }
 
     //--------------------------------------------------
-    public void DashCheck(bool autoExec)
+    public void DashCheck()
     {
-        if(autoExec) Dash();
-        else
-        {
-            if (InputManager.performA) 
-                Dash();
-        }
+        if(!PlayerState.isInMachine && InputManager.performA) Dash();
     }
 
     /*private IEnumerator RaycastDetection()
@@ -133,6 +131,9 @@ public class PlayerMotion : MonoBehaviour
     public void ClampInMachine()
     {
         if (PlayerState.isInMachine && refStation != null)
+        {
             transform.position = refStation.lockPosition.position;
+            Debug.Log("clamped");
+        }
     }
 }
