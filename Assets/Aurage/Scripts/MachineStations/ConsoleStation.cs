@@ -21,23 +21,26 @@ public class ConsoleStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(false);
+        CooldownHandler();
 
-        if(TrapAnimIsPlaying()) isOpen = true;
-        else isOpen = false;
+        if(doEvent) OpenTrap();
 
-        if (isOpen) { objectBC.isTrigger = true; CloseTrap(); }
-        else { objectBC.isTrigger = false; }
+        if (!TrapAnimIsPlaying()) isOpen = false;
+
+        if (!isOpen) CloseTrap();
         }
     //-------------------------------------------------------------
     private void OpenTrap()
     {
         objectAnim.SetTrigger("open");
+        objectBC.isTrigger = true;
+        isOpen = true;
         doEvent = false;
     }
     private void CloseTrap()
     {
         objectAnim.SetTrigger("close");
+        objectBC.isTrigger = false;
         isOpen = false;
     }
     private bool TrapAnimIsPlaying() { return objectAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1; }
@@ -50,9 +53,8 @@ public class ConsoleStation : Station
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
-            StayMachine(false);
-            if (InputManager.performB) doEvent = true;
-            if (doEvent) OpenTrap();
+            StayMachine(autoExec = false);
+            if (isUsable && InputManager.performB) doEvent = true;
         }
     }
     private void OnTriggerExit(Collider other)

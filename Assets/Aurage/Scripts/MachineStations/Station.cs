@@ -16,8 +16,9 @@ public abstract class Station : MonoBehaviour
     public MeshRenderer mR;
 
     [Header("Machine Info")]
+    public bool autoExec = false;
     public string tagToSearch;
-    public bool isInMachine;
+    public bool isInStation;
     public bool isUsable;
     public bool doEvent;
 
@@ -31,6 +32,7 @@ public abstract class Station : MonoBehaviour
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+
         if(tagToSearch != null) machineList = GameObject.FindGameObjectsWithTag(tagToSearch);
 
         text = GetComponentInChildren<Text>(); text.enabled = false;
@@ -43,15 +45,12 @@ public abstract class Station : MonoBehaviour
         bC = GetComponent<BoxCollider>();
         mR = refPlayerMotion.GetComponent<MeshRenderer>();
     }
-    public virtual void CooldownHandler(bool b)
+    public virtual void CooldownHandler()
     {
+        PlayerState.isInMachine = isInStation;
+
         if (cooldown > 0)
-        {
             cooldown -= Time.deltaTime;
-            if(bC != null && !b) bC.isTrigger = false;
-        }
-        else if(bC != null && !b && cooldown < 0)
-            bC.isTrigger = true;
     }
     public virtual void RestoreMachines()
     {
@@ -64,34 +63,36 @@ public abstract class Station : MonoBehaviour
 
     public virtual void EnterMachine(Station station)
     {
-        PowerManager.isFreezed = true;
-        PlayerMotion.refStation = station;
-        PowerManager.isInMachine = true;
+        isInStation = true;
+
+        refPlayerMotion.refStation = station;
+        PlayerState.FreezePlayer();
+
         mR.enabled = false;
-        isInMachine = true;
         text.enabled = true;
         image.enabled = true;
     }
     public virtual void StayMachine(bool autoExec)
     {
-        refPlayerMotion.playerRb.velocity = Vector3.zero;
+        PlayerState.FreezePlayer();
 
-        if (autoExec && isInMachine) doEvent = true;
+        if (autoExec && isInStation) doEvent = true;
 
-        if (InputManager.performA)
+        else if (!autoExec && isInStation && InputManager.performA)
         {
-            PowerManager.isFreezed = false;
-            refPlayerMotion.DashCheck(false);
+            PlayerState.UnFreezePlayer();
+            refPlayerMotion.DashCheck(true);
         }
     }
     public virtual void ExitMachine()
     {
-        mR.enabled = true;
-        PowerManager.isInMachine = false;
-        isInMachine = false;
+        isInStation = false;
         doEvent = false;
+
+        mR.enabled = true;
         text.enabled = false;
         image.enabled = false;
+
         cooldown = cachedCooldown;
     }
 }

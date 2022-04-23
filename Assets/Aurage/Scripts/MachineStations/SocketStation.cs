@@ -29,24 +29,22 @@ public class SocketStation : MonoBehaviour
 
     private void TeleportToTarget()
     {
-        coolDown = cachedCoolDown;
-        refPlayerMotion.playerRb.velocity = Vector3.zero;
         refPlayerMotion.transform.position = socketTarget.transform.position;
         refCamerClamp.changeZPos(refPlayerMotion.transform.position.z);
+
+        coolDown = cachedCoolDown;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && coolDown <= 0)
-            TeleportToTarget();
+        if(other.tag == "Player" && coolDown <= 0) TeleportToTarget();
     }
     private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player")
         {
-            refPlayerMotion.isInPath = false;
-            refPlayerMotion.isGrounded = false;
-            Debug.Log("Here");
+            PlayerState.isInNodePath = false;
+            PlayerState.isGrounded = false;
         }
 
     }

@@ -13,7 +13,7 @@ public class LampStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(false);
+        CooldownHandler();
         if (doEvent && isUsable) RestorePower();
     }
     //-------------------------------------------------------------
@@ -29,7 +29,7 @@ public class LampStation : Station
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && cooldown <= 0) StayMachine(true);
+        if (other.tag == "Player" && cooldown <= 0) StayMachine(autoExec = true);
     }
     private void OnTriggerExit(Collider other)
     {

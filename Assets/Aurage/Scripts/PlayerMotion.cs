@@ -1,34 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMotion : MonoBehaviour
 {
     private PowerManager refPowerManager;
-    public static Station refStation;
-    public Station station;
+    public Station refStation;
+
     public float moveSpeed;
 
     public float dashSpeed;
     public float dashGravity;
-    public bool canDash = true;
+    
     public float dashCooldown = 10f;
     public float cachedDashCooldown;
-
     public float dashPower = 10;
 
-    public bool canBeDetectedByRaycast = true;
-    public bool isInPath;
+    //public bool canBeDetectedByRaycast = true;
 
     public Rigidbody playerRb;
     private Vector3 velocity = Vector3.zero;
 
     public LayerMask floorMask;
-
-    public bool isGrounded;
-
-    public static bool canBeTargeted;
 
     private void OnDrawGizmos()
     {
@@ -47,21 +38,14 @@ public class PlayerMotion : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(playerRb.useGravity + " gravity");
-
-        if (PowerManager.isInMachine) playerRb.useGravity = false;
-        else playerRb.useGravity = true;
-
-        station = refStation;
-
         MovementUpdate();
 
-        if (!canDash) dashCooldown -= Time.deltaTime;
+        if (!PlayerState.canDash) dashCooldown -= Time.deltaTime;
 
         if (dashCooldown <= 0)
         {
             dashCooldown = cachedDashCooldown;
-            canDash = true;
+            PlayerState.canDash = true;
         }
 
         ClampInMachine();
@@ -69,34 +53,27 @@ public class PlayerMotion : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isInPath) MovementFixedUpdate();
+        if (!PlayerState.isInNodePath) MovementFixedUpdate();
     }
 
     //--------------------------------------------------
     private void MovementUpdate()
     {
-        if (!isInPath)
+        if (!PlayerState.isInNodePath) GroundCheck();
+
+        else if (PlayerState.isInNodePath)
         {
-            //if(!PowerManager.isInMachine) playerRb.useGravity = true;
-            //else playerRb.useGravity = false;
-            GroundCheck();
-        }
-        else
-        {
-            //playerRb.useGravity = false;
-            PowerManager.isInMachine = true;
+            PlayerState.isInMachine = true;
 
             if (NodeSettings.canDashOnNode) DashCheck(true);
-            else canDash = false;
+            else PlayerState.canDash = false;
         }
     }
 
     private void MovementFixedUpdate()
     {
-        if (isGrounded) FloorMovement();
-
-        else if (!isGrounded)
-            playerRb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
+        if (PlayerState.isGrounded) FloorMovement();
+        else if (!PlayerState.isGrounded) playerRb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
     }
 
     private void Move(Vector2 input)
@@ -106,52 +83,45 @@ public class PlayerMotion : MonoBehaviour
 
     private void Dash()
     {
-        if(isGrounded && !PowerManager.isInMachine)
+        if(PlayerState.isGrounded && !PlayerState.isInMachine)
         {
             playerRb.AddForce(dashSpeed * Vector3.up);
 
             refPowerManager.currentPower -= dashPower;
-            canDash = false;
+            PlayerState.canDash = false;
         }
-        else if(PowerManager.isInMachine)
+        else if(PlayerState.isInMachine)
         {
             if (InputManager.inputAxis != Vector2.zero) playerRb.AddForce(dashSpeed * 1.5f * InputManager.inputAxis);
-            else playerRb.AddForce(dashSpeed * 1.5f * Vector3.up);
         }
 
-        PowerManager.isInMachine = false;
+        PlayerState.isInMachine = false;
     }
 
     private void GroundCheck()
     {
-        isGrounded = Physics.CheckSphere(transform.position + Vector3.down / 5, transform.localScale.x / 2, floorMask);
+        PlayerState.isGrounded = Physics.CheckSphere(transform.position + Vector3.down / 5, transform.localScale.x / 2, floorMask);
     }
 
     private void FloorMovement()
     {
-        DashCheck(true);
+        DashCheck(false);
 
-        if (!InputManager.performTrigger && InputManager.inputAxis != Vector2.zero) Move(InputManager.inputAxis);
-        else Move(Vector2.zero);
+        if (InputManager.inputAxis != Vector2.zero) Move(InputManager.inputAxis);
     }
 
     //--------------------------------------------------
-    public void DashCheck(bool b)
+    public void DashCheck(bool autoExec)
     {
-        if(b)
-        {
-            if (InputManager.performA && canDash)
-            {
-                if (isInPath) StartCoroutine(RaycastDetection());
-                Dash();
-            }
-        }
+        if(autoExec) Dash();
         else
-            if (InputManager.performA)
+        {
+            if (InputManager.performA) 
                 Dash();
+        }
     }
 
-    private IEnumerator RaycastDetection()
+    /*private IEnumerator RaycastDetection()
     {
         Debug.Log("StartedRaycastDetection");
         //playerRb.useGravity = true; 
@@ -159,10 +129,10 @@ public class PlayerMotion : MonoBehaviour
         canBeDetectedByRaycast = false;
         yield return new WaitForSeconds(0.1f);
         canBeDetectedByRaycast = true;
-    }
+    }*/
     public void ClampInMachine()
     {
-        if (PowerManager.isInMachine && refStation != null)
+        if (PlayerState.isInMachine && refStation != null)
             transform.position = refStation.lockPosition.position;
     }
 }
