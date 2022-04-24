@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1878489122177717581}
   - component: {fileID: 7159809081744669597}
   - component: {fileID: 4958933721125616146}
+  - component: {fileID: 5892741793001345291}
   m_Layer: 0
   m_Name: Porte_D
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5892741793001345291
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767856952477603123}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7938347205429954884, guid: 5503c81ee176333449b426d2697cf971, type: 3}
 --- !u!1 &1308342252599969937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2805,6 +2820,7 @@ GameObject:
   - component: {fileID: 5463033171834122196}
   - component: {fileID: 39943203427040195}
   - component: {fileID: 6505597054090423682}
+  - component: {fileID: 5069845226786965478}
   m_Layer: 0
   m_Name: Porte_G
   m_TagString: Untagged
@@ -2875,6 +2891,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5069845226786965478
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385270041376317022}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4642227619957135622, guid: 5503c81ee176333449b426d2697cf971, type: 3}
 --- !u!1 &7754967661674423879
 GameObject:
   m_ObjectHideFlags: 0
