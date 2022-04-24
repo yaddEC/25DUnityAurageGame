@@ -44,6 +44,12 @@ public class PlayerState : MonoBehaviour
             refPlayerMotion.playerRb.useGravity = false;
             canBeTargeted = false;
         }
+        if(isInNodePath)
+        {
+            refPlayerMotion.playerRb.velocity = Vector2.zero;
+            refPlayerMotion.playerRb.useGravity = false;
+            canBeTargeted = false;
+        }
         else
         {
             isFreezed = false;
