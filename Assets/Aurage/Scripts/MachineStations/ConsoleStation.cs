@@ -10,6 +10,7 @@ public class ConsoleStation : Station
     public GameObject objectToInteractWith;
     public Animator objectAnim;
     public BoxCollider objectBC;
+    public bool animationPlaying = false;
     //-------------------------------------------------------------
     private void Awake() 
     {
@@ -17,29 +18,34 @@ public class ConsoleStation : Station
         objectToInteractWith = UnityFinder.FindGameObjectInChildWithTag(transform.parent.gameObject, transform.parent.GetComponentInChildren<Animator>().gameObject.tag);
         objectAnim = objectToInteractWith.GetComponent<Animator>();
         objectBC = objectToInteractWith.GetComponent<BoxCollider>();
+        objectAnim.SetTrigger("close");
     }
     private void Start() { RegisterReferences(); }
     private void Update()
     {
+        TrapAnimIsPlaying();
+
         CooldownHandler(special = false);
 
-        if(doEvent) OpenTrap();
-
-        //if(!TrapAnimIsPlaying()) isOpen = false;
-
-        //if(!isOpen) CloseTrap();
+        if (doEvent && !animationPlaying) StartCoroutine(TrapSwitcher());
         }
     //-------------------------------------------------------------
-    private void OpenTrap()
+    private IEnumerator TrapSwitcher()
     {
-        objectAnim.SetBool("open", true);
+        Debug.Log("started animation Open");
         doEvent = false;
+
+        objectBC.gameObject.layer = 0;
+        objectBC.isTrigger = true;
+        objectAnim.SetTrigger("open");
+        yield return new WaitForSeconds(5f);
+        objectAnim.SetTrigger("close");
+        objectBC.gameObject.layer = 10;
+        objectBC.isTrigger = false;
+
+        Debug.Log("finished animation Open");
     }
-    private void CloseTrap()
-    {
-        objectAnim.SetBool("open", false);
-    }
-    private bool TrapAnimIsPlaying() { return objectAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1; }
+    private void TrapAnimIsPlaying() { animationPlaying = objectAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1; }
     //-------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
