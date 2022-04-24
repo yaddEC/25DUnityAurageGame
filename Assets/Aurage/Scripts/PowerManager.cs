@@ -29,7 +29,7 @@ public class PowerManager : MonoBehaviour
         PowerState();
         PlayerRender();
 
-        if (!PlayerState.isInMachine || !PlayerState.isInNodePath) StartCoroutine(ConsumePower(unchargeCache));
+        if (!PlayerState.isInMachine && !PlayerState.isInNodePath) StartCoroutine(ConsumePower(unchargeCache));
     }
 
     private void PowerState()
