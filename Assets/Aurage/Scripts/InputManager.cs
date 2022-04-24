@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    private PlayerMotion refPlayerMotion;
+
     [SerializeField] private Vector2 InspectorInputAxis;
 
     [SerializeField] private bool InspectorXPressed;
@@ -26,16 +28,10 @@ public class InputManager : MonoBehaviour
 
     public static bool performMid;
 
-    public void onJoystickInput(InputAction.CallbackContext context)
+    private void Awake()
     {
-        inputAxis = context.ReadValue<Vector2>();
+        refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
     }
-
-    public void onTriggerInput(InputAction.CallbackContext context)
-    {
-        performTrigger = context.performed;
-    }
-
     private void Update()
     {
         InspectorInputAxis = inputAxis;
@@ -47,16 +43,16 @@ public class InputManager : MonoBehaviour
 
         InspectorTrigger = performTrigger;
         InspectorMid = performMid;
-
-        if (performMid)
-        {
-            if (GameObject.FindGameObjectWithTag("OptionMenu") != null) GameObject.FindGameObjectWithTag("OptionMenu").GetComponent<OptionMenu>().onDisable();
-            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().onActivate();
-            performMid = false;
-        }
-
     }
 
+    public void onJoystickInput(InputAction.CallbackContext context)
+    {
+        inputAxis = context.ReadValue<Vector2>();
+    }
+    public void onTriggerInput(InputAction.CallbackContext context)
+    {
+        performTrigger = context.performed;
+    }
     public void onXInput(InputAction.CallbackContext context)
     {
         performX = context.performed;
@@ -65,17 +61,14 @@ public class InputManager : MonoBehaviour
     {
         performB = context.performed;
     }
-
     public void onYInput(InputAction.CallbackContext context)
     {
         performY = context.performed;
     }
-
     public void onAInput(InputAction.CallbackContext context)
     {
         performA = context.performed;
     }
-
     public void onMidInput(InputAction.CallbackContext context)
     {
         performMid = context.performed;

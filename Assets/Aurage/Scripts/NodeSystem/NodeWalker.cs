@@ -57,6 +57,12 @@ public class NodeWalker : MonoBehaviour
 
     public void WalkOnPath()
     {
+        if (PlayerState.isInNodePath && InputManager.performX)
+        {
+            refPlayerMotion.DashMachine(InputManager.inputAxis, 0.3f, true);
+            PlayerState.isInNodePath = false;
+        }
+
         var rotation = Quaternion.LookRotation(refNextNodePath.transform.position - transform.position);
 
         refCurrNodePath = refCurrNodePath.NodePathTarget(InputManager.inputAxis, new NodePath[] { refNextNodePath, refPrevNodePath }, transform);

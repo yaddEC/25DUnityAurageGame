@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,18 +12,23 @@ public class PauseMenu : MonoBehaviour
     public EventSystem m_EventSystem;
     public GameObject menu;
 
-    int boolToInt(bool value)
-    {
-        if (value)
-            return 1;
-        return 0;
-    }
     public void onBackPresed()
     {
+        var i = Convert.ToInt32(!menu.activeSelf);
         menu.SetActive(!menu.activeSelf);
-        Time.timeScale = boolToInt(!menu.activeSelf);
+        Time.timeScale = i;
     }
-    public void onActivate()
+
+    private void Update()
+    {
+        if (InputManager.performMid)
+        {
+            if (GameObject.FindGameObjectWithTag("OptionMenu") != null) GameObject.FindGameObjectWithTag("OptionMenu").GetComponent<OptionMenu>().onDisable();
+            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().onActivate();
+            InputManager.performMid = false;
+        }
+    }
+    private void onActivate()
     {
         Debug.Log("Pause");
         onBackPresed();

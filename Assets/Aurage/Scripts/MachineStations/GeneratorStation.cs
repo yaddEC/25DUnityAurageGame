@@ -47,16 +47,8 @@ public class GeneratorStation : Station
         {
             StayMachine(autoExec = false);
             if (isUsable && InputManager.performB) doEvent = true;
+
+            if (refPowerManager.currentPower >= refPowerManager.maxPower) isUsable = false;
         }
     }
-    /*private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player" && cooldown <= 0)
-        {
-            if (doEvent) isUsable = false;
-
-            doEvent = false;
-            ExitMachine();
-        }
-    }*/
 }

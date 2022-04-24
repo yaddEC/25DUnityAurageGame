@@ -91,7 +91,7 @@ public abstract class Station : MonoBehaviour
     public virtual void ExitMachine()
     {
         PlayerState.UnFreezePlayer();
-        refPlayerMotion.DashMachine(InputManager.inputAxis);
+        refPlayerMotion.DashMachine(InputManager.inputAxis, 1.1f, false);
 
         isInStation = false;
         PlayerState.isInMachine = isInStation;
