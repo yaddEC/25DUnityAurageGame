@@ -16,9 +16,10 @@ public abstract class Station : MonoBehaviour
     public MeshRenderer mR;
 
     [Header("Machine Info")]
+    public bool autoExec = false;
+    public bool special = false;
     public string tagToSearch;
-    public bool isFreezed;
-    public bool isInMachine;
+    public bool isInStation;
     public bool isUsable;
     public bool doEvent;
 
@@ -32,6 +33,7 @@ public abstract class Station : MonoBehaviour
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+
         if(tagToSearch != null) machineList = GameObject.FindGameObjectsWithTag(tagToSearch);
 
         text = GetComponentInChildren<Text>(); text.enabled = false;
@@ -44,26 +46,18 @@ public abstract class Station : MonoBehaviour
         bC = GetComponent<BoxCollider>();
         mR = refPlayerMotion.GetComponent<MeshRenderer>();
     }
-
-    public virtual void CooldownHandler(bool b)
+    public virtual void CooldownHandler(bool special)
     {
         if (cooldown > 0)
-        {
             cooldown -= Time.deltaTime;
-            if(!b) bC.isTrigger = false;
-        }
-        else if(!b && cooldown < 0)
-            bC.isTrigger = true;
-    }
-    public virtual void ClampInMachine()
-    {
-        if (isFreezed)
+
+        if(!special)
         {
-            refPlayerMotion.transform.position = lockPosition.position;
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezePosition;
+            if (cooldown <= 0)
+                bC.isTrigger = true;
+            else
+                bC.isTrigger = false;
         }
-        else
-            refPlayerMotion.rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
     public virtual void RestoreMachines()
     {
@@ -74,34 +68,39 @@ public abstract class Station : MonoBehaviour
         }
     }
 
-    public virtual void EnterMachine()
+    public virtual void EnterMachine(Station station)
     {
+        isInStation = true;
+        PlayerState.isInMachine = isInStation;
+
+        refPlayerMotion.refStation = station;
+        PlayerState.FreezePlayer();
+
         mR.enabled = false;
-        PowerManager.isInMachine = true;
-        isInMachine = true;
-        isFreezed = true;
         text.enabled = true;
         image.enabled = true;
     }
     public virtual void StayMachine(bool autoExec)
     {
-        refPlayerMotion.rb.velocity = Vector3.zero;
+        PlayerState.FreezePlayer();
 
-        if(autoExec && isInMachine) doEvent = true;
-        if (InputManager.performX)
-        { 
-            isFreezed = false;
-            refPlayerMotion.DashCheck(false);
-        }
+        if (autoExec && isInStation) doEvent = true;
+        if (isInStation && InputManager.performX && InputManager.inputAxis != Vector2.zero) ExitMachine();
+
     }
     public virtual void ExitMachine()
     {
-        mR.enabled = true;
-        PowerManager.isInMachine = false;
-        isInMachine = false;
+        PlayerState.UnFreezePlayer();
+        refPlayerMotion.DashMachine(InputManager.inputAxis);
+
+        isInStation = false;
+        PlayerState.isInMachine = isInStation;
         doEvent = false;
+
+        mR.enabled = true;
         text.enabled = false;
         image.enabled = false;
+
         cooldown = cachedCooldown;
     }
 }

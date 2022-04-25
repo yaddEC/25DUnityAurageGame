@@ -8,14 +8,15 @@ public class RadioStation : Station
     private GameObject radioZone;
     public bool isRadioActive = false;
 
-
     private void Awake()
     {
         var t = gameObject.name; tagToSearch = t;
         radioZone = Resources.Load<GameObject>("Prefabs/RadioDetection");
     }
-
-    private void Start() { RegisterReferences(); }
+    private void Update()
+    {
+        CooldownHandler(special = false);
+    }
 
     public void TurnRadioOn()
     {
@@ -25,7 +26,6 @@ public class RadioStation : Station
             isRadioActive = true;
         }
     }
-
     public IEnumerator TurnRadioOff()
     {
         radioZoneClone.GetComponent<RadioZone>().isActive = false;
@@ -37,36 +37,25 @@ public class RadioStation : Station
         Destroy(radioZoneClone);
         isRadioActive = false;
     }
-    private void Update()
-    {
-        CooldownHandler(false);
-        ClampInMachine();
-    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" && cooldown <= 0) EnterMachine(this);
+    }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
-            StayMachine(false);
+            StayMachine(autoExec = false);
             if (isUsable && InputManager.performB) doEvent = true;
             else doEvent = false;
             if (doEvent) TurnRadioOn();
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player" && cooldown <= 0) EnterMachine();
-    }
-
-
-
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player") ExitMachine();
     }
-
-   
 }
 
 

@@ -16,6 +16,8 @@ public class Shockwave : MonoBehaviour
     public float fadeSpeed;
     public float duration;
 
+    public int IdOfSound;
+
     private void Awake()
     {
         shockWavePrefab = Resources.Load<GameObject>("Prefabs/Setup/ElectricShock");
@@ -32,12 +34,13 @@ public class Shockwave : MonoBehaviour
         if (cooldown > 0) cooldown -= Time.deltaTime;
         if (cooldown <= 0) refresh = true;
 
-        if (InputManager.performY && cooldown <= 0 && refresh && !PowerManager.isInMachine) Attack();
+        if (InputManager.performY && cooldown <= 0 && refresh && !PlayerState.isInMachine) Attack();
     }
 
 
     private void Attack()
     {
+        gameObject.GetComponent<SoundPlayer>().PlaySound(IdOfSound);
         shockWaveClone = Instantiate(shockWavePrefab, transform.position, Quaternion.identity);
         shockWaveClone.GetComponent<ElectricShock>().oneScale *= (scale - 1);
         shockWaveClone.GetComponent<ElectricShock>().fadeSpeed =fadeSpeed ;

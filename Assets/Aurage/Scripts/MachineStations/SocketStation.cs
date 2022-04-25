@@ -12,12 +12,15 @@ public class SocketStation : MonoBehaviour
     public static float coolDown;
     private static float cachedCoolDown;
 
+    private CameraClamp refCamerClamp;
+
     private void Awake()
     {
         coolDown = 2;
         cachedCoolDown = coolDown;
 
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+        refCamerClamp = GameObject.FindObjectOfType<CameraClamp>();
     }
     private void Update()
     {
@@ -26,22 +29,23 @@ public class SocketStation : MonoBehaviour
 
     private void TeleportToTarget()
     {
+        refPlayerMotion.transform.position = socketTarget.transform.position;
+        refCamerClamp.changeZPos(refPlayerMotion.transform.position.z);
+
         coolDown = cachedCoolDown;
-        refPlayerMotion.rb.velocity = Vector3.zero;
-
-        if (socketTarget.name == "In")
-        {
-            refPlayerMotion.isInPath = false;
-            refPlayerMotion.transform.position = socketTarget.transform.position;
-        }    
-        else
-            refPlayerMotion.transform.position = socketTarget.transform.position;
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && coolDown <= 0)
-            TeleportToTarget();
+        if(other.tag == "Player" && coolDown <= 0) TeleportToTarget();
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            PlayerState.isInNodePath = false;
+            PlayerState.isGrounded = false;
+        }
+
     }
 }

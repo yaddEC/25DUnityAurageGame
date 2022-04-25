@@ -10,7 +10,7 @@ public class GardPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "BoxEnemy" && transform.parent.parent == other.transform.parent)
+        if (other.gameObject.tag == "BoxEnemy" && transform.parent.parent == other.transform.parent && !other.GetComponent<BoxEnemy>().isTurning)
         {
             refBoxEnemy = other.gameObject.GetComponent<BoxEnemy>();
             refBoxEnemy.ChangeWayPoint(this.gameObject);

@@ -6,11 +6,14 @@ public class TestSound : MonoBehaviour
 {
     AudioSource Source;
     public bool playRandom;
+    public bool isLooping;
     public AudioClip[] Sound;
 
     void Start()
     {
         Source = GetComponent<AudioSource>();
+        if(isLooping)
+            Source.loop = true;
     }
 
     // Update is called once per frame

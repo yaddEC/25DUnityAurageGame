@@ -365,6 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4386671739513476939}
   - component: {fileID: 4414896153975009493}
+  - component: {fileID: 7639648800602178337}
   m_Layer: 0
   m_Name: Aspiro fix
   m_TagString: Untagged
@@ -406,6 +407,25 @@ CapsuleCollider:
   m_Height: 10.61
   m_Direction: 1
   m_Center: {x: 0, y: 3.5, z: 0}
+--- !u!95 &7639648800602178337
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4011376962017840625}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9b258347dc31dd948b310243eb9e75bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4414896153679534559
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff1d2d1f975cd64589032519a0d47ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drainingPower: 100
+  drainingPower: 200
   playerPos: {x: 0, y: 0, z: 0}
   linePos: {x: 0, y: 0, z: 0}
 --- !u!1 &4754605216769767615

@@ -6,44 +6,44 @@ public class RoombaStation : Station
 {
     [Header("Property Info")]
     public float moveSpeed;
-    private Rigidbody rb;
+    private Rigidbody roombaRb;
+    private Transform roomba;
     //-------------------------------------------------------------
     private void Awake() { 
         var t = gameObject.name; tagToSearch = t;
-        rb = GetComponent<Rigidbody>();
+        roombaRb = GetComponentInChildren<Rigidbody>();
     }
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(true);
-        ClampInMachine();
+        CooldownHandler(special = true);
         FreezeRoomba();
     }
     private void FixedUpdate()
     {
-        if(doEvent) Move(InputManager.inputAxis);
+        MoveRoomba(InputManager.inputAxis);
     }
     //-------------------------------------------------------------
-    private void Move(Vector2 input)
+    private void MoveRoomba(Vector2 input)
     {
-        rb.velocity = new Vector3(input.x * moveSpeed, rb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
+        if(doEvent) roombaRb.velocity = new Vector3(input.x * moveSpeed, roombaRb.velocity.y, input.y * moveSpeed) * Time.fixedDeltaTime;
     }
     private void FreezeRoomba()
     {
-        if (!isInMachine) rb.constraints = RigidbodyConstraints.FreezeAll;
-        else rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        if (!PlayerState.isInMachine) roombaRb.constraints = RigidbodyConstraints.FreezeAll;
+        else roombaRb.constraints = RigidbodyConstraints.FreezeRotation;
     }
     //-------------------------------------------------------------
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && cooldown <= 0) EnterMachine();
+        if (collision.gameObject.tag == "Player" && cooldown <= 0) EnterMachine(this.GetComponent<RoombaStation>());
     }
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && cooldown <= 0) { StayMachine(true); }
+        if (collision.gameObject.tag == "Player" && cooldown <= 0) { StayMachine(autoExec = true); }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && cooldown <= 0 && isInMachine) ExitMachine();
+        if (collision.gameObject.tag == "Player" && cooldown <= 0) ExitMachine();
     }
 }

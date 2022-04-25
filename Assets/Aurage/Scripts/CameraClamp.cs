@@ -4,21 +4,34 @@ using UnityEngine;
 
 public class CameraClamp : MonoBehaviour
 {
-    private GameObject obj;
-    public Vector3 positionOffset;
+    private static GameObject obj;
+
+    public Vector3 posOffset;
     public Vector3 orientationOffset;
     public float smoothTime;
-    private Vector3 velocity;
 
-    private void Awake()
+    private float zPos;
+    public float zOffset;
+
+    private void Awake()    
     {
         obj = GameObject.FindGameObjectWithTag("Player");
+        changeZPos(obj.transform.position.z);
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, obj.transform.position + positionOffset, ref velocity, smoothTime);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(obj.transform.position.x + posOffset.x,
+                                                                          obj.transform.position.y + posOffset.y,
+                                                                                                          zPos ), 
+                                                                                               smoothTime / 100);
+
         transform.rotation = Quaternion.Euler(orientationOffset.x, orientationOffset.y, orientationOffset.z);
+    }
+
+    public void changeZPos(float z)
+    {
+        zPos = z + zOffset;
     }
 }
 

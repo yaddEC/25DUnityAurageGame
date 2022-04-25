@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BasicEnemy : MonoBehaviour
 {
@@ -70,7 +69,7 @@ public class BasicEnemy : MonoBehaviour
     {
         Vector3 playerVector = player.transform.position - transform.position;
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-        if (!PowerManager.isInMachine)
+        if (!PlayerState.isInMachine)
         {
             if (playerDistance < sightDistance)
             {
@@ -90,9 +89,9 @@ public class BasicEnemy : MonoBehaviour
     void Update()
     {
         //timed rotation when edge is encounter
-       
-            dir = (nextWayPoint.transform.position - transform.position).normalized;
 
+        dir = (nextWayPoint.transform.position - transform.position).normalized ;
+        Debug.DrawLine(transform.position, dir);
         //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt turning or already alerted
         if (SeeThePlayer() && !alerted && !isTurning && !isStunned && !isDistracted)
             StartCoroutine(Alerted());
@@ -257,7 +256,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && !isStunned && !PowerManager.isInMachine)
-            SceneManager.LoadScene("GameOverScreen");
+        if (other.gameObject.CompareTag("Player") && !isStunned && !PlayerState.isInMachine)
+            SceneSwitcher.GameOverScreen();
     }
 }

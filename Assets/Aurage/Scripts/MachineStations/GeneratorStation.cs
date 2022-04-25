@@ -14,10 +14,9 @@ public class GeneratorStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(false); 
-        ClampInMachine();
+        CooldownHandler(special = false);
 
-        if (doEvent && isUsable) StartCoroutine(RestorePower(chargingPowerDelta));
+        if (doEvent) StartCoroutine(RestorePower(chargingPowerDelta));
     }
     //-------------------------------------------------------------
     private IEnumerator RestorePower(float powerAmount)
@@ -38,7 +37,7 @@ public class GeneratorStation : Station
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
-            EnterMachine(); 
+            EnterMachine(this.GetComponent<GeneratorStation>()); 
             CheckpointChecker();
         }
     }
@@ -46,17 +45,18 @@ public class GeneratorStation : Station
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
-            StayMachine(false);
+            StayMachine(autoExec = false);
             if (isUsable && InputManager.performB) doEvent = true;
         }
     }
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
             if (doEvent) isUsable = false;
+
             doEvent = false;
             ExitMachine();
         }
-    }
+    }*/
 }

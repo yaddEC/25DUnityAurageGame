@@ -33,7 +33,6 @@ public class PauseMenu : MonoBehaviour
 
     public void onRestartPresed()
     {
-        KillZone.isDead = false;
         Scene newScene = SceneManager.GetActiveScene();
         SceneManager.UnloadSceneAsync(newScene.name);
         SceneManager.LoadScene(newScene.name);
@@ -42,7 +41,6 @@ public class PauseMenu : MonoBehaviour
 
     public void goToMainMenu()
     {
-        KillZone.isDead = false;
         Scene newScene = SceneManager.GetActiveScene();
         SceneManager.UnloadSceneAsync(newScene.name);
         SceneManager.LoadScene("Menu");

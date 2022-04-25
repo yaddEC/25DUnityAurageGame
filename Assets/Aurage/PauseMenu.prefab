@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7692b7d215ded0849988d8637c79cfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playRandom: 0
+  StopWhenPause: 0
   Sound:
   - {fileID: 8300000, guid: e933d24cfb45a024fbe9acb53bc99fba, type: 3}
 --- !u!82 &2301238994941962160

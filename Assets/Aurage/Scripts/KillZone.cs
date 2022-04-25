@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class KillZone : MonoBehaviour
 {
-    public static bool isDead = false;
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-            isDead = true;
+        if (other.tag == "Player")
+            PowerManager.outOfPower = true;
     }
 }
-

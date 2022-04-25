@@ -17,7 +17,7 @@ public class NodeWalker : MonoBehaviour
     public float rotationSpeed = 5.0f;
 
     private bool isOnNode = false;
-    [HideInInspector] public bool isFreezed = false;
+    /*[HideInInspector]*/ public bool isFreezed = false;
 
     private void Awake()
     {
@@ -35,11 +35,8 @@ public class NodeWalker : MonoBehaviour
 
         if (NodeSettings.canClampOnCable)
         {
-            if (isOnNode)
-                OnNodeHandler();
-
-            if (refPlayerMotion.isInPath && !isFreezed && InputManager.inputAxis.x != 0)
-                WalkOnPath();
+            if (isOnNode) OnNodeHandler();
+            if (PlayerState.isInNodePath && !isFreezed && InputManager.inputAxis.x != 0) WalkOnPath();
         }
     }
 
@@ -49,16 +46,13 @@ public class NodeWalker : MonoBehaviour
 
         if (NodeSettings.canStopOnNode)
         {
-            if (!InputManager.performX)
-                isFreezed = true;
-            else
-                isFreezed = false;
+            if (!InputManager.performX) isFreezed = true;
+            else isFreezed = false;
         }
         else
             isFreezed = false;
 
-        if (isFreezed)
-            FreezeOnNode();
+        if (isFreezed) FreezeOnNode();
     }
 
     public void WalkOnPath()

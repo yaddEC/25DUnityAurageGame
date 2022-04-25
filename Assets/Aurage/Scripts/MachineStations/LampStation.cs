@@ -13,8 +13,7 @@ public class LampStation : Station
     private void Start() { RegisterReferences(); }
     private void Update()
     {
-        CooldownHandler(false);
-        ClampInMachine();
+        CooldownHandler(special = false);
         if (doEvent && isUsable) RestorePower();
     }
     //-------------------------------------------------------------
@@ -26,11 +25,11 @@ public class LampStation : Station
     //-------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && cooldown <= 0) EnterMachine();
+        if (other.tag == "Player" && cooldown <= 0) EnterMachine(this.GetComponent<LampStation>());
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && cooldown <= 0) StayMachine(true);
+        if (other.tag == "Player" && cooldown <= 0) StayMachine(autoExec = true);
     }
     private void OnTriggerExit(Collider other)
     {

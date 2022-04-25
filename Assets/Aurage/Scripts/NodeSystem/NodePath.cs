@@ -33,7 +33,7 @@ public class NodePath : MonoBehaviour
     }
     private void Update()
     {
-        if (!refNodeWalker.refPlayerMotion.isInPath && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast && NodeSettings.canClampOnCable)
+        if (!PlayerState.isInNodePath/* && refNodeWalker.refPlayerMotion.canBeDetectedByRaycast*/ && NodeSettings.canClampOnCable)
             CheckRaycast();
     }
 
@@ -72,8 +72,7 @@ public class NodePath : MonoBehaviour
         {
             if (Physics.Linecast(transform.position, node.transform.position, out hit, refNodeHolder.mask))
             {
-                refNodeWalker.refPlayerMotion.rb.velocity = Vector3.zero;
-                refNodeWalker.refPlayerMotion.isInPath = true;
+                PlayerState.isInNodePath = true;
                 refNodeWalker.isFreezed = false;
                 refNodeWalker.refPrevNodePath = node;
                 refNodeWalker.refCurrNodePath = node;

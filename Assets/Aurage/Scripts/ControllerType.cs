@@ -11,15 +11,16 @@ public class ControllerType : MonoBehaviour
     private void Start()
     {
         var gamepad = Gamepad.current;
-        Debug.Log(gamepad);
+        //Debug.Log(gamepad);
         string[] types = { "PS", "XBOX"};
         string[] triggers = { "shock", };
 
-        foreach (var trigger in triggers)
+       /* foreach (var trigger in triggers)
         {
             bool contains = gamepad.ToString().Contains(trigger, StringComparison.OrdinalIgnoreCase);
             if (contains && trigger == triggers[0]) GamepadType = types[0];
         }
+       */
     }
 }
 public static class StringExtensions
