@@ -39,4 +39,16 @@ public class PlayLoopSound : MonoBehaviour
             alredyPerfomed = true;
         }
     }
+    bool whcPerformed = false;
+    public void PlaySoundWhioutContext()
+    {
+        if (!whcPerformed)
+        {
+            if (Source.clip != Loop)
+                Source.clip = Loop;
+            Source.loop = true;
+            Source.Play();
+            whcPerformed = true;
+        }
+    }
 }
