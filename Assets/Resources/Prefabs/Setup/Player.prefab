@@ -410,7 +410,7 @@ MonoBehaviour:
   moveSpeed: 600
   dashSpeed: 800
   dashGravity: 20
-  dashCooldown: 2
+  dashCooldown: 0
   cachedDashCooldown: 0
   dashPower: 5
   playerRb: {fileID: 0}
