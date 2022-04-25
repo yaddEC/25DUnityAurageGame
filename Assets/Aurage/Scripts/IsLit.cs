@@ -19,6 +19,7 @@ public class IsLit : MonoBehaviour
 
     void Update()
     {
+        Debug.DrawRay(transform.position + Vector3.up * 1.5f, player.transform.position - transform.position);
        /* if (PlayerState.isVisible)
             PlayerStateCheckIsVisible = true;
         else
@@ -55,7 +56,7 @@ public class IsLit : MonoBehaviour
             {
                 if (Vector3.Angle(-transform.up, playerVector) < sightAngle)
                 {
-                    if (!Physics.Raycast(transform.position, playerVector, playerDistance, obstacle))
+                    if (!Physics.Raycast(transform.position + Vector3.up * 1.5f, playerVector, playerDistance, obstacle))
                     {
 
                         return true;

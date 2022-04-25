@@ -9,35 +9,28 @@ public class BoxEnemy : MonoBehaviour
 
     private Rigidbody rb;
 
-    public bool playerDetected;
-    public bool isMoving;
-    public bool isTurning;
-    public bool isStunned;
-    public float sightDistance;
-    public float rotation = 90;
-    public float rotationSpeed = 100;
-    public float speed;
-    public float sightAngle;
-    public float alertDuration = 30;
-    private LayerMask obstacle;
-    public GameObject player;
-    public GameObject nextWayPoint;
-    public Vector3 dir;
+
+    [HideInInspector] public bool isMoving;
+    [HideInInspector] public bool isTurning;
+    [HideInInspector] public bool isStunned;
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public GameObject nextWayPoint;
     [HideInInspector] public Vector3 moveDirection;
+    [HideInInspector] public List<GameObject> wayPoints;
+    public float rotation;
+    public float rotationSpeed = 1;
+    public float speed;
+    public Vector3 dir;
     private Coroutine lastRoutine;
-    public Material enemyHead;
-    public List<GameObject> wayPoints;
-    public float turning = 0f;
 
     void Start()
     {
         getWayPoints();
         nextWayPoint = wayPoints[0];
-        obstacle = LayerMask.GetMask("Obstacle");
         player = GameObject.FindGameObjectWithTag("Player");
         dir = (nextWayPoint.transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.LookRotation(dir);
-        turning = Vector3.Angle(transform.forward, dir);
+        Quaternion temp = Quaternion.LookRotation(dir); 
+        transform.rotation = new Quaternion(0, temp.y, 0, temp.w); 
         isMoving = true;
         rb = gameObject.GetComponent<Rigidbody>();
         lastRoutine = null;
@@ -76,7 +69,6 @@ public class BoxEnemy : MonoBehaviour
             Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 20);
             transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
             time += Time.deltaTime * rotationSpeed;
-            turning = time;
             yield return null;
         }
 
@@ -122,7 +114,7 @@ public class BoxEnemy : MonoBehaviour
 
     public void Guard(float guardDuration, float direction)
     {
-
+        rb.velocity = Vector3.zero;
         StopCoroutine(lastRoutine);
         StartCoroutine(Guarded(guardDuration, direction));
 
@@ -140,6 +132,7 @@ public class BoxEnemy : MonoBehaviour
 
     public IEnumerator Guarded(float stunDuration, float direction)//Coroutine that stun the enemy, then unstun him
     {
+        
         isMoving = false;
         isStunned = true;
         Quaternion look = Quaternion.Euler(0,direction,0);
@@ -149,7 +142,6 @@ public class BoxEnemy : MonoBehaviour
             Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 20);
             transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
             time += Time.deltaTime * rotationSpeed;
-            turning = time;
             yield return null;
         }
 
