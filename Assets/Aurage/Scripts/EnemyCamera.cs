@@ -64,7 +64,7 @@ public class EnemyCamera : MonoBehaviour
         while(isSeeingPlayer)
         {
             if(newColor.g<0.1)
-                SceneSwitcher.GameOverScreen();
+                PowerManager.outOfPower = true;
             newColor.g-=0.01f;
             transform.GetChild(0).GetComponent<Renderer>().material.color = newColor;
             yield return new WaitForSeconds(deathDelay);
