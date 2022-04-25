@@ -14,6 +14,11 @@ public class PlayRandomShortSound : MonoBehaviour
             Source.Stop();
     }
 
+    public void StopSound()
+    {
+        Source.Stop();
+    }
+
     public void PlaySound()
     {
         Source.PlayOneShot(Sound[Random.Range(0, Sound.Length)]);

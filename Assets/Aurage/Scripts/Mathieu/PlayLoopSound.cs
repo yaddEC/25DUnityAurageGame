@@ -16,6 +16,11 @@ public class PlayLoopSound : MonoBehaviour
             Source.Stop();
     }
 
+    public void StopSound()
+    {
+        Source.Stop();
+    }
+
     bool alredyPerfomed = false;
     public void PlaySound(InputAction.CallbackContext context)
     {

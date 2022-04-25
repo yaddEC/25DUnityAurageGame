@@ -20,6 +20,11 @@ public class SoundPlayer : MonoBehaviour
             Source.Stop();
     }
 
+    public void StopSound()
+    {
+        Source.Stop();
+    }
+
     public void PlaySound(int id)
     {
         if (playRandom)

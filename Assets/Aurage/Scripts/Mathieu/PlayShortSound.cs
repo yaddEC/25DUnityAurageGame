@@ -14,6 +14,11 @@ public class PlayShortSound : MonoBehaviour
             Source.Stop();
     }
 
+    public void StopSound()
+    {
+        Source.Stop();
+    }
+
     public void PlaySound()
     {
         Source.PlayOneShot(Sound);

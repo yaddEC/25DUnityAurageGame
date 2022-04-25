@@ -18,6 +18,13 @@ public class PlayLoopSoundWithBegin : MonoBehaviour
             Source.Stop();
     }
 
+    public void StopSound()
+    {
+        Source.Stop();
+        Source.clip = null;
+        Source.Stop();
+    }
+
     bool alredyPerfomed = false;
     public void PlaySound(InputAction.CallbackContext context)
     {
