@@ -15,7 +15,6 @@ public class ElectricShock : MonoBehaviour
     void Start()
     {
         enemyMask = LayerMask.GetMask("Enemy");
-        color = this.GetComponent <Renderer> ().material.color;
         StartCoroutine(ShockBehavior());
     }
 
@@ -33,10 +32,8 @@ public class ElectricShock : MonoBehaviour
             
             time -= Time.deltaTime*fadeSpeed;
             scale += Time.deltaTime*fadeSpeed;
-            color.a = time;
             transform.localScale = Vector3.one+oneScale * scale;
 
-            this.GetComponent<Renderer>().material.color = color;
             yield return new WaitForSeconds(0.005f);
         }
        
