@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BoxEnemy : MonoBehaviour
+public class BoxEnemy : Enemy
 {
     // Start is called before the first frame update
 
     private Rigidbody rb;
 
+    public bool isSleep;
 
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool isTurning;
-    [HideInInspector] public bool isStunned;
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject nextWayPoint;
     [HideInInspector] public Vector3 moveDirection;
@@ -72,7 +72,7 @@ public class BoxEnemy : MonoBehaviour
             yield return null;
         }
 
-        if (!isStunned)
+        if (!isStunned || !isSleep)
         {
             isTurning = false;
             isMoving = true;
@@ -134,7 +134,7 @@ public class BoxEnemy : MonoBehaviour
     {
         
         isMoving = false;
-        isStunned = true;
+        isSleep = true;
         Quaternion look = Quaternion.Euler(0,direction,0);
         float time = 0f;
         while (time < 1)
@@ -146,7 +146,7 @@ public class BoxEnemy : MonoBehaviour
         }
 
         yield return new WaitForSeconds(stunDuration);
-        isStunned = false;
+        isSleep = false;
         lastRoutine = StartCoroutine(Turning());
     }
 }
