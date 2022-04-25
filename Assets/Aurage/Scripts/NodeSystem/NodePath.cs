@@ -78,7 +78,7 @@ public class NodePath : MonoBehaviour
                 refNodeWalker.refCurrNodePath = node;
                 refNodeWalker.refNextNodePath = this;
 
-                UnityFinder.Projection(refNodeWalker.refPlayerMotion.transform.position, refNodeWalker.refNextNodePath.transform.position, refNodeWalker.refCurrNodePath.transform.position);
+                refNodeWalker.refPlayerMotion.transform.position = UnityFinder.Projection(refNodeWalker.refPlayerMotion.transform.position, refNodeWalker.refNextNodePath.transform.position, refNodeWalker.refCurrNodePath.transform.position);
             }
         }
     }
