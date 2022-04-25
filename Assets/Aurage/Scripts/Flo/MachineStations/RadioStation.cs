@@ -19,7 +19,6 @@ public class RadioStation : Station
     {
         CooldownHandler(special = false);
     }
-
     public void TurnRadioOn()
     {
         if(!isRadioActive)
