@@ -31,9 +31,11 @@ public class BasicEnemy : MonoBehaviour
     public Material enemyHead;
     public List<GameObject> wayPoints;
     public float turning = 0f;
+    private Animator animator;
 
     void Start()
     {
+        animator = transform.GetChild(0).GetComponent<Animator>();
         getWayPoints();
         nextWayPoint = wayPoints[0];
         edge = LayerMask.GetMask("Edge");
@@ -127,12 +129,13 @@ public class BasicEnemy : MonoBehaviour
     {
 
         isTurning = true;
+        animator.SetBool("isTurning", true);
         yield return new WaitForSeconds(0.1f);
         Quaternion look = Quaternion.LookRotation(dir);
         float time = 0f;
         while (time < 1)
         {
-            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 20);
+            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 10);
             transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
             time += Time.deltaTime * rotationSpeed;
             turning = time;
@@ -143,6 +146,7 @@ public class BasicEnemy : MonoBehaviour
         {
 
             isTurning = false;
+            animator.SetBool("isTurning", false);
             while (alerted)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -189,11 +193,11 @@ public class BasicEnemy : MonoBehaviour
     {
         isMoving = false;
         isStunned = true;
-
+        animator.SetBool("isStun", true);   
         yield return new WaitForSeconds(stunDuration);
 
         isStunned = false;
-
+        animator.SetBool("isStun", false);
         lastRoutine = StartCoroutine(Turning());
 
     }
@@ -227,7 +231,7 @@ public class BasicEnemy : MonoBehaviour
     {
         isMoving = false;
         alerted = true;
-
+        animator.SetBool("isAlerted", true);
         yield return new WaitForSeconds(safeTimeAlert);//safetime where the player can hide/get out of enemy sight
 
         for (int i = 0; i < alertDuration; i++)//check if player is still in enemy sight
@@ -235,6 +239,7 @@ public class BasicEnemy : MonoBehaviour
             if (SeeThePlayer() && !isStunned)
             {
                 playerDetected = true;
+                animator.SetBool("playerDetected", true);
                 //SceneManager.LoadScene("GameOverScreen");
                 //future coroutine that loads enemy shooting animation
                 break;
@@ -242,12 +247,14 @@ public class BasicEnemy : MonoBehaviour
             else if (isStunned || isDistracted)
             {
                 alerted = false;
+                animator.SetBool("isAlerted", false);
                 break;
             }
             else if (i == alertDuration - 1)
             {
                 isMoving = true;
                 alerted = false;
+                animator.SetBool("isAlerted", false);
             }
 
             yield return new WaitForSeconds(0.1f);

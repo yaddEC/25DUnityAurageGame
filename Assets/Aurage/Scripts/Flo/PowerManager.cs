@@ -9,11 +9,14 @@ public class PowerManager : MonoBehaviour
     public float unchargePowerDelta;
     public static float unchargeCache;
 
+    public bool isInMenu = false;
+
     [Header("Power Stats")]
     public static bool outOfPower;
     public float maxPower;
     public float currentPower;
-    public Transform waypoint;
+    public static Transform waypoint;
+    public Transform DebugWaypoint;
 
     public Material playerMaterial;
 
@@ -24,17 +27,22 @@ public class PowerManager : MonoBehaviour
         unchargeCache = unchargePowerDelta;
         currentPower = maxPower;
         playerMaterial = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material;
-
-        GameOver.StartGamePlay();
     }
 
     private void Update()
     {
+        DebugWaypoint = waypoint;
+
         PowerState();
         PlayerRender();
 
-        if (!PlayerState.isInMachine && !PlayerState.isInNodePath) 
-            StartCoroutine(ConsumePower(unchargeCache));
+        if (!PlayerState.isInMachine && !PlayerState.isInNodePath)
+        {
+            if (isInMenu)
+                currentPower = 100;
+            else
+                StartCoroutine(ConsumePower(unchargeCache));
+        }
     }
 
     private void PowerState()

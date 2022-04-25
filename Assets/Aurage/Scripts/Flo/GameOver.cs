@@ -13,9 +13,11 @@ public class GameOver : MonoBehaviour
 
     private void Awake()
     {
-        gameOverUI = overUI;
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
+
+        if(overUI != null)
+            gameOverUI = overUI;
     }
 
     public static void StopGamePlay()
@@ -29,14 +31,12 @@ public class GameOver : MonoBehaviour
     {
         PowerManager.outOfPower = false;
         refreshGameplay = true;
+
         if(gameOverUI.gameObject.activeSelf) 
             gameOverUI.SetActive(false);
+
         Time.timeScale = 1;
 
         refPowerManager.currentPower = refPowerManager.maxPower;
-
-        if(refPowerManager.waypoint != null) 
-            refPlayerMotion.transform.position = refPowerManager.waypoint.position;
-
     }
 }

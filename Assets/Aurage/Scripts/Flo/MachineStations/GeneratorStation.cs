@@ -28,7 +28,7 @@ public class GeneratorStation : Station
     {
         if (!checkointActivated)
         {
-            refPowerManager.waypoint = transform;
+            PowerManager.waypoint = transform;
             checkointActivated = true;
         }
     }

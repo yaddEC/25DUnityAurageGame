@@ -47,8 +47,7 @@ public class SceneSwitcher : MonoBehaviour
     public void RestartScene()
     {
         GameOver.StartGamePlay();
-
-        var s = SceneManager.GetActiveScene();
+        var s = SceneManager.GetActiveScene().ToString();
         Debug.Log("Restarted to " + s + " Scene");
     }
 }

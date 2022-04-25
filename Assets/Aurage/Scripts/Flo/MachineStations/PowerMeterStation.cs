@@ -9,7 +9,16 @@ public class PowerMeterStation : Station
     public bool canEnter = true;
     //-------------------------------------------------------------
     private void Awake() { var t = "Disjoncteur"; tagToSearch = t; }
-    private void Start() { RegisterReferences(); refPlayerMotion.transform.position = lockPosition.transform.position; }
+    private void Start() 
+    { 
+        RegisterReferences();
+
+        if (PowerManager.waypoint == null)
+            refPlayerMotion.transform.position = lockPosition.transform.position;
+        else
+            refPlayerMotion.transform.position = PowerManager.waypoint.position;
+    }
+
     //-------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
