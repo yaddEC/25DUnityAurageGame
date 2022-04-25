@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 8325189878180794315}
   - component: {fileID: 4996807403023991155}
   - component: {fileID: 2400734286683653926}
+  - component: {fileID: 4811658059189664119}
+  - component: {fileID: 847177697741171638}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -263,6 +265,18 @@ MonoBehaviour:
       - m_Target: {fileID: 4238211062149300378}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onJoystickInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 847177697741171638}
+        m_TargetAssemblyTypeName: PlaySoundWithBegin, Assembly-CSharp
+        m_MethodName: Play
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -457,6 +471,7 @@ MonoBehaviour:
   scale: 0
   fadeSpeed: 0
   duration: 0
+  IdOfSound: 0
 --- !u!114 &2400734286683653926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,3 +484,122 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72051e4571fe92c46a82abfcbeb3a1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InspectorIsVisible: 1
+  InspectorIsCanBeTargeted: 1
+  InspectorIsFreezed: 0
+  InspectorIsInMachine: 0
+  InspectorIsInNodePath: 0
+  InspectorIsGrounded: 0
+  InspectorIsCanDash: 1
+--- !u!82 &4811658059189664119
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 13636be845546c542a7b908dd3534924, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &847177697741171638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b28f609172bdfc409d162b0d773bc22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 4811658059189664119}
+  Begin: {fileID: 8300000, guid: d23d9aecce1edc343b39bd3a7096dd4a, type: 3}
+  Loop: {fileID: 8300000, guid: 13636be845546c542a7b908dd3534924, type: 3}
+  StopWhenPause: 0

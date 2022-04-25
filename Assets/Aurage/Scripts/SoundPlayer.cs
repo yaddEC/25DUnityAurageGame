@@ -47,6 +47,25 @@ public class SoundPlayer : MonoBehaviour
             alredyPerfomed = true;
         }
     }
+    public void PlayLoopSoundEventWNPWithBegin(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            EventSource.loop = false;
+            EventSource.Stop();
+            alredyPerfomed = false;
+        }
+        if (context.performed && !alredyPerfomed)
+        {
+            EventSource.Play();
+            alredyPerfomed = true;
+        }
+        if (alredyPerfomed)
+        {
+            EventSource.loop = true;
+            EventSource.Play();
+        }
+    }
     public void switchSound(int id)
     {
         AudioClip temp = EventSource.clip;
