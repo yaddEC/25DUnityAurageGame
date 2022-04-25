@@ -11,6 +11,8 @@ public class ConsoleStation : Station
     public Animator objectAnim;
     public BoxCollider objectBC;
     public bool animationPlaying = false;
+
+    public float cooldownBeforeClose = 5f;
     //-------------------------------------------------------------
     private void Awake() 
     {
@@ -39,7 +41,9 @@ public class ConsoleStation : Station
         objectBC.gameObject.layer = 0;
         objectBC.isTrigger = true;
         objectAnim.SetTrigger("open");
-        yield return new WaitForSeconds(5f);
+
+        yield return new WaitForSeconds(cooldownBeforeClose);
+
         objectAnim.SetTrigger("close");
         objectBC.gameObject.layer = 10;
         objectBC.isTrigger = false;
