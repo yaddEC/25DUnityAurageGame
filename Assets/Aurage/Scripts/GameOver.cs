@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
+    public GameObject overUI;
     public static GameObject gameOverUI;
     public static bool refreshGameplay = true;
 
@@ -12,7 +13,7 @@ public class GameOver : MonoBehaviour
 
     private void Awake()
     {
-        gameOverUI = GameObject.FindGameObjectWithTag("GameOver");
+        gameOverUI = overUI;
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
     }
