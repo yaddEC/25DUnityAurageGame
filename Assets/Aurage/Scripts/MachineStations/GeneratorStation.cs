@@ -46,9 +46,11 @@ public class GeneratorStation : Station
         if (other.tag == "Player" && cooldown <= 0)
         {
             StayMachine(autoExec = false);
-            if (isUsable && InputManager.performB) doEvent = true;
+            if (isUsable && InputManager.performB) 
+                doEvent = true;
 
-            if (refPowerManager.currentPower >= refPowerManager.maxPower) isUsable = false;
+            if (refPowerManager.currentPower >= refPowerManager.maxPower) 
+                isUsable = false;
         }
     }
 }

@@ -257,6 +257,6 @@ public class BasicEnemy : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player") && !isStunned && !PlayerState.isInMachine)
-            SceneSwitcher.GameOverScreen();
+            PowerManager.outOfPower = true;
     }
 }
