@@ -164,7 +164,7 @@ public class BasicEnemy : MonoBehaviour
 
     public void ChangeWayPoint(GameObject actualWayPoint)//Coroutine that change the direction/ stop the moving for the gradual rotation
     {
-        if (!isDistracted) { 
+         
         isMoving = false;
         for (int i = 0; i < wayPoints.Count; i++)
         {
@@ -179,7 +179,7 @@ public class BasicEnemy : MonoBehaviour
             }
         }
         lastRoutine = StartCoroutine(Turning());
-        }
+        
 
     }
 
@@ -222,9 +222,10 @@ public class BasicEnemy : MonoBehaviour
     public void Focused()
     {
         Debug.Log("Focused");
+        isMoving = false;
         nextWayPoint = machine;
-        isDistracted = false;
         lastRoutine = StartCoroutine(Turning());
+        isDistracted = false;
     }
 
     private IEnumerator Alerted()

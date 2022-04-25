@@ -11,7 +11,7 @@ public class RadioStation : Station
     private void Awake()
     {
         var t = gameObject.name; tagToSearch = t;
-        radioZone = Resources.Load<GameObject>("Prefabs/RadioDetection");
+        radioZone = Resources.Load<GameObject>("Prefabs/Setup/RadioDetection");
     }
 
     private void Start() { RegisterReferences(); }
@@ -50,7 +50,11 @@ public class RadioStation : Station
             StayMachine(autoExec = false);
             if (isUsable && InputManager.performB) doEvent = true;
             else doEvent = false;
-            if (doEvent) TurnRadioOn();
+            if (doEvent)
+            {
+                TurnRadioOn();
+                cooldown += 5;
+            }
         }
     }
     private void OnTriggerExit(Collider other)

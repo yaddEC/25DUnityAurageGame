@@ -20,13 +20,13 @@ public class WayPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "BasicEnemy" && transform.parent.parent == other.transform.parent )
+        if (other.gameObject.tag == "BasicEnemy" && other.GetComponent<BasicEnemy>().nextWayPoint==this.gameObject)
         {
             refBasicEnemy = other.gameObject.GetComponent<BasicEnemy>();
             refBasicEnemy.ChangeWayPoint(this.gameObject);
         }
 
-        if (other.gameObject.tag == "BoxEnemy" && transform.parent.parent == other.transform.parent)
+        if (other.gameObject.tag == "BoxEnemy" && other.gameObject.GetComponent<BoxEnemy>().nextWayPoint == this.gameObject)
         {
             refBoxEnemy = other.gameObject.GetComponent<BoxEnemy>();
             refBoxEnemy.ChangeWayPoint(this.gameObject);
