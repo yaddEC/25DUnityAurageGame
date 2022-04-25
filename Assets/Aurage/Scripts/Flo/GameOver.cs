@@ -29,7 +29,8 @@ public class GameOver : MonoBehaviour
     {
         PowerManager.outOfPower = false;
         refreshGameplay = true;
-        gameOverUI.SetActive(false);
+        if(gameOverUI.gameObject.activeSelf) 
+            gameOverUI.SetActive(false);
         Time.timeScale = 1;
 
         refPowerManager.currentPower = refPowerManager.maxPower;
