@@ -33,7 +33,7 @@ public class EnemyCamera : MonoBehaviour
     {
 
         playerVector = player.transform.position - transform.localPosition;
-        if (SeeThePlayer())
+        if (SeeThePlayer() && PlayerState.isVisible)
         {
             Debug.DrawLine(player.transform.position, transform.position);
             isSeeingPlayer = true;
