@@ -12,11 +12,7 @@ public class PowerMeterStation : Station
     private void Start() 
     { 
         RegisterReferences();
-
-        if (PowerManager.waypoint == null)
-            refPlayerMotion.transform.position = lockPosition.transform.position;
-        else
-            refPlayerMotion.transform.position = PowerManager.waypoint.position;
+        SetPositionOnSpawn();
     }
 
     //-------------------------------------------------------------
@@ -25,20 +21,16 @@ public class PowerMeterStation : Station
         if (other.tag == "Player" && canEnter)
         {
             if (isEntry)
-            { 
                 refPowerManager.currentPower = refPowerManager.maxPower;
-            }
             else
             {
-                if(PlayerPrefs.GetInt("UnlockedLevel") == 7)
+                if (PlayerPrefs.GetInt("UnlockedLevel") < 7)
                 {
-                    SceneSwitcher.GoToSelectedScene("WinningScreen");
-                }
-                else
-                {
-                    PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel")+1);
+                    PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel") + 1);
                     SceneSwitcher.GoToSelectedScene("LevelSelector");
                 }
+                else
+                    SceneSwitcher.GameWinScreen();
             }
         }
     }
@@ -46,5 +38,13 @@ public class PowerMeterStation : Station
     {
         if (other.tag == "Player" && isEntry) 
             canEnter = false;
+    }
+
+    public void SetPositionOnSpawn()
+    {
+        if (PowerManager.waypoint == null)
+            refPlayerMotion.transform.position = lockPosition.transform.position;
+        else
+            refPlayerMotion.transform.position = PowerManager.waypoint.position;
     }
 }

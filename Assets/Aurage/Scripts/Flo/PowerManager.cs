@@ -13,6 +13,7 @@ public class PowerManager : MonoBehaviour
 
     [Header("Power Stats")]
     public static bool outOfPower;
+    public bool outOfPowerDebug;
     public float maxPower;
     public float currentPower;
     public static Transform waypoint;
@@ -31,6 +32,7 @@ public class PowerManager : MonoBehaviour
 
     private void Update()
     {
+        outOfPowerDebug = outOfPower;
         DebugWaypoint = waypoint;
 
         PowerState();
@@ -47,14 +49,16 @@ public class PowerManager : MonoBehaviour
 
     private void PowerState()
     {
-        if (outOfPower) 
-            OnOutOfPowerEvent();
+        if (outOfPower) OnOutOfPowerEvent();
+        else return;
+
         if (currentPower > maxPower) 
             currentPower = maxPower;
     }
 
     private void OnOutOfPowerEvent()
     {
+        Debug.Log("Ici");
         GameOver.StopGamePlay();
     }
 

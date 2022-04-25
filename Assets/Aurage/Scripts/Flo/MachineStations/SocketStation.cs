@@ -30,7 +30,7 @@ public class SocketStation : MonoBehaviour
     private void TeleportToTarget()
     {
         refPlayerMotion.transform.position = socketTarget.transform.position;
-        refCamerClamp.changeZPos(refPlayerMotion.transform.position.z);
+        refCamerClamp.ChangeZPos(refPlayerMotion.transform.position.z);
 
         coolDown = cachedCoolDown;
     }

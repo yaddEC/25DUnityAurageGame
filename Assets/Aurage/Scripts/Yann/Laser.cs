@@ -18,7 +18,6 @@ public class Laser : MonoBehaviour
     {
         if (!isStunned)
         {
-
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit))
             {

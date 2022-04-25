@@ -6,6 +6,9 @@ using UnityEngine;
 public class LevelSelector : MonoBehaviour
 {
     public GoToSelectedLevel[] goToSelectedLevels;
+    public static float unlockedLevel = 0;
+
+    public float debugUnlockedLevel = 0;
 
     private void Awake()
     {
@@ -15,6 +18,10 @@ public class LevelSelector : MonoBehaviour
 
     private void Update()
     {
+        debugUnlockedLevel = unlockedLevel;
+
+        unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel");
+
         for (int i = 0; i < PlayerPrefs.GetInt("UnlockedLevel"); i++)
             goToSelectedLevels[i].canAccess = true;
 

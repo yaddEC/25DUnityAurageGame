@@ -16,7 +16,7 @@ public class CameraClamp : MonoBehaviour
     private void Awake()    
     {
         obj = GameObject.FindGameObjectWithTag("Player");
-        changeZPos(obj.transform.position.z);
+        ChangeZPos(obj.transform.position.z);
     }
 
     private void Update()
@@ -29,7 +29,7 @@ public class CameraClamp : MonoBehaviour
         transform.rotation = Quaternion.Euler(orientationOffset.x, orientationOffset.y, orientationOffset.z);
     }
 
-    public void changeZPos(float z)
+    public void ChangeZPos(float z)
     {
         zPos = z + zOffset;
     }

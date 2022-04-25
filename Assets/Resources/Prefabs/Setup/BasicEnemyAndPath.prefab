@@ -75549,6 +75549,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6577355112860841200}
+  - component: {fileID: 4908462497233903374}
   m_Layer: 11
   m_Name: Tete
   m_TagString: Untagged
@@ -75572,6 +75573,25 @@ Transform:
   m_Father: {fileID: 8463006773351917115}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!95 &4908462497233903374
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578692235784833574}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc9f4af704afde24bb1f170911547137, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2754360484547661257
 GameObject:
   m_ObjectHideFlags: 0
@@ -109313,7 +109333,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8463006773351917115}
-  - component: {fileID: 6693007242928082298}
   - component: {fileID: 2725277725006072076}
   - component: {fileID: 6133175778386710077}
   - component: {fileID: 2474842633165427539}
@@ -109344,25 +109363,6 @@ Transform:
   m_Father: {fileID: 6774523530902762710}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6693007242928082298
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6885684620165886343}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dc9f4af704afde24bb1f170911547137, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!136 &2725277725006072076
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -109419,7 +109419,7 @@ MonoBehaviour:
   safeTimeAlert: 2
   alertDuration: 30
   player: {fileID: 0}
-  wpAIM: {fileID: 0}
+  nextWayPoint: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   enemyHead: {fileID: 0}

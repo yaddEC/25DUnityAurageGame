@@ -65,13 +65,13 @@ public class NodeHolder : MonoBehaviour
         if (nodeList.Count > 1) node.transform.position = nodeList[nodeList.Count - 1].transform.position;
         else node.transform.position = this.transform.position;
 
-        var noderef = node.AddComponent<NodePath>();
+        /*var noderef = node.AddComponent<NodePath>();
 
         if (nodeList.Count > 0)
         {
             var refpath = nodeList[nodeList.Count - 1].GetComponent<NodePath>();
             refpath.nodePoints.Add(noderef); // adds reference of new node to prev node
-        }
+        }*/
 
         node.name = index.ToString();
         node.tag = "Node";

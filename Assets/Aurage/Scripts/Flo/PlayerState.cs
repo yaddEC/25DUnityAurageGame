@@ -6,6 +6,7 @@ public class PlayerState : MonoBehaviour
 {
     private static PlayerMotion refPlayerMotion;
     
+    public static bool isPlaying = false;
     public static bool isVisible = true;
     public static bool canBeTargeted = true;
 
@@ -16,6 +17,7 @@ public class PlayerState : MonoBehaviour
     public static bool isGrounded = false;
     public static bool canDash = true;
 
+    public bool InspectorIsPlaying = false;
     public bool InspectorIsVisible = true;
     public bool InspectorIsCanBeTargeted = true;
 
@@ -26,12 +28,13 @@ public class PlayerState : MonoBehaviour
     public bool InspectorIsGrounded = false;
     public bool InspectorIsCanDash = true;
 
+
     private void Awake()
     {
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
 
         isInMachine = isInNodePath = isFreezed = isGrounded = false;
-        canBeTargeted = isVisible = canDash = true;
+        canBeTargeted = isVisible = canDash = isPlaying = true;
     }
 
     private void Update()
@@ -71,6 +74,7 @@ public class PlayerState : MonoBehaviour
 
     private void InspectorIisplay()
     {
+        InspectorIsPlaying = isPlaying;
         InspectorIsVisible = isVisible;
         InspectorIsCanBeTargeted = canBeTargeted;
         InspectorIsFreezed = isFreezed;
