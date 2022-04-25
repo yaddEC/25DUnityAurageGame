@@ -25,7 +25,7 @@ public class Laser : MonoBehaviour
                 if (hit.collider)
                 {
                     if (hit.transform.gameObject.CompareTag("Player"))
-                        SceneSwitcher.GameOverScreen();
+                        PowerManager.outOfPower = true;
                     else
                         laser.SetPosition(1, new Vector3(0, 0, hit.distance));
                 }

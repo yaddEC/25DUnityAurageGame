@@ -13,6 +13,8 @@ public class RadioStation : Station
         var t = gameObject.name; tagToSearch = t;
         radioZone = Resources.Load<GameObject>("Prefabs/RadioDetection");
     }
+
+    private void Start() { RegisterReferences(); }
     private void Update()
     {
         CooldownHandler(special = false);
