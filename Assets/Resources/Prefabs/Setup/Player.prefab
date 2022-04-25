@@ -133,8 +133,10 @@ GameObject:
   - component: {fileID: 8325189878180794315}
   - component: {fileID: 4996807403023991155}
   - component: {fileID: 2400734286683653926}
+  - component: {fileID: 1250109219422683959}
   - component: {fileID: 4811658059189664119}
   - component: {fileID: 847177697741171638}
+  - component: {fileID: 1363161618277940771}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -274,9 +276,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 847177697741171638}
-        m_TargetAssemblyTypeName: PlaySoundWithBegin, Assembly-CSharp
-        m_MethodName: Play
+      - m_Target: {fileID: 1250109219422683959}
+        m_TargetAssemblyTypeName: PlayerCableSoundPlay, Assembly-CSharp
+        m_MethodName: PlaySoundWithState
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -491,6 +493,21 @@ MonoBehaviour:
   InspectorIsInNodePath: 0
   InspectorIsGrounded: 0
   InspectorIsCanDash: 1
+--- !u!114 &1250109219422683959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8791aadb2195c94eb3afc2d1d83d835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerState: {fileID: 2400734286683653926}
+  RunSound: {fileID: 847177697741171638}
+  cableSound: {fileID: 1363161618277940771}
 --- !u!82 &4811658059189664119
 AudioSource:
   m_ObjectHideFlags: 0
@@ -602,4 +619,19 @@ MonoBehaviour:
   Source: {fileID: 4811658059189664119}
   Begin: {fileID: 8300000, guid: d23d9aecce1edc343b39bd3a7096dd4a, type: 3}
   Loop: {fileID: 8300000, guid: 13636be845546c542a7b908dd3534924, type: 3}
-  StopWhenPause: 0
+  StopWhenPause: 1
+--- !u!114 &1363161618277940771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85223815df03cd4e8c151a3f2f16869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 4811658059189664119}
+  Loop: {fileID: 8300000, guid: 858a50fa67f35064594788dfe08f05e2, type: 3}
+  StopWhenPause: 1

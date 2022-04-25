@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlaySoundWithBegin : MonoBehaviour
+public class PlayLoopSound : MonoBehaviour
 {
     public AudioSource Source;
-
-    public AudioClip Begin;
     public AudioClip Loop;
 
     public bool StopWhenPause;
@@ -19,7 +17,7 @@ public class PlaySoundWithBegin : MonoBehaviour
     }
 
     bool alredyPerfomed = false;
-    public void Play(InputAction.CallbackContext context)
+    public void PlaySound(InputAction.CallbackContext context)
     {
         if (context.canceled)
         {
@@ -27,20 +25,13 @@ public class PlaySoundWithBegin : MonoBehaviour
             Source.Stop();
             alredyPerfomed = false;
         }
-        if (context.performed && !alredyPerfomed)
-        {
-            Source.PlayOneShot(Begin);
-            alredyPerfomed = true;
-            
-        }
-
-        if(Source.clip != Loop)
+        if (Source.clip != Loop)
             Source.clip = Loop;
-
-        if (!Source.isPlaying)
+        if (context.performed && !alredyPerfomed)
         {
             Source.loop = true;
             Source.Play();
+            alredyPerfomed = true;
         }
     }
 }
