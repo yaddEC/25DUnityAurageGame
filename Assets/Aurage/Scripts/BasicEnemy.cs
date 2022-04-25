@@ -69,7 +69,7 @@ public class BasicEnemy : MonoBehaviour
     {
         Vector3 playerVector = player.transform.position - transform.position;
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-        if (!PlayerState.isInMachine)
+        if (!PlayerState.isInMachine && PlayerState.isVisible)
         {
             if (playerDistance < sightDistance)
             {
