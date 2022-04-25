@@ -13,7 +13,6 @@ public class BoxEnemy : MonoBehaviour
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool isTurning;
     [HideInInspector] public bool isStunned;
-    [HideInInspector] public bool isSleep;
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject nextWayPoint;
     [HideInInspector] public Vector3 moveDirection;
@@ -73,7 +72,7 @@ public class BoxEnemy : MonoBehaviour
             yield return null;
         }
 
-        if (!isStunned|| !isSleep)
+        if (!isStunned)
         {
             isTurning = false;
             isMoving = true;
@@ -135,7 +134,7 @@ public class BoxEnemy : MonoBehaviour
     {
         
         isMoving = false;
-        isSleep = true;
+        isStunned = true;
         Quaternion look = Quaternion.Euler(0,direction,0);
         float time = 0f;
         while (time < 1)
@@ -147,7 +146,7 @@ public class BoxEnemy : MonoBehaviour
         }
 
         yield return new WaitForSeconds(stunDuration);
-        isSleep = false;
+        isStunned = false;
         lastRoutine = StartCoroutine(Turning());
     }
 }
