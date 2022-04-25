@@ -17,11 +17,15 @@ public class PowerManager : MonoBehaviour
 
     public Material playerMaterial;
 
+    public static bool refresh = true;
+
     private void Awake()
     {
         unchargeCache = unchargePowerDelta;
         currentPower = maxPower;
         playerMaterial = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material;
+
+        GameOver.StartGamePlay();
     }
 
     private void Update()
@@ -29,23 +33,28 @@ public class PowerManager : MonoBehaviour
         PowerState();
         PlayerRender();
 
-        if (!PlayerState.isInMachine && !PlayerState.isInNodePath) StartCoroutine(ConsumePower(unchargeCache));
+        if (!PlayerState.isInMachine && !PlayerState.isInNodePath) 
+            StartCoroutine(ConsumePower(unchargeCache));
     }
 
     private void PowerState()
     {
-        if (outOfPower) OnOutOfPowerEvent();
-        if (currentPower > maxPower) currentPower = maxPower;
+        if (outOfPower) 
+            OnOutOfPowerEvent();
+        if (currentPower > maxPower) 
+            currentPower = maxPower;
     }
 
     private void OnOutOfPowerEvent()
     {
-        SceneSwitcher.GameOverScreen();
+        GameOver.StopGamePlay();
     }
 
     public IEnumerator ConsumePower(float powerAmount)
     {
-        if (currentPower <= 0) outOfPower = true;
+        if (currentPower <= 0) 
+            outOfPower = true;
+
         currentPower -= powerAmount * 0.0001f;
         yield return new WaitForSecondsRealtime(2f);
     }

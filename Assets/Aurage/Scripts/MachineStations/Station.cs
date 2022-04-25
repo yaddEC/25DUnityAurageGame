@@ -34,7 +34,7 @@ public abstract class Station : MonoBehaviour
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
         refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
 
-        if(tagToSearch != null) machineList = GameObject.FindGameObjectsWithTag(tagToSearch);
+        if (tagToSearch != null) machineList = GameObject.FindGameObjectsWithTag(tagToSearch);
 
         text = GetComponentInChildren<Text>(); text.enabled = false;
         image = GetComponentInChildren<Image>(); image.enabled = false;
@@ -84,8 +84,10 @@ public abstract class Station : MonoBehaviour
     {
         PlayerState.FreezePlayer();
 
-        if (autoExec && isInStation) doEvent = true;
-        if (isInStation && InputManager.performX && InputManager.inputAxis != Vector2.zero) ExitMachine();
+        if (autoExec && isInStation) 
+            doEvent = true;
+        if (isInStation && InputManager.performX && InputManager.inputAxis != Vector2.zero) 
+            ExitMachine();
 
     }
     public virtual void ExitMachine()

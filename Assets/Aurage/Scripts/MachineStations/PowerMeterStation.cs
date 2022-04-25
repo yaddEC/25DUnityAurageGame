@@ -15,7 +15,10 @@ public class PowerMeterStation : Station
     {
         if (other.tag == "Player" && canEnter)
         {
-            if (isEntry) refPowerManager.currentPower = refPowerManager.maxPower;
+            if (isEntry)
+            { 
+                refPowerManager.currentPower = refPowerManager.maxPower;
+            }
             else
             {
                 if(PlayerPrefs.GetInt("UnlockedLevel") == 7)
@@ -32,6 +35,7 @@ public class PowerMeterStation : Station
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" && isEntry) canEnter = false;
+        if (other.tag == "Player" && isEntry) 
+            canEnter = false;
     }
 }

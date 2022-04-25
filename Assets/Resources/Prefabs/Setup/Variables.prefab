@@ -80,9 +80,7 @@ MonoBehaviour:
   nodeHolder: {fileID: 0}
   containerHolder: {fileID: 0}
   container: {fileID: 0}
-  nodeHolders:
-  - {fileID: 0}
-  - {fileID: 0}
+  nodeHolders: []
 --- !u!114 &6548019417374665302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,8 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unchargePowerDelta: 3
-  isPlayerFreeze: 0
-  isPlayerInMachine: 0
   maxPower: 100
   currentPower: 0
   waypoint: {fileID: 0}

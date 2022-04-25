@@ -27,7 +27,8 @@ public class ConsoleStation : Station
 
         CooldownHandler(special = false);
 
-        if (doEvent && !animationPlaying) StartCoroutine(TrapSwitcher());
+        if (doEvent && !animationPlaying) 
+            StartCoroutine(TrapSwitcher());
         }
     //-------------------------------------------------------------
     private IEnumerator TrapSwitcher()
@@ -50,16 +51,15 @@ public class ConsoleStation : Station
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && cooldown <= 0)
-        {
             EnterMachine(this.GetComponent<ConsoleStation>());
-        }
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player" && cooldown <= 0)
         {
             StayMachine(autoExec = false);
-            if (isUsable && InputManager.performB) doEvent = true;
+            if (isUsable && InputManager.performB) 
+                doEvent = true;
         }
     }
 }

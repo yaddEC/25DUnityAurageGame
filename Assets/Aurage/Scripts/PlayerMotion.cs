@@ -14,8 +14,6 @@ public class PlayerMotion : MonoBehaviour
     public float cachedDashCooldown;
     public float dashPower = 10;
 
-    //public bool canBeDetectedByRaycast = true;
-
     public Rigidbody playerRb;
     private Vector3 velocity = Vector3.zero;
 

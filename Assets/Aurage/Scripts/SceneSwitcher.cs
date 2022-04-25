@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    public static void GameOverScreen()
+    private PowerManager refPowerManager;
+    private PlayerMotion refPlayerMotion;
+
+    private void Awake()
     {
-        SceneManager.LoadScene("GameOverScreen");
-        Debug.Log("Go To Game Over Scene");
+        refPowerManager = GameObject.FindObjectOfType<PowerManager>();
+        refPlayerMotion = GameObject.FindObjectOfType<PlayerMotion>();
     }
 
     public static void GameWinScreen()
@@ -41,10 +44,11 @@ public class SceneSwitcher : MonoBehaviour
         Debug.Log("Quit Application");
     }
 
-    public static void RestartScene()
+    public void RestartScene()
     {
-        var s = PlayerPrefs.GetInt("UnlockedLevel");
-        SceneManager.LoadScene(s);
+        GameOver.StartGamePlay();
+
+        var s = SceneManager.GetActiveScene();
         Debug.Log("Restarted to " + s + " Scene");
     }
 }
