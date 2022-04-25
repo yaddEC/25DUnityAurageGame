@@ -59,7 +59,7 @@ public class NodeWalker : MonoBehaviour
     {
         if (PlayerState.isInNodePath && InputManager.performX)
         {
-            refPlayerMotion.DashMachine(InputManager.inputAxis, 0.3f, true);
+            refPlayerMotion.DashMachine(InputManager.inputAxis, 0.6f, true);
             PlayerState.isInNodePath = false;
         }
 

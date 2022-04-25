@@ -62,14 +62,12 @@ public class PlayerMotion : MonoBehaviour
 
     private void MovementFixedUpdate()
     {
-        if (PlayerState.isGrounded) FloorMovement();
+        if (PlayerState.isGrounded) 
+            FloorMovement();
         else
         {
             if (!PlayerState.isInNodePath && !PlayerState.isInMachine)
-            {
                 playerRb.velocity += Vector3.down * dashGravity * Time.fixedDeltaTime;
-                Debug.Log("apply gravity");
-            }
         }
     }
 
@@ -102,7 +100,6 @@ public class PlayerMotion : MonoBehaviour
             else
                 playerRb.AddForce(new Vector2(input.x, input.y) * dashSpeed * multiplicator);
         }
-        Debug.Log("Dash Machine");
     }
 
     private void GroundCheck()
@@ -114,14 +111,17 @@ public class PlayerMotion : MonoBehaviour
     {
         DashCheck();
 
-        if (InputManager.inputAxis != Vector2.zero) Move(InputManager.inputAxis);
-        else Move(Vector2.zero);
+        if (InputManager.inputAxis != Vector2.zero) 
+            Move(InputManager.inputAxis);
+        else 
+            Move(Vector2.zero);
     }
 
     //--------------------------------------------------
     public void DashCheck()
     {
-        if(!PlayerState.isInMachine && InputManager.performA) Dash();
+        if(!PlayerState.isInMachine && InputManager.performA) 
+            Dash();
     }
 
     /*private IEnumerator RaycastDetection()
@@ -136,9 +136,6 @@ public class PlayerMotion : MonoBehaviour
     public void ClampInMachine()
     {
         if (PlayerState.isInMachine && refStation != null)
-        {
             transform.position = refStation.lockPosition.position;
-            Debug.Log("clamped");
-        }
     }
 }
