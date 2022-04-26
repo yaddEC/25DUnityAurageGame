@@ -10,6 +10,13 @@ public class SceneSwitcher : MonoBehaviour
     {
         refPauseMenu = GameObject.FindObjectOfType<PauseMenu>();
     }
+
+    private void Update()
+    {
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("LevelSelector"))
+            Time.timeScale = 1;
+    }
+
     public static void GameWinScreen()
     {
         refPauseMenu.ClosePause();
@@ -24,9 +31,7 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void GameLevelSelector()
     {
-        //refPauseMenu.ClosePause();
-        //GameOver.StartGamePlay();
-        Time.timeScale = 1;
+        refPauseMenu.ClosePause();
         SceneManager.LoadScene("LevelSelector");
     }
 
