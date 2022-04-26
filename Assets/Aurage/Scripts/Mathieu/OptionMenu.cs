@@ -61,5 +61,6 @@ public class OptionMenu : MonoBehaviour
     public void UnlockAllLevels()
     {
         LevelSelector.unlockedLevel = 6;
+        PlayerPrefs.SetInt("UnlockedLevel", 6);
     }
 }
