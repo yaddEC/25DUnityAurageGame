@@ -78,7 +78,7 @@ public class PlayerMotion : MonoBehaviour
 
     private void Dash()
     {
-        if(PlayerState.isGrounded)
+        if(PlayerState.isGrounded && !PauseMenu.pauseOpen && !OptionMenu.optionOpen)
         {
             playerRb.AddForce(dashSpeed * Vector3.up);
 
