@@ -39,11 +39,13 @@ public class PowerManager : MonoBehaviour
 
         outOfPowerDebug = outOfPower;
         DebugWaypoint = waypoint;
+        
+        if(!GameOver.gameOverUI.activeSelf)
+            PowerState();
 
-        PowerState();
         PlayerRender();
 
-        if (!PlayerState.isInMachine && !PlayerState.isInNodePath)
+        if (!PlayerState.isInMachine && !PlayerState.isInNodePath && PlayerState.isPlaying)
         {
             if (isInMenu)
                 currentPower = 100;
@@ -64,6 +66,7 @@ public class PowerManager : MonoBehaviour
     private void OnOutOfPowerEvent()
     {
         GameOver.StopGamePlay();
+        Debug.Log("ton pere");
     }
 
     public IEnumerator ConsumePower(float powerAmount)
