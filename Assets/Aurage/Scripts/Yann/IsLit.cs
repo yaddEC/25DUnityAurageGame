@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class IsLit : MonoBehaviour
 {
+    private LayerMask obstacle;
     public GameObject player;
     public float sightAngle;
     public float sightDistance;
-    private LayerMask obstacle;
     public bool isLit;
-    //public bool PlayerStateCheckIsVisible;// pour test, a enlever
-    // Start is called before the first frame update
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -19,11 +18,7 @@ public class IsLit : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawRay(transform.position + Vector3.up * 1.5f, player.transform.position - transform.position);
-       /* if (PlayerState.isVisible)
-            PlayerStateCheckIsVisible = true;
-        else
-            PlayerStateCheckIsVisible = false;*/
+
 
         if (SeeThePlayer())
         {
