@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class WaveSound : MonoBehaviour
 {
+    public PlayerState playerState;
     public Shockwave waveState;
     public PlayShortSound Sound;
 
     public void PlaySound()
     {
-        if (waveState.refresh)
+        if (waveState.refresh && !playerState.InspectorIsInMachine)
             Sound.PlaySound();
     }
 }
