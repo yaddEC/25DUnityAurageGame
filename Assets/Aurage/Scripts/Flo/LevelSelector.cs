@@ -6,20 +6,13 @@ using UnityEngine;
 public class LevelSelector : MonoBehaviour
 {
     public GoToSelectedLevel[] goToSelectedLevels;
-    public static float unlockedLevel = 0;
-
-    public float debugUnlockedLevel = 0;
-
-    private void Awake()
-    {
-        if(PlayerPrefs.GetInt("UnlockedLevel") == 0)
-            PlayerPrefs.SetInt("UnlockedLevel", 1);
-    }
+    public static int unlockedLevel = 1;
+    public int debugUnlockedLevel = 1;
 
     private void Update()
     {
         debugUnlockedLevel = unlockedLevel;
-        unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel");
+        PlayerPrefs.SetInt("UnlockedLevel", unlockedLevel);
 
         for (int i = 0; i < PlayerPrefs.GetInt("UnlockedLevel"); i++)
             goToSelectedLevels[i].canAccess = true;
@@ -29,5 +22,7 @@ public class LevelSelector : MonoBehaviour
             if (level.goToNextLevel)
                 SceneSwitcher.GoToSelectedScene(level.name);
         }
+
+        Debug.Log(PlayerPrefs.GetInt("UnlockedLevel"));
     }
 }
