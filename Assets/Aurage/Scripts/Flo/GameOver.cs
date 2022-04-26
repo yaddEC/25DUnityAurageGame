@@ -23,6 +23,8 @@ public class GameOver : MonoBehaviour
 
         if (overUI != null)
             gameOverUI = overUI;
+
+        gameOverUI.SetActive(false);
     }
 
     public static void StopGamePlay()
