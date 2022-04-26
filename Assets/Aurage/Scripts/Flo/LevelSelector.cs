@@ -31,4 +31,9 @@ public class LevelSelector : MonoBehaviour
                 SceneSwitcher.GoToSelectedScene(level.name);
         }
     }
+
+    public static void UnlockAllLevels()
+    {
+        PlayerPrefs.SetInt("UnlockedLevel", 6);
+    }
 }
