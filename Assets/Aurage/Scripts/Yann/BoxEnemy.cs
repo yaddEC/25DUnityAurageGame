@@ -63,7 +63,7 @@ public class BoxEnemy : Enemy
         float time = 0f;
         while (time < 1)
         {
-            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 20);
+            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 10);
             transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
             time += Time.deltaTime * rotationSpeed;
             yield return null;
@@ -136,7 +136,7 @@ public class BoxEnemy : Enemy
         float time = 0f;
         while (time < 1)
         {
-            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 20);
+            Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 10);
             transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
             time += Time.deltaTime * rotationSpeed;
             yield return null;
