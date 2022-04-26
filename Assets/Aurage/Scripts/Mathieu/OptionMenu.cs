@@ -12,6 +12,7 @@ public class OptionMenu : MonoBehaviour
     public GameObject optionMenu;
     public bool isOpen = false;
     public static bool optionOpen = false;
+    public PowerBar refPowerBar;
 
     public AudioMixer GenMixer;
     public AudioMixer SoundMixer;
@@ -21,10 +22,13 @@ public class OptionMenu : MonoBehaviour
     {
         optionMenu = GameObject.FindGameObjectWithTag("OptionMenu");
         optionMenu.SetActive(false);
+        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
     }
 
     public void OpenOption()
     {
+        refPowerBar.gameObject.SetActive(false);
+
         Time.timeScale = 0;
 
         if (!optionOpen)

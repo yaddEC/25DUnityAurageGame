@@ -829,6 +829,7 @@ MonoBehaviour:
   m_EventSystem: {fileID: 669624390517978676}
   pauseMenu: {fileID: 0}
   isOpen: 0
+  refPowerBar: {fileID: 0}
 --- !u!82 &8016332357654429267
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1223,8 +1224,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4341352299639809666}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: onRestartPresed
-        m_Mode: 1
+        m_MethodName: ClosePause
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

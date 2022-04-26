@@ -19,13 +19,13 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void GameWinScreen()
     {
-        refPauseMenu.ClosePause();
+        refPauseMenu.ClosePause(false);
         SceneManager.LoadScene("GameWinScreen");
     }
 
     public static void GameMenuScreen()
     {
-        refPauseMenu.ClosePause();
+        refPauseMenu.ClosePause(false);
         SceneManager.LoadScene("MenuScreen");
     }
 
@@ -36,7 +36,7 @@ public class SceneSwitcher : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MenuScreen"))
             return;
         else
-            refPauseMenu.ClosePause();
+            refPauseMenu.ClosePause(false);
 
     }
 
@@ -53,12 +53,12 @@ public class SceneSwitcher : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MenuScreen"))
             return;
         else
-            refPauseMenu.ClosePause();
+            refPauseMenu.ClosePause(false);
     }
 
     public static void RestartScene()
     {
-        refPauseMenu.ClosePause();
+        refPauseMenu.ClosePause(false);
         GameOver.StartGamePlay();
     }
 }

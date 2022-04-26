@@ -33,7 +33,12 @@ public class PauseMenu : MonoBehaviour
         if(isOpen)
             OpenPause();
         else
-            ClosePause();
+        {
+            if(OptionMenu.optionOpen)
+                ClosePause(true);
+            else
+                ClosePause(false);
+        }
     }
     public void OpenPause()
     {
@@ -49,9 +54,12 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void ClosePause()
+    public void ClosePause(bool gotToOption)
     {
-        refPowerBar.gameObject.SetActive(true);
+        if(!gotToOption)
+            refPowerBar.gameObject.SetActive(true);
+        else
+            refPowerBar.gameObject.SetActive(false);
 
         if (!OptionMenu.optionOpen) 
             Time.timeScale = 1;
@@ -63,8 +71,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenOptionMenu()
     {
-        ClosePause();
-        refPowerBar.gameObject.SetActive(false);
+        ClosePause(true);
         refOptionMenu.OpenOption();
     }
 }
