@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class ShootingScript : MonoBehaviour
 {
+    //Script and gameplay discontinued
     private GameObject aimingArrow;
     private GameObject rotationAxis;
     private GameObject bullet;
