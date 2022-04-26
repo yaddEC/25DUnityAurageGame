@@ -36,8 +36,6 @@ public class PlayerMotion : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Time.timeScale + "is Time Scale");
-
         PlayerStateChecker();
 
         if (!PlayerState.canDash) dashCooldown -= Time.deltaTime;

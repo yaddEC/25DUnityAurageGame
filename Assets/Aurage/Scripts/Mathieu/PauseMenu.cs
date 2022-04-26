@@ -16,8 +16,11 @@ public class PauseMenu : MonoBehaviour
     public bool isOpen = false;
     public static bool pauseOpen = false;
 
+    public PowerBar refPowerBar;
+
     private void Awake()
     {
+        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
         refOptionMenu = GameObject.FindObjectOfType<OptionMenu>();
         pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
         pauseMenu.SetActive(false);
@@ -34,6 +37,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void OpenPause()
     {
+        refPowerBar.gameObject.SetActive(false);
+
         Time.timeScale = 0;
         refOptionMenu.CloseOption();
 
@@ -46,7 +51,9 @@ public class PauseMenu : MonoBehaviour
 
     public void ClosePause()
     {
-        if(!OptionMenu.optionOpen) 
+        refPowerBar.gameObject.SetActive(true);
+
+        if (!OptionMenu.optionOpen) 
             Time.timeScale = 1;
 
         isOpen = false;
@@ -57,6 +64,7 @@ public class PauseMenu : MonoBehaviour
     public void OpenOptionMenu()
     {
         ClosePause();
+        refPowerBar.gameObject.SetActive(false);
         refOptionMenu.OpenOption();
     }
 }

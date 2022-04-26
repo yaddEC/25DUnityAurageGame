@@ -58,7 +58,6 @@ public class PowerManager : MonoBehaviour
 
     private void OnOutOfPowerEvent()
     {
-        Debug.Log("Ici");
         GameOver.StopGamePlay();
     }
 
