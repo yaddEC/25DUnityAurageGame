@@ -999,6 +999,7 @@ GameObject:
   - component: {fileID: 3994786712792761282}
   - component: {fileID: 6761932403454991182}
   - component: {fileID: 6675059131412581884}
+  - component: {fileID: 8405522944110024525}
   m_Layer: 0
   m_Name: DisjoncteurStart
   m_TagString: Disjoncteur
@@ -1054,9 +1055,10 @@ MonoBehaviour:
   image: {fileID: 0}
   bC: {fileID: 0}
   mR: {fileID: 0}
+  autoExec: 0
+  special: 0
   tagToSearch: 
-  isFreezed: 0
-  isInMachine: 0
+  isInStation: 0
   isUsable: 0
   doEvent: 0
   cooldown: 0
@@ -1065,6 +1067,19 @@ MonoBehaviour:
   machineList: []
   isEntry: 1
   canEnter: 1
+--- !u!114 &8405522944110024525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4340209953278450040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5bc367ae4906944da235dc7b8eb6b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4340209954371840992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,9 +1146,10 @@ MonoBehaviour:
   image: {fileID: 0}
   bC: {fileID: 0}
   mR: {fileID: 0}
+  autoExec: 0
+  special: 0
   tagToSearch: 
-  isFreezed: 0
-  isInMachine: 0
+  isInStation: 0
   isUsable: 0
   doEvent: 0
   cooldown: 0

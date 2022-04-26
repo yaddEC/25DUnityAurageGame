@@ -7,12 +7,17 @@ public class PowerMeterStation : Station
     [Header("Property Info")]
     public bool isEntry;
     public bool canEnter = true;
+    public SpawnPoint refSpawnPoint;
     //-------------------------------------------------------------
-    private void Awake() { var t = "Disjoncteur"; tagToSearch = t; }
+    private void Awake() 
+    { 
+        var t = "Disjoncteur"; tagToSearch = t;
+        refSpawnPoint = GameObject.FindObjectOfType<SpawnPoint>();
+    }
     private void Start() 
     { 
         RegisterReferences();
-        SetPositionOnSpawn();
+        refSpawnPoint.SpawnPlayer(refPlayerMotion.transform);
     }
 
     //-------------------------------------------------------------
@@ -38,13 +43,5 @@ public class PowerMeterStation : Station
     {
         if (other.tag == "Player" && isEntry) 
             canEnter = false;
-    }
-
-    public void SetPositionOnSpawn()
-    {
-        if (PowerManager.waypoint == null)
-            refPlayerMotion.transform.position = lockPosition.transform.position;
-        else
-            refPlayerMotion.transform.position = PowerManager.waypoint.position;
     }
 }

@@ -29,23 +29,26 @@ public class GameOver : MonoBehaviour
 
     public static void StopGamePlay()
     {
-        Time.timeScale = 0;
+        refPowerMeter.refSpawnPoint.SpawnPlayer(refPlayerMotion.transform);
+
         PlayerState.isPlaying = false;
 
         if (gameOverUI != null) 
             gameOverUI.SetActive(true);
 
+        Time.timeScale = 0;
     }
 
     public static void StartGamePlay()
     {
+        PowerManager.outOfPower = false;
+        refPowerMeter.refSpawnPoint.SpawnPlayer(refPlayerMotion.transform);
+
         Time.timeScale = 1;
         PlayerState.isPlaying = true;
 
         refPowerManager.currentPower = refPowerManager.maxPower;
-        PowerManager.outOfPower = false;
 
-        refPowerMeter.SetPositionOnSpawn();
         PlayerState.isInNodePath = false;
         refCameraClamp.ChangeZPos(refPlayerMotion.transform.position.z);
 

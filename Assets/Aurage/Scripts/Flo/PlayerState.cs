@@ -35,6 +35,8 @@ public class PlayerState : MonoBehaviour
 
         isInMachine = isInNodePath = isFreezed = isGrounded = false;
         canBeTargeted = isVisible = canDash = isPlaying = true;
+
+        Cursor.visible = false;
     }
 
     private void Update()
