@@ -24,8 +24,9 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void GameLevelSelector()
     {
-        refPauseMenu.ClosePause();
-        GameOver.StartGamePlay();
+        //refPauseMenu.ClosePause();
+        //GameOver.StartGamePlay();
+        SceneManager.LoadScene("LevelSelector");
     }
 
     public static void GoToSelectedScene(string s)
