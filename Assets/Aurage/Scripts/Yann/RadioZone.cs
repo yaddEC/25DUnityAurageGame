@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RadioZone : MonoBehaviour
 {
-    [HideInInspector] public bool isActive = false;
     private BasicEnemy refBasicEnemy;
+    [HideInInspector] public bool isActive = false;
 
  
 

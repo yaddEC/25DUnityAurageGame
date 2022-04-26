@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TeslaZone : Enemy
 {
-    public float drainingPower;
     private float cache;
     private float beginLine;
     private float endLine;
     private float beginChange;
     private float endChange;
-    LineRenderer laser;
+    private LineRenderer laser;
+    public float drainingPower;
     public Vector3 playerPos;
     public Vector3 linePos;
     // Start is called before the first frame update
@@ -87,8 +87,6 @@ public class TeslaZone : Enemy
         }
 
     }
-
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")

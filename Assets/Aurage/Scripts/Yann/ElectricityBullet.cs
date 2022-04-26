@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//Script and Gameplay discontinued
 public class ElectricityBullet : MonoBehaviour
 {
     private Rigidbody rb;

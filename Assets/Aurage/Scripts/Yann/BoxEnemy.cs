@@ -8,20 +8,18 @@ public class BoxEnemy : Enemy
     // Start is called before the first frame update
 
     private Rigidbody rb;
-
+    private Coroutine lastRoutine;
     public bool isSleep;
-
+    public float rotation;
+    public float rotationSpeed = 1;
+    public float speed;
+    public Vector3 dir;
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool isTurning;
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject nextWayPoint;
     [HideInInspector] public Vector3 moveDirection;
     [HideInInspector] public List<GameObject> wayPoints;
-    public float rotation;
-    public float rotationSpeed = 1;
-    public float speed;
-    public Vector3 dir;
-    private Coroutine lastRoutine;
 
     void Start()
     {
@@ -59,7 +57,6 @@ public class BoxEnemy : Enemy
 
     private IEnumerator Turning()//Coroutine that makes gradual rotation
     {
-
         isTurning = true;
         yield return new WaitForSeconds(0.1f);
         Quaternion look = Quaternion.LookRotation(dir);
@@ -106,6 +103,7 @@ public class BoxEnemy : Enemy
     {
         if (!isStunned)
         {
+            rb.velocity = Vector3.zero;
             StopCoroutine(lastRoutine);
             StartCoroutine(Stunned(stunDuration));
         }
@@ -132,7 +130,6 @@ public class BoxEnemy : Enemy
 
     public IEnumerator Guarded(float stunDuration, float direction)//Coroutine that stun the enemy, then unstun him
     {
-        
         isMoving = false;
         isSleep = true;
         Quaternion look = Quaternion.Euler(0,direction,0);

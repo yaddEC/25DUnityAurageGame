@@ -7,52 +7,45 @@ public class BasicEnemy : Enemy
     // Start is called before the first frame update
 
     private Rigidbody rb;
+    private LayerMask obstacle;
+    private GameObject machine;
+    private Coroutine lastRoutine;
+    private Material enemyHead;
+    private Animator animator;
     public bool alerted;
     public bool playerDetected;
     public bool isMoving;
     public bool isTurning;
     public bool isDistracted;
     public float sightDistance;
-    public float rotation = 90;
     public float rotationSpeed = 100;
     public float speed;
     public float sightAngle;
     public float safeTimeAlert = 2;
     public float alertDuration = 30;
-    private LayerMask obstacle;
-    private LayerMask edge;
-    public GameObject player;
-    public GameObject nextWayPoint;
-    private GameObject machine;
-    public Vector3 dir;
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public GameObject nextWayPoint;
+    [HideInInspector] public Vector3 dir;
     [HideInInspector] public Vector3 moveDirection;
-    private Coroutine lastRoutine;
-    public Material enemyHead;
-    public List<GameObject> wayPoints;
-    public float turning = 0f;
-    private Animator animator;
+    [HideInInspector] public List<GameObject> wayPoints;
 
     void Start()
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
-        getWayPoints();
+        GetWayPoints();
         nextWayPoint = wayPoints[0];
-        edge = LayerMask.GetMask("Edge");
         obstacle = LayerMask.GetMask("Obstacle");
         player = GameObject.FindGameObjectWithTag("Player");
-
         dir = (nextWayPoint.transform.position - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(dir);
-        turning = Vector3.Angle(transform.forward, dir);
         alerted = false;
         isMoving = true;
-
         rb = gameObject.GetComponent<Rigidbody>();
         lastRoutine = null;
-        // enemyHead = gameObject.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Renderer>().material;
+        enemyHead = gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Renderer>().material;
     }
 
-    private void getWayPoints()
+    private void GetWayPoints()
     {
         GameObject[] gameWayPoints = GameObject.FindGameObjectsWithTag("WayPoint");
         for (int i = 0; i < gameWayPoints.Length; i++)
@@ -90,15 +83,13 @@ public class BasicEnemy : Enemy
     void Update()
     {
         //timed rotation when edge is encounter
-
         dir = (nextWayPoint.transform.position - transform.position).normalized ;
-        Debug.DrawLine(transform.position, dir);
         //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt turning or already alerted
         if (SeeThePlayer() && !alerted && !isTurning && !isStunned && !isDistracted)
             StartCoroutine(Alerted());
 
         //State debug
-        /* if (playerDetected)
+         if (playerDetected)
              enemyHead.SetColor("_EmissionColor", Color.red);
          else if (isStunned)
              enemyHead.SetColor("_EmissionColor", Color.black);
@@ -107,7 +98,7 @@ public class BasicEnemy : Enemy
          else if (alerted)
              enemyHead.SetColor("_EmissionColor", Color.yellow);
          else
-             enemyHead.SetColor("_EmissionColor", Color.cyan);*/
+             enemyHead.SetColor("_EmissionColor", Color.cyan);
 
     }
 
@@ -116,13 +107,6 @@ public class BasicEnemy : Enemy
         if (isMoving)
             Move();
     }
-
-
-    private bool isEdge()//bool function check if on Edge
-    {
-        return Physics.Raycast(transform.position, dir, 1.5f, edge) || Physics.Raycast(transform.position, dir, 0.8f, obstacle);
-    }
-
 
     private IEnumerator Turning()//Coroutine that makes gradual rotation
     {
@@ -137,7 +121,6 @@ public class BasicEnemy : Enemy
             Quaternion temp = Quaternion.Lerp(transform.rotation, look, time / 10);
             transform.rotation = new Quaternion(0, temp.y, 0, temp.w);
             time += Time.deltaTime * rotationSpeed;
-            turning = time;
             yield return null;
         }
 
@@ -178,8 +161,6 @@ public class BasicEnemy : Enemy
             }
         }
         lastRoutine = StartCoroutine(Turning());
-        
-
     }
 
     public void Stun(float stunDuration)
@@ -198,8 +179,8 @@ public class BasicEnemy : Enemy
         isStunned = false;
         animator.SetBool("isStun", false);
         lastRoutine = StartCoroutine(Turning());
-
     }
+
 
     public void Distracted(GameObject machine)
     {
@@ -209,7 +190,6 @@ public class BasicEnemy : Enemy
         this.machine = nextWayPoint;
         nextWayPoint = machine;
         isDistracted = true;
-
     }
 
     public void Halt()
@@ -240,8 +220,8 @@ public class BasicEnemy : Enemy
             {
                 playerDetected = true;
                 animator.SetBool("playerDetected", true);
-                //SceneManager.LoadScene("GameOverScreen");
-                //future coroutine that loads enemy shooting animation
+                yield return new WaitForSeconds(0.8f);
+                PowerManager.outOfPower = true;
                 break;
             }
             else if (isStunned || isDistracted)
