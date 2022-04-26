@@ -1994,7 +1994,7 @@ GameObject:
   - component: {fileID: 6994714405088406696}
   m_Layer: 0
   m_Name: MenuOption
-  m_TagString: optionMenu
+  m_TagString: OptionMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2133,7 +2133,7 @@ GameObject:
   - component: {fileID: 8656069759726788649}
   m_Layer: 0
   m_Name: OptionMenu
-  m_TagString: OptionMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2168,7 +2168,6 @@ MonoBehaviour:
   m_EventSystem: {fileID: 8426616223901702741}
   optionMenu: {fileID: 0}
   isOpen: 0
-  optionOpen: 0
   GenMixer: {fileID: 24100000, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
   SoundMixer: {fileID: 24100000, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
   MusicMixer: {fileID: 24100000, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}

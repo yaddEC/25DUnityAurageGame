@@ -619,9 +619,6 @@ MonoBehaviour:
   m_EventSystem: {fileID: 669624390517978676}
   pauseMenu: {fileID: 0}
   isOpen: 0
-  pauseOpen: 0
-  buttonIsDown: 0
-  canBeClosed: 0
 --- !u!82 &8016332357654429267
 AudioSource:
   m_ObjectHideFlags: 0
