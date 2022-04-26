@@ -32,6 +32,11 @@ public class PowerManager : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("LevelSelector"))
+            isInMenu = true;
+        else
+            isInMenu = false;
+
         outOfPowerDebug = outOfPower;
         DebugWaypoint = waypoint;
 
