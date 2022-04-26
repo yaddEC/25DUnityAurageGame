@@ -26,6 +26,7 @@ public class SceneSwitcher : MonoBehaviour
     {
         //refPauseMenu.ClosePause();
         //GameOver.StartGamePlay();
+        Time.timeScale = 1;
         SceneManager.LoadScene("LevelSelector");
     }
 
