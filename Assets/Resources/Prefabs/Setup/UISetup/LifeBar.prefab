@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6df4eca341ffce48a773b2b462e6791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  refPowerManager: {fileID: 0}
+  refLifeSlider: {fileID: 0}
 --- !u!1 &8052770542566119515
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,8 +276,8 @@ GameObject:
   - component: {fileID: 8052770543655946083}
   - component: {fileID: 8052770543655946082}
   m_Layer: 5
-  m_Name: Slider
-  m_TagString: Untagged
+  m_Name: BarLife
+  m_TagString: LifeBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

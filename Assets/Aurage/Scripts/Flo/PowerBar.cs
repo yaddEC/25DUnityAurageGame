@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class PowerBar : MonoBehaviour
 {
-    private PowerManager refPowerManager;
-    private Slider refLifeSlider;
+    public PowerManager refPowerManager;
+    public Slider refLifeSlider;
+
     private void Awake()
     {
         refPowerManager = GameObject.FindObjectOfType<PowerManager>();
-        refLifeSlider = GameObject.FindObjectOfType<Slider>();
+        refLifeSlider = GameObject.FindGameObjectWithTag("LifeBar").GetComponent<Slider>();
         SetMaxLife(refPowerManager.maxPower);
     }
     private void Update()
