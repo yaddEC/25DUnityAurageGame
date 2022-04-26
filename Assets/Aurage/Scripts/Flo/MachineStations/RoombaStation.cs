@@ -8,8 +8,11 @@ public class RoombaStation : Station
     public float moveSpeed;
     private Rigidbody roombaRb;
     private Transform roomba;
+
+    public Vector3 spawnPos;
     //-------------------------------------------------------------
-    private void Awake() { 
+    private void Awake() {
+        spawnPos = transform.position;
         var t = gameObject.name; tagToSearch = t;
         roombaRb = GetComponentInChildren<Rigidbody>();
     }
@@ -18,6 +21,9 @@ public class RoombaStation : Station
     {
         CooldownHandler(special = true);
         FreezeRoomba();
+
+        if (PowerManager.outOfPower)
+            RespawnRoomba();
     }
     private void FixedUpdate()
     {
@@ -32,6 +38,12 @@ public class RoombaStation : Station
     {
         if (!PlayerState.isInMachine) roombaRb.constraints = RigidbodyConstraints.FreezeAll;
         else roombaRb.constraints = RigidbodyConstraints.FreezeRotation;
+    }
+
+    private void RespawnRoomba()
+    {
+        transform.position = spawnPos;
+        Debug.Log("respawn roomba to" + "( " + spawnPos + " )");
     }
     //-------------------------------------------------------------
     private void OnCollisionEnter(Collision collision)
