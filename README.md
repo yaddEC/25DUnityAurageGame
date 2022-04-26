@@ -26,7 +26,7 @@ Start----------> Pause menu
 
 ## Preview
 
-![PNG](./Assets/Screenshots/ScreenShot4.png)
-![PNG](./Assets/Screenshots/ScreenShot1.png)
-![PNG](./Assets/Screenshots/ScreenShot2.png)
-![PNG](./Assets/Screenshots/ScreenShot3.png)
+![PNG](./Assets/Screenshots/Screenshot4.png)
+![PNG](./Assets/Screenshots/Screenshot1.png)
+![PNG](./Assets/Screenshots/Screenshot2.png)
+![PNG](./Assets/Screenshots/Screenshot3.png)
