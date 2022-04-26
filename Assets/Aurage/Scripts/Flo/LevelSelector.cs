@@ -14,12 +14,12 @@ public class LevelSelector : MonoBehaviour
         debugUnlockedLevel = unlockedLevel;
         PlayerPrefs.SetInt("UnlockedLevel", unlockedLevel);
 
-        for (int i = 0; i < PlayerPrefs.GetInt("UnlockedLevel"); i++)
+        for (int i = 0; i != 6; i++)
             goToSelectedLevels[i].canAccess = true;
 
         foreach (var level in goToSelectedLevels)
         {
-            if (level.goToNextLevel)
+            if(level.isInLevel && InputManager.performB)
                 SceneSwitcher.GoToSelectedScene(level.name);
         }
 

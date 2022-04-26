@@ -42,7 +42,7 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void GoToSelectedScene(string s)
     {
-        //refPauseMenu.ClosePause();
+        PowerManager.outOfPower = false;
         SceneManager.LoadScene(s);
     }
 
