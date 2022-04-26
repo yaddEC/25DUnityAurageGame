@@ -19,7 +19,6 @@ public class LevelSelector : MonoBehaviour
     private void Update()
     {
         debugUnlockedLevel = unlockedLevel;
-
         unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel");
 
         for (int i = 0; i < PlayerPrefs.GetInt("UnlockedLevel"); i++)
@@ -30,10 +29,5 @@ public class LevelSelector : MonoBehaviour
             if (level.goToNextLevel)
                 SceneSwitcher.GoToSelectedScene(level.name);
         }
-    }
-
-    public static void UnlockAllLevels()
-    {
-        PlayerPrefs.SetInt("UnlockedLevel", 6);
     }
 }

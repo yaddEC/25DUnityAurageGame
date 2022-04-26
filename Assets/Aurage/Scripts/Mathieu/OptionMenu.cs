@@ -57,4 +57,10 @@ public class OptionMenu : MonoBehaviour
     {
         SoundMixer.SetFloat("MusicVolume", Mathf.Round(vol * 15) - 15);
     }
+
+    public void UnlockAllLevels()
+    {
+        PlayerPrefs.SetInt("UnlockedLevel", 6);
+        Debug.Log("Unlocked All Levels");
+    }
 }
