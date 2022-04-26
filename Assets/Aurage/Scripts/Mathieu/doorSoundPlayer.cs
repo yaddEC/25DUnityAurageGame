@@ -10,17 +10,27 @@ public class doorSoundPlayer : MonoBehaviour
     public PlayShortSound SoundOpen;
     public PlayShortSound SoundClose;
 
+    float delay;
+
     private void Update()
     {
-        if (Station.doEvent && isOpen)
+        if(Station.doEvent && !Station.animationPlaying && delay <= 0)
         {
-            SoundClose.PlaySound();
-            isOpen = false;
+            if (Station.doEvent && isOpen)
+            {
+                SoundClose.PlaySound();
+                isOpen = false;
+            }
+            if (Station.doEvent && !isOpen)
+            {
+                SoundOpen.PlaySound();
+                isOpen = true;
+            }
+            delay = 2;
         }
-        if (Station.doEvent && !isOpen)
+        else
         {
-            SoundOpen.PlaySound();
-            isOpen = true;
+            delay -= Time.deltaTime;
         }
     }
 }
