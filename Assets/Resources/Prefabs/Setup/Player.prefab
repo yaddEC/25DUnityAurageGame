@@ -801,6 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b041a99573d9a6647ad50808fa94dd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: {fileID: 2400734286683653926}
   waveState: {fileID: 4996807403023991155}
   Sound: {fileID: 3481468526638572147}
 --- !u!114 &3481468526638572147
