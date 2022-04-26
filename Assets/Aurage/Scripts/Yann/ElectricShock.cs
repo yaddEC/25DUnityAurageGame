@@ -36,7 +36,13 @@ public class ElectricShock : MonoBehaviour
 
             yield return new WaitForSeconds(0.005f);
         }
-       
+        while (scale > 0)
+        {
+            scale -= Time.deltaTime * fadeSpeed;
+            transform.localScale = oneScale * scale;
+
+            yield return new WaitForSeconds(0.005f);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
