@@ -7,9 +7,11 @@ public class RadioStation : Station
     private GameObject radioZoneClone;
     private GameObject radioZone;
     public bool isRadioActive = false;
+    [HideInInspector] public  Animator animator;
 
     private void Awake()
     {
+        animator = transform.GetComponent<Animator>();
         var t = gameObject.name; tagToSearch = t;
         radioZone = Resources.Load<GameObject>("Prefabs/Setup/RadioDetection");
     }
@@ -23,6 +25,7 @@ public class RadioStation : Station
     {
         if(!isRadioActive)
         {
+            animator.SetBool("isOn", true);
             radioZoneClone = Instantiate(radioZone, transform.position, Quaternion.identity);
             isRadioActive = true;
         }
@@ -33,7 +36,7 @@ public class RadioStation : Station
            
         yield return new WaitForSeconds(5);
         radioZoneClone.GetComponent<RadioZone>().isActive = true;
-    
+        animator.SetBool("isOn", false);
         yield return new WaitForSeconds(1f);
         Destroy(radioZoneClone);
         isRadioActive = false;

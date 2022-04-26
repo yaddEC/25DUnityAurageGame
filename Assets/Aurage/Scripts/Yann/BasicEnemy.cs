@@ -8,15 +8,18 @@ public class BasicEnemy : Enemy
 
     private Rigidbody rb;
     private LayerMask obstacle;
+    private LayerMask ground;
     private GameObject machine;
     private Coroutine lastRoutine;
     private Material enemyHead;
     private Animator animator;
+    private float gravity;
     public bool alerted;
     public bool playerDetected;
     public bool isMoving;
     public bool isTurning;
     public bool isDistracted;
+    public bool isGrounded;
     public float sightDistance;
     public float rotationSpeed = 100;
     public float speed;
@@ -35,6 +38,7 @@ public class BasicEnemy : Enemy
         GetWayPoints();
         nextWayPoint = wayPoints[0];
         obstacle = LayerMask.GetMask("Obstacle");
+        ground = LayerMask.GetMask("Floor");
         player = GameObject.FindGameObjectWithTag("Player");
         dir = (nextWayPoint.transform.position - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(dir);
@@ -82,24 +86,46 @@ public class BasicEnemy : Enemy
 
     void Update()
     {
-        //timed rotation when edge is encounter
-        dir = (nextWayPoint.transform.position - transform.position).normalized ;
-        //start the "alerted"/[did i see something?] state of the enemy if he saw the player and wasnt turning or already alerted
+        DirAndGravity();
+        StateColor();
+
         if (SeeThePlayer() && !alerted && !isTurning && !isStunned && !isDistracted)
             StartCoroutine(Alerted());
+    }
 
-        //State debug
-         if (playerDetected)
-             enemyHead.SetColor("_EmissionColor", Color.red);
-         else if (isStunned)
-             enemyHead.SetColor("_EmissionColor", Color.black);
-         else if (isDistracted)
-             enemyHead.SetColor("_EmissionColor", Color.blue);
-         else if (alerted)
-             enemyHead.SetColor("_EmissionColor", Color.yellow);
-         else
-             enemyHead.SetColor("_EmissionColor", Color.cyan);
+    private void StateColor()
+    {
+        if (playerDetected)
+            enemyHead.SetColor("_EmissionColor", Color.red);
+        else if (isStunned)
+            enemyHead.SetColor("_EmissionColor", Color.black);
+        else if (isDistracted)
+            enemyHead.SetColor("_EmissionColor", Color.blue);
+        else if (alerted)
+            enemyHead.SetColor("_EmissionColor", Color.yellow);
+        else
+            enemyHead.SetColor("_EmissionColor", Color.cyan);
+    }
 
+    private void DirAndGravity()
+    {
+        dir = (nextWayPoint.transform.position - transform.position).normalized;
+        isGrounded = Physics.CheckSphere(transform.position, 0.5f, ground);
+
+        if (isGrounded && gravity < 0)
+            gravity = 0f;
+
+        gravity += Physics.gravity.y * Time.deltaTime;
+
+        if(transform.position.y<-1000)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(transform.position, 0.5f);
     }
 
     void FixedUpdate()
@@ -141,7 +167,7 @@ public class BasicEnemy : Enemy
     {
         float movex = dir.x * Time.fixedDeltaTime;
         float movez = dir.z * Time.fixedDeltaTime;
-        rb.velocity = new Vector3(10 * speed * movex, 0, 10 * speed * movez);
+        rb.velocity = new Vector3(10 * speed * movex, gravity, 10 * speed * movez);
     }
 
     public void ChangeWayPoint(GameObject actualWayPoint)//Coroutine that change the direction/ stop the moving for the gradual rotation
