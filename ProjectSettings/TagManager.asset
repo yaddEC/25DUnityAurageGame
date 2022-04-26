@@ -32,6 +32,9 @@ TagManager:
   - BoxEnemy
   - Tesla
   - Roomba
+  - Tronconneuse
+  - GameOver
+  - UIAnimation
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,10 @@
 fileFormatVersion: 2
-guid: 4dad5b8323ae1f743a43a90f6e0ccfce
+<<<<<<<< HEAD:Assets/Scenes/5.meta
+guid: 8b032bc4adbdd9f4ba4b0f23e481365d
 folderAsset: yes
+========
+guid: 9fc0d4010bbf28b4594072e72b8655ab
+>>>>>>>> 288d9ac (LD_update_et_import_asset):Assets/ExternalAssets/Stylized_Pirate_Ship/StylShip_Scene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

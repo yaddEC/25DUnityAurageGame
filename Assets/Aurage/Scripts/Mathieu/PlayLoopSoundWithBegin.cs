@@ -45,6 +45,25 @@ public class PlayLoopSoundWithBegin : MonoBehaviour
             
         }
     }
+    public void PlaySoundNoEvent(bool context)
+    {
+        if (!context)
+        {
+            Source.loop = false;
+            StopCoroutine(PlayTheSound());
+            Source.Stop();
+            alredyPerfomed = false;
+        }
+        if (Source.clip != Loop)
+            Source.clip = Loop;
+        if (context && !alredyPerfomed)
+        {
+            Source.loop = true;
+            StartCoroutine(PlayTheSound());
+            alredyPerfomed = true;
+
+        }
+    }
     public IEnumerator PlayTheSound()
     {
         Source.PlayOneShot(Begin);

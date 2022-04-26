@@ -8,50 +8,70 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    public OptionMenu refOptionMenu;
+
     public EventSystem m_EventSystem;
-    public GameObject menu;
 
-    int boolToInt(bool value)
+    public GameObject pauseMenu;
+    public bool isOpen = false;
+    public static bool pauseOpen = false;
+
+    public PowerBar refPowerBar;
+
+    private void Awake()
     {
-        if (value)
-            return 1;
-        return 0;
+        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
+        refOptionMenu = GameObject.FindObjectOfType<OptionMenu>();
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
+        pauseMenu.SetActive(false);
     }
-    public void onBackPresed()
+    private void Update()
     {
-        menu.SetActive(!menu.activeSelf);
-        Time.timeScale = boolToInt(!menu.activeSelf);
+        if (Gamepad.current.startButton.wasPressedThisFrame)
+            isOpen = !isOpen;
+
+        if(isOpen)
+            OpenPause();
+        else
+        {
+            if(OptionMenu.optionOpen)
+                ClosePause(true);
+            else
+                ClosePause(false);
+        }
     }
-    public void onActivate()
+    public void OpenPause()
     {
-        Debug.Log("Pause");
-        onBackPresed();
-        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().Select();
-        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = false;
-        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = true;
+        refPowerBar.gameObject.SetActive(false);
+
+        Time.timeScale = 0;
+        refOptionMenu.CloseOption();
+
+        if (!pauseOpen)
+        {
+            pauseMenu.SetActive(true);
+            pauseOpen = true;
+        }
     }
 
-    public void onRestartPresed()
+    public void ClosePause(bool gotToOption)
     {
-        Scene newScene = SceneManager.GetActiveScene();
-        SceneManager.UnloadSceneAsync(newScene.name);
-        SceneManager.LoadScene(newScene.name);
-        onBackPresed();
+        if(!gotToOption)
+            refPowerBar.gameObject.SetActive(true);
+        else
+            refPowerBar.gameObject.SetActive(false);
+
+        if (!OptionMenu.optionOpen) 
+            Time.timeScale = 1;
+
+        isOpen = false;
+        pauseOpen = false;
+        pauseMenu.SetActive(false);
     }
 
-    public void goToMainMenu()
+    public void OpenOptionMenu()
     {
-        Scene newScene = SceneManager.GetActiveScene();
-        SceneManager.UnloadSceneAsync(newScene.name);
-        SceneManager.LoadScene("Menu");
-        onBackPresed();
-    }
-
-    public void oppenOption()
-    {
-        menu.SetActive(!menu.activeSelf);
-        GameObject.FindGameObjectWithTag("OptionMenu").GetComponent<OptionMenu>().onActivate();
-        //Time.timeScale = 1;
-        //onBackPresed();
+        ClosePause(true);
+        refOptionMenu.OpenOption();
     }
 }

@@ -8,41 +8,59 @@ using UnityEngine.Audio;
 public class OptionMenu : MonoBehaviour
 {
     public EventSystem m_EventSystem;
-    public GameObject menu;
+
+    public GameObject optionMenu;
+    public bool isOpen = false;
+    public static bool optionOpen = false;
+    public PowerBar refPowerBar;
 
     public AudioMixer GenMixer;
     public AudioMixer SoundMixer;
     public AudioMixer MusicMixer;
 
-    public void onDisable() {
-        //this.gameObject.SetActive(!this.gameObject.activeSelf);
-        m_EventSystem.enabled = false;
-        menu.SetActive(false);
-        Time.timeScale = 1;
-    }
-    public void onActivate()
+    private void Awake()
     {
-        menu.SetActive(true);
-        Time.timeScale = 0;
-        m_EventSystem.enabled = true;
-        m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().Select();
-        m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().interactable = false;
-        m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().interactable = true;
+        optionMenu = GameObject.FindGameObjectWithTag("OptionMenu");
+        optionMenu.SetActive(false);
+        refPowerBar = GameObject.FindObjectOfType<PowerBar>();
     }
 
-    public void onAllVolumeChanged(System.Single vol)
+    public void OpenOption()
     {
-        Debug.Log(Mathf.Round(vol*10).ToString());
+        refPowerBar.gameObject.SetActive(false);
+
+        Time.timeScale = 0;
+
+        if (!optionOpen)
+        {
+            optionMenu.SetActive(true);
+            optionOpen = true;
+        }
+    }
+
+    public void CloseOption()
+    {
+        optionMenu.SetActive(false);
+        optionOpen = false;
+        isOpen = false;
+    }
+
+    public void OnAllVolumeChanged(System.Single vol)
+    {
         SoundMixer.SetFloat("MasterVolume", Mathf.Round(vol * 15)-15);
     }
-    public void onSoundVolumeChanged(System.Single vol)
+    public void OnSoundVolumeChanged(System.Single vol)
     {
-        Debug.Log(Mathf.Round(vol * 10).ToString());
         SoundMixer.SetFloat("SoundVolume", Mathf.Round(vol * 15) - 15);
     }
-    public void onMusicVolumeChanged(System.Single vol)
+    public void OnMusicVolumeChanged(System.Single vol)
     {
-        Debug.Log(Mathf.Round(vol * 10).ToString());
         SoundMixer.SetFloat("MusicVolume", Mathf.Round(vol * 15) - 15);
+    }
+
+    public void UnlockAllLevels()
+    {
+        LevelSelector.unlockedLevel = 6;
+        PlayerPrefs.SetInt("UnlockedLevel", 6);
     }
 }

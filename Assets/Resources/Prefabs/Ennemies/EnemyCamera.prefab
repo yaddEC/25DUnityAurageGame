@@ -3617,9 +3617,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4167352537694910495}
   - component: {fileID: 4167352537694910480}
-  - component: {fileID: 1774741357992219076}
-  - component: {fileID: 5274944242634835859}
-  - component: {fileID: 5273964736985933437}
+  - component: {fileID: 4400505228094795082}
+  - component: {fileID: 948964323153375772}
+  - component: {fileID: 2268808381604120793}
   m_Layer: 0
   m_Name: EnemyCamera
   m_TagString: Untagged
@@ -3663,7 +3663,7 @@ MonoBehaviour:
   cache: {r: 0, g: 0, b: 0, a: 0}
   deathDelay: 0.02
   newColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!82 &1774741357992219076
+--- !u!82 &4400505228094795082
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3672,9 +3672,9 @@ AudioSource:
   m_GameObject: {fileID: 4167352537694910481}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6324890503984092382, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3759,7 +3759,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5274944242634835859
+--- !u!114 &948964323153375772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3772,8 +3772,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraState: {fileID: 4167352537694910480}
-  Sound: {fileID: 5273964736985933437}
---- !u!114 &5273964736985933437
+  Sound: {fileID: 2268808381604120793}
+--- !u!114 &2268808381604120793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3785,7 +3785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a405c459ec779048960638bef618004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Source: {fileID: 1774741357992219076}
+  Source: {fileID: 4400505228094795082}
   Sound: {fileID: 8300000, guid: 87a49e32dd56220488f0b04549cd569f, type: 3}
   StopWhenPause: 1
 --- !u!1 &4167352537728378414

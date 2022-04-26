@@ -1,6 +1,12 @@
 fileFormatVersion: 2
-guid: 16a8b65baccb16341829e9ef00f1cc71
+<<<<<<<< HEAD:Assets/Scenes/5/LightingData.asset.meta
+guid: 451f70d9f1b730d4f8bf3b3d9b62ad72
 NativeFormatImporter:
+========
+guid: 1e0c990e31b20644bbd2703483343d71
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> 288d9ac (LD_update_et_import_asset):Assets/ExternalAssets/Props.meta
   externalObjects: {}
   mainObjectFileID: 112000000
   userData: 
