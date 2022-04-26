@@ -81947,7 +81947,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1061348020440892294
 MonoBehaviour:
@@ -81967,8 +81967,8 @@ MonoBehaviour:
   isMoving: 0
   isTurning: 0
   isDistracted: 0
+  isGrounded: 0
   sightDistance: 5
-  rotation: 90
   rotationSpeed: 1
   speed: 20
   sightAngle: 50
@@ -81978,9 +81978,7 @@ MonoBehaviour:
   nextWayPoint: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  enemyHead: {fileID: 0}
   wayPoints: []
-  turning: 0
 --- !u!114 &4914033685500899478
 MonoBehaviour:
   m_ObjectHideFlags: 0

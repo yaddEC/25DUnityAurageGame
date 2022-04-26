@@ -10,6 +10,13 @@ public class SceneSwitcher : MonoBehaviour
     {
         refPauseMenu = GameObject.FindObjectOfType<PauseMenu>();
     }
+
+    private void Update()
+    {
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("LevelSelector"))
+            Time.timeScale = 1;
+    }
+
     public static void GameWinScreen()
     {
         refPauseMenu.ClosePause();
@@ -24,9 +31,13 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void GameLevelSelector()
     {
-        //refPauseMenu.ClosePause();
-        //GameOver.StartGamePlay();
         SceneManager.LoadScene("LevelSelector");
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MenuScreen"))
+            return;
+        else
+            refPauseMenu.ClosePause();
+
     }
 
     public static void GoToSelectedScene(string s)
@@ -37,8 +48,12 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void CloseApplication()
     {
-        refPauseMenu.ClosePause();
         Application.Quit();
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MenuScreen"))
+            return;
+        else
+            refPauseMenu.ClosePause();
     }
 
     public static void RestartScene()
