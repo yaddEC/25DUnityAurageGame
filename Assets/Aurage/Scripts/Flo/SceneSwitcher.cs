@@ -31,8 +31,13 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void GameLevelSelector()
     {
-        refPauseMenu.ClosePause();
         SceneManager.LoadScene("LevelSelector");
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MenuScreen"))
+            return;
+        else
+            refPauseMenu.ClosePause();
+
     }
 
     public static void GoToSelectedScene(string s)
@@ -43,8 +48,12 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void CloseApplication()
     {
-        refPauseMenu.ClosePause();
         Application.Quit();
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MenuScreen"))
+            return;
+        else
+            refPauseMenu.ClosePause();
     }
 
     public static void RestartScene()
