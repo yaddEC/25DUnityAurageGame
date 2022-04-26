@@ -31,7 +31,7 @@ public class SceneSwitcher : MonoBehaviour
 
     public static void GoToSelectedScene(string s)
     {
-        refPauseMenu.ClosePause();
+        //refPauseMenu.ClosePause();
         SceneManager.LoadScene(s);
     }
 

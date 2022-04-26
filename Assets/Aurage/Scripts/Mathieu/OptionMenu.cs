@@ -31,11 +31,7 @@ public class OptionMenu : MonoBehaviour
         {
             optionMenu.SetActive(true);
             optionOpen = true;
-        } 
-
-        m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().Select();
-        m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().interactable = false;
-        m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().interactable = true;
+        }
     }
 
     public void CloseOption()
