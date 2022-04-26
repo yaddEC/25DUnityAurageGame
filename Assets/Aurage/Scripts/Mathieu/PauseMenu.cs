@@ -8,50 +8,55 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    public OptionMenu refOptionMenu;
+
     public EventSystem m_EventSystem;
-    public GameObject menu;
 
-    int boolToInt(bool value)
-    {
-        if (value)
-            return 1;
-        return 0;
-    }
-    public void onBackPresed()
-    {
-        menu.SetActive(!menu.activeSelf);
-        Time.timeScale = boolToInt(!menu.activeSelf);
-    }
-    public void onActivate()
-    {
-        Debug.Log("Pause");
-        onBackPresed();
-        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().Select();
-        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = false;
-        m_EventSystem.firstSelectedGameObject.GetComponent<Button>().interactable = true;
-    }
+    public GameObject pauseMenu;
+    public bool isOpen = false;
+    public static bool pauseOpen = false;
 
-    public void onRestartPresed()
+    private void Awake()
     {
-        Scene newScene = SceneManager.GetActiveScene();
-        SceneManager.UnloadSceneAsync(newScene.name);
-        SceneManager.LoadScene(newScene.name);
-        onBackPresed();
+        refOptionMenu = GameObject.FindObjectOfType<OptionMenu>();
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
+        pauseMenu.SetActive(false);
     }
-
-    public void goToMainMenu()
+    private void Update()
     {
-        Scene newScene = SceneManager.GetActiveScene();
-        SceneManager.UnloadSceneAsync(newScene.name);
-        SceneManager.LoadScene("Menu");
-        onBackPresed();
+        if (Gamepad.current.startButton.wasPressedThisFrame)
+            isOpen = !isOpen;
+
+        if(isOpen)
+            OpenPause();
+        else
+            ClosePause();
+    }
+    public void OpenPause()
+    {
+        Time.timeScale = 0;
+        refOptionMenu.CloseOption();
+
+        if (!pauseOpen)
+        {
+            pauseMenu.SetActive(true);
+            pauseOpen = true;
+        }
     }
 
-    public void oppenOption()
+    public void ClosePause()
     {
-        menu.SetActive(!menu.activeSelf);
-        GameObject.FindGameObjectWithTag("OptionMenu").GetComponent<OptionMenu>().onActivate();
-        //Time.timeScale = 1;
-        //onBackPresed();
+        if(!OptionMenu.optionOpen) 
+            Time.timeScale = 1;
+
+        isOpen = false;
+        pauseOpen = false;
+        pauseMenu.SetActive(false);
+    }
+
+    public void OpenOptionMenu()
+    {
+        ClosePause();
+        refOptionMenu.OpenOption();
     }
 }

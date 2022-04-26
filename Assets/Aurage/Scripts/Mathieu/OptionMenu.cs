@@ -8,41 +8,53 @@ using UnityEngine.Audio;
 public class OptionMenu : MonoBehaviour
 {
     public EventSystem m_EventSystem;
-    public GameObject menu;
+
+    public GameObject optionMenu;
+    public bool isOpen = false;
+    public static bool optionOpen = false;
 
     public AudioMixer GenMixer;
     public AudioMixer SoundMixer;
     public AudioMixer MusicMixer;
 
-    public void onDisable() {
-        //this.gameObject.SetActive(!this.gameObject.activeSelf);
-        m_EventSystem.enabled = false;
-        menu.SetActive(false);
-        Time.timeScale = 1;
-    }
-    public void onActivate()
+    private void Awake()
     {
-        menu.SetActive(true);
+        optionMenu = GameObject.FindGameObjectWithTag("OptionMenu");
+        optionMenu.SetActive(false);
+    }
+
+    public void OpenOption()
+    {
         Time.timeScale = 0;
-        m_EventSystem.enabled = true;
+
+        if (!optionOpen)
+        {
+            optionMenu.SetActive(true);
+            optionOpen = true;
+        } 
+
         m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().Select();
         m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().interactable = false;
         m_EventSystem.firstSelectedGameObject.GetComponent<Slider>().interactable = true;
     }
 
-    public void onAllVolumeChanged(System.Single vol)
+    public void CloseOption()
     {
-        Debug.Log(Mathf.Round(vol*10).ToString());
+        optionMenu.SetActive(false);
+        optionOpen = false;
+        isOpen = false;
+    }
+
+    public void OnAllVolumeChanged(System.Single vol)
+    {
         SoundMixer.SetFloat("MasterVolume", Mathf.Round(vol * 15)-15);
     }
-    public void onSoundVolumeChanged(System.Single vol)
+    public void OnSoundVolumeChanged(System.Single vol)
     {
-        Debug.Log(Mathf.Round(vol * 10).ToString());
         SoundMixer.SetFloat("SoundVolume", Mathf.Round(vol * 15) - 15);
     }
-    public void onMusicVolumeChanged(System.Single vol)
+    public void OnMusicVolumeChanged(System.Single vol)
     {
-        Debug.Log(Mathf.Round(vol * 10).ToString());
         SoundMixer.SetFloat("MusicVolume", Mathf.Round(vol * 15) - 15);
     }
 }

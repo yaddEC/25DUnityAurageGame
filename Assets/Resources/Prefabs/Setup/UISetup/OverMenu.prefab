@@ -932,3 +932,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overUI: {fileID: 4730744921662235947}
+  powerMetter: {fileID: 0}
