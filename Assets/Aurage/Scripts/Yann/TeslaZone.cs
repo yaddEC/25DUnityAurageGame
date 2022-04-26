@@ -61,6 +61,7 @@ public class TeslaZone : Enemy
         {
             laser.SetPosition(1, Vector3.zero);
             laser.SetWidth(0, 0);
+            isIn = false;
 
         }
         else if (other.gameObject.tag == "Player" && !PlayerState.isInMachine && !PlayerState.isInNodePath)
