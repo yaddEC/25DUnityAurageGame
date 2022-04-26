@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeslaZone : MonoBehaviour
+public class TeslaZone : Enemy
 {
     public float drainingPower;
-    private bool isStunned;
     private float cache;
     private float beginLine;
     private float endLine;
@@ -15,6 +14,8 @@ public class TeslaZone : MonoBehaviour
     public Vector3 playerPos;
     public Vector3 linePos;
     // Start is called before the first frame update
+
+    public bool isIn;
 
     private void Start()
     {
@@ -48,6 +49,8 @@ public class TeslaZone : MonoBehaviour
         {
             cache = PowerManager.unchargeCache;
             PowerManager.unchargeCache = drainingPower;
+
+            isIn = true;
         }
 
     }
@@ -93,6 +96,8 @@ public class TeslaZone : MonoBehaviour
             PowerManager.unchargeCache = cache;
             laser.SetPosition(1, Vector3.zero);
             laser.SetWidth(0, 0);
+
+            isIn = false;
         }
     }
 

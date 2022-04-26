@@ -10,16 +10,11 @@ public class PlayerCableSoundPlay : MonoBehaviour
     public PlayLoopSound cableSound;
     public void PlaySoundWithState(InputAction.CallbackContext context)
     {
-        if(playerState.InspectorIsGrounded)
-            if (playerState.InspectorIsInNodePath)
-                cableSound.PlaySound(context);
-            else
-                RunSound.PlaySound(context);
+        
+        if (playerState.InspectorIsInNodePath)
+            cableSound.PlaySound(context);
         else
-        {
-            cableSound.StopSound();
-            RunSound.StopSound();
-        }
+            RunSound.PlaySound(context);
         if (context.canceled)
         {
             cableSound.StopSound();

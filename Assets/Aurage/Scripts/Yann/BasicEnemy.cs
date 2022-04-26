@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : Enemy
 {
     // Start is called before the first frame update
 
@@ -11,7 +11,6 @@ public class BasicEnemy : MonoBehaviour
     public bool playerDetected;
     public bool isMoving;
     public bool isTurning;
-    public bool isStunned;
     public bool isDistracted;
     public float sightDistance;
     public float rotation = 90;

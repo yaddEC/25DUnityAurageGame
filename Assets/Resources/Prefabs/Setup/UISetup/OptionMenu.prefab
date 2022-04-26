@@ -355,11 +355,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8656069759726788654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9feafc950e5d694e86320dcf0cf87f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e246958661e3874a92d13d7ece544cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EventSystem: {fileID: 8656069759223830233}
   menu: {fileID: 8656069760670644818}
+  GenMixer: {fileID: 24100000, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
+  SoundMixer: {fileID: 24100000, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
+  MusicMixer: {fileID: 24100000, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
 --- !u!1 &8656069759827192054
 GameObject:
   m_ObjectHideFlags: 0

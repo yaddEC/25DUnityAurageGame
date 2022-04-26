@@ -140,6 +140,8 @@ GameObject:
   - component: {fileID: 8300817857017710790}
   - component: {fileID: 8852803752857487272}
   - component: {fileID: 7442201384418218382}
+  - component: {fileID: 936505185067326024}
+  - component: {fileID: 3481468526638572147}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -299,6 +301,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: onYInput
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 936505185067326024}
+        m_TargetAssemblyTypeName: WaveSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -500,6 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72051e4571fe92c46a82abfcbeb3a1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InspectorIsPlaying: 0
   InspectorIsVisible: 1
   InspectorIsCanBeTargeted: 1
   InspectorIsFreezed: 0
@@ -531,7 +546,7 @@ AudioSource:
   m_GameObject: {fileID: 8325189878180794313}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6324890503984092382, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -672,7 +687,7 @@ AudioSource:
   m_GameObject: {fileID: 8325189878180794313}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6324890503984092382, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -773,4 +788,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Source: {fileID: 8852803752857487272}
   Sound: {fileID: 8300000, guid: 0c9a102ba6eea3f46b10c69daadb6495, type: 3}
+  StopWhenPause: 1
+--- !u!114 &936505185067326024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b041a99573d9a6647ad50808fa94dd72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveState: {fileID: 4996807403023991155}
+  Sound: {fileID: 3481468526638572147}
+--- !u!114 &3481468526638572147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325189878180794313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a405c459ec779048960638bef618004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 8852803752857487272}
+  Sound: {fileID: 8300000, guid: 6eef85a97c6a67946b22b4d85fa7f9b4, type: 3}
   StopWhenPause: 1

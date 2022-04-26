@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayLoopSoundWithBegin : MonoBehaviour
+public class PlaySoundWithBeginAndEnd : MonoBehaviour
 {
     public AudioSource Source;
 
     public AudioClip Begin;
     public AudioClip Loop;
+    public AudioClip End;
 
     public bool StopWhenPause;
 
@@ -26,32 +26,14 @@ public class PlayLoopSoundWithBegin : MonoBehaviour
     }
 
     bool alredyPerfomed = false;
-    public void PlaySound(InputAction.CallbackContext context)
+    public void PlaySound(bool context)
     {
-        if (context.canceled)
+        if (!context && alredyPerfomed)
         {
             Source.loop = false;
             StopCoroutine(PlayTheSound());
             Source.Stop();
-            alredyPerfomed = false;
-        }
-        if(Source.clip != Loop)
-            Source.clip = Loop;
-        if (context.performed && !alredyPerfomed)
-        {
-            Source.loop = true;
-            StartCoroutine(PlayTheSound());
-            alredyPerfomed = true;
-            
-        }
-    }
-    public void PlaySoundNoEvent(bool context)
-    {
-        if (!context)
-        {
-            Source.loop = false;
-            StopCoroutine(PlayTheSound());
-            Source.Stop();
+            Source.PlayOneShot(End);
             alredyPerfomed = false;
         }
         if (Source.clip != Loop)
@@ -67,7 +49,7 @@ public class PlayLoopSoundWithBegin : MonoBehaviour
     public IEnumerator PlayTheSound()
     {
         Source.PlayOneShot(Begin);
-        yield return new WaitForSeconds(Begin.length-0.5f);
+        yield return new WaitForSeconds(Begin.length - 0.5f);
         Source.Play();
         yield return null;
     }

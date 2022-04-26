@@ -80,43 +80,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &183991571820433722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033697510100822366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44c176152d44746418ebf45df177e377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStunned: 0
-  isMoving: 0
-  isTurning: 0
-  player: {fileID: 0}
-  nextWayPoint: {fileID: 0}
-  moveDirection: {x: 0, y: 0, z: 0}
-  wayPoints: []
-  rotation: 90
-  rotationSpeed: 1
-  speed: 20
-  dir: {x: 0, y: 0, z: 0}
---- !u!114 &7955587922666846830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033697510100822366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef89082747d075d4d87d282712d3126f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemieState: {fileID: 183991571820433722}
-  Sound: {fileID: 4010545490129137890}
 --- !u!82 &4209702960814686225
 AudioSource:
   m_ObjectHideFlags: 0
@@ -126,7 +89,7 @@ AudioSource:
   m_GameObject: {fileID: 2033697510100822366}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6324890503984092382, guid: eb11e7b496945a84f9f5c1dd6c0f6136, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -213,6 +176,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &183991571820433722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033697510100822366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c176152d44746418ebf45df177e377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStunned: 0
+  isSleep: 0
+  isMoving: 0
+  isTurning: 0
+  player: {fileID: 0}
+  nextWayPoint: {fileID: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
+  wayPoints: []
+  rotation: 90
+  rotationSpeed: 1
+  speed: 20
+  dir: {x: 0, y: 0, z: 0}
+--- !u!114 &812237729927578275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033697510100822366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4573f54466847b4ba8bd99f02122104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 4209702960814686225}
+  Sound:
+  - {fileID: 8300000, guid: edaa20d462d1d794a95ca2bfd9cde10e, type: 3}
+  - {fileID: 8300000, guid: 82e3661a0d87027419ab9c3f98d7f977, type: 3}
+  - {fileID: 8300000, guid: e1c1a2fe7edb65a46a489b2ebccaf8a3, type: 3}
+  - {fileID: 8300000, guid: 910ed05a0c96b134f92f8f8bdab27b29, type: 3}
+  - {fileID: 8300000, guid: 815fc591b65e8224bb3208f6ffafbfa0, type: 3}
+  - {fileID: 8300000, guid: fda74556dbb1ffe44bbc19988bb8c81d, type: 3}
+  StopWhenPause: 1
 --- !u!114 &4010545490129137890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +236,33 @@ MonoBehaviour:
   Source: {fileID: 4209702960814686225}
   Sound: {fileID: 8300000, guid: 7c4ab86e6234e104aab505f681448cda, type: 3}
   StopWhenPause: 1
+--- !u!114 &6081852983871391601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033697510100822366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624244eb7bb801c42ba905a088e85458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sound: {fileID: 812237729927578275}
+--- !u!114 &7955587922666846830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033697510100822366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef89082747d075d4d87d282712d3126f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemieState: {fileID: 183991571820433722}
+  Sound: {fileID: 4010545490129137890}
 --- !u!1001 &183991571692952552
 PrefabInstance:
   m_ObjectHideFlags: 0

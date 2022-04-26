@@ -14,6 +14,8 @@ public class SocketStation : MonoBehaviour
 
     private CameraClamp refCamerClamp;
 
+    public bool perfomed;
+
     private void Awake()
     {
         coolDown = 2;
@@ -37,7 +39,11 @@ public class SocketStation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && coolDown <= 0) TeleportToTarget();
+        if(other.tag == "Player" && coolDown <= 0)
+        {
+            TeleportToTarget();
+            perfomed = true;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -45,6 +51,7 @@ public class SocketStation : MonoBehaviour
         {
             PlayerState.isInNodePath = false;
             PlayerState.isGrounded = false;
+            perfomed = false;
         }
 
     }
