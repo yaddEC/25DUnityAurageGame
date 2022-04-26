@@ -63,7 +63,7 @@ public class BasicEnemy : Enemy
     {
         Vector3 playerVector = player.transform.position - transform.position;
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-        if (!PlayerState.isInMachine && PlayerState.isVisible)
+        if (!PlayerState.isInMachine && PlayerState.isVisible && !PlayerState.isInNodePath)
         {
             if (playerDistance < sightDistance)
             {
@@ -243,7 +243,7 @@ public class BasicEnemy : Enemy
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && !isStunned && !PlayerState.isInMachine)
+        if (other.gameObject.CompareTag("Player") && !isStunned && !PlayerState.isInMachine && !PlayerState.isInNodePath)
             PowerManager.outOfPower = true;
     }
 }
